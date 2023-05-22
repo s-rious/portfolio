@@ -1,0 +1,32 @@
+body {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+button {
+    padding: 20px;
+    border: none;
+    font-size: 50px;
+}
+button:hover{
+    background-color: gray;
+}
+#board {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+    margin: auto;
+    width: 20vw;
+    height: 35vh;
+}
+.square {
+    text-align: center;
+    font-size: 2em;
+    border: 1px black solid;
+}
+#reset_button {
+    padding: 20px;
+    background-color: lightgray;
+    text-decoration: none;
+    color: black;
+}

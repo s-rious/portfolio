@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <title>Calculator</title>
+</head>
+<body>
+    <script src="script.js"></script>
+    <section> <!--Output Box-->
+        <form name="output" id="output">
+            <input class="outputresult" name="outputresult" id="outputresult"></input>
+            <input class="outputtext" name="outputtext" id="outputtext"></input>
+        </form>
+    </section>
+    <section> <!--Buttons and Functionality -->
+        <div id="buttons">
+            <div id="keypad">
+                <button onclick="output.outputresult.value = Math.sin(output.outputtext.value)" value="sin" id="sin" class="btn">sin</button> <!--Row 1-->
+                <button onclick="output.outputresult.value = Math.cos(output.outputtext.value)" value="cos" id="cos">cos</button>
+                <button onclick="output.outputresult.value = Math.tan(output.outputtext.value)" value="tan" id="tang">tan</button>
+                <button onclick="insert('**2')" value="power" id="power">x^2</button>
+                <button onclick="document.output.outputtext.value = ' ', document.output.outputresult.value = ' '" id="clear" style="color: red;">C</button> <!--Row 2-->
+                <button onclick="insert('()')" id="parenthesis" style="color: limegreen;">()</button>
+                <button onclick="output.outputresult.value = (output.outputtext.value / 100)" id="percent" style="color: limegreen;">%</button>
+                <button onclick="insert('/')" id="divide" style="color: limegreen;">/</button>
+                <button onclick="insert('7')" value="7" id="seven" class="btn">7</button> <!--Row 3-->
+                <button onclick="insert('8')" value="8" id="eight">8</button>
+                <button onclick="insert('9')" value="9" id="nine">9</button>
+                <button onclick="insert('*')" value="/" id="multiply" style="color: limegreen;">*</button>
+                <button onclick="insert('4')" value="4" id="four">4</button> <!--Row 4-->
+                <button onclick="insert('5')" value="5" id="five">5</button>
+                <button onclick="insert('6')" value="6" id="six">6</button>
+                <button onclick="insert('-')" value="-" id="minus" style="color: limegreen;">-</button>
+                <button onclick="insert('1')" value="1" id="one">1</button> <!--Row 5-->
+                <button onclick="insert('2')" value="2" id="two">2</button>
+                <button onclick="insert('3')" value="3" id="three">3</button>
+                <button onclick="insert('+')" value="+" id="plus" style="color: limegreen;">+</button>
+                <button onclick="insert('+/-')" id="posneg">+/-</button> <!--Row 6-->
+                <button onclick="insert('0')" value="0" id="0">0</button>
+                <button onclick="insert('.')" value="." id="period">.</button>
+                <button onclick="equal()" value="=" id="equal" style="color: white; background-color: limegreen;">=</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

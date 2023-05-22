@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="body">
+        <div class="buttons">
+            <div id="plan1">
+                <button onclick="plan1()" id="plan1_button">Basic</button>
+                <div class="information1">
+                    <p id="name1"></p>
+                    <p id="basePrice1"></p>
+                    <p id="space1"></p>
+                    <p id="transfer1"></p>
+                    <p id="pages1"></p>
+                    <p id="discountMonths1"></p>
+                    <p id="bestPrice1"></p>
+                    <button onclick="choose_plan1()" id="plan1_choose" style="display: none;"></button>
+                </div>
+            </div>
+            <div id="plan2">
+                <button onclick="plan2()" id="plan2_button">Professional</button>
+                <div class="information2">
+                    <p id="name2"></p>
+                    <p id="basePrice2"></p>
+                    <p id="space2"></p>
+                    <p id="transfer2"></p>
+                    <p id="pages2"></p>
+                    <p id="discountMonths2"></p>
+                    <p id="bestPrice2"></p>
+                    <button onclick="choose_plan2()" id="plan2_choose" style="display: none;"></button>
+                </div>
+            </div>
+            <div id="plan3">
+                <button onclick="plan3()" id="plan3_button">Ultimate</button>
+                <div class="information3">
+                    <p id="name3"></p>
+                    <p id="basePrice3"></p>
+                    <p id="space3"></p>
+                    <p id="transfer3"></p>
+                    <p id="pages3"></p>
+                    <p id="discountMonths3"></p>
+                    <p id="bestPrice3"></p>
+                    <button onclick="choose_plan3()" id="plan3_choose" style="display: none;"></button>
+                </div>
+            </div>
+            <div id="popup-form">
+                <div id="form">
+                    <h3 id="plan-name"></h3>
+                    <form>
+                        <label for="fname">First Name</label><br>
+                        <input type="text" pattern="[A-Za-z]" placeholder="First Name..." required><br><br>
+                        <label for="lname">Last Name</label><br>
+                        <input type="text" pattern="[A-Za-z]" placeholder="Last Name..." required><br><br>
+                        <label for="email">Email Address</label><br>
+                        <input type="email" placeholder="Email Address..." required><br><br>
+                        <input type="button" onclick="submit_form()" value="Submit" required>
+                        <button onclick="closeform()" id="closebutton">x</button>
+                      </form> 
+                </div>
+                <div id="annual-price">
+                    <p id="beforePrice"></p>
+                    <p id="afterPrice"></p>
+                </div>
+            </div>
+        </div>
+    <script src="script.js"></script>
+</body>
+</html>

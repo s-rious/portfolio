@@ -1,0 +1,137 @@
+html {
+    background-color: lightgray;
+}
+body {
+    background-color: white;
+    width: 40%;
+    margin: auto;
+    border: 2px solid black;
+}
+#output {
+    display: flex;
+    background-color: black;
+    color: white;
+    text-align: right;
+    padding: 20px;
+    border: 2px white solid;
+}
+#outputtext {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+  
+    padding: 10px;
+    width: 100%;
+    color: white;
+    text-align: right;
+    font-size: 40px;
+}
+#outputresult {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+  
+    padding: 10px;
+    width: 100%;
+    color: white;
+    text-align: left;
+    font-size: 40px;
+}
+#buttons {
+    text-align: center;
+    padding: 0px;
+}
+button {
+    padding: 30px 0px;
+    font-size: 20px;
+    border-radius: 200px;
+    border: 2px black solid;
+    margin: 10px;
+}
+button:hover {
+    background-color: lightgray;
+}
+#keypad {
+    display: grid;
+    grid:
+    'sin cos tang power'
+    'clear parenthesis percent divide'
+    'seven eight nine multiply'
+    'four five six minus'
+    'one two three plus'
+    'posneg zero period equal';
+}
+#clear {
+    grid-area: clear;
+}
+#parenthesis {
+    grid-area: parenthesis;
+}
+#percent {
+    grid-area: percent;
+}
+#equal {
+    grid-area: equal;
+}
+#plus {
+    grid-area: plus;
+}
+#minus {
+    grid-area: minus;
+}
+#multiply {
+    grid-area: multiply;
+}
+#divide {
+    grid-area: divide;
+}
+#one {
+    grid-area: one;
+}
+#two {
+    grid-area: two;
+}
+#three {
+    grid-area: three;
+}
+#four {
+    grid-area: four;
+}
+#five {
+    grid-area: five;
+}
+#six {
+    grid-area: six;
+}
+#seven {
+    grid-area: seven;
+}
+#eight {
+    grid-area: eight;
+}
+#nine {
+    grid-area: nine;
+}
+#posneg {
+    grid-area: posneg;
+}
+#zero {
+    grid-area: zero;
+}
+#period {
+    grid-area: period;
+}
+#sin {
+    grid-area: sin;
+}
+#cos {
+    grid-area: cos;
+}
+#tang {
+    grid-area: tang;
+}
+#power {
+    grid-area: power;
+}

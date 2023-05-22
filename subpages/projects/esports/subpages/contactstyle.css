@@ -1,0 +1,82 @@
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background: url("../images/background.png");
+    background-position: center;
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
+}
+.navbar {
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+}
+.buttons{
+    float: left;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5vw;
+    transition: 0.3s;
+}
+a:visited, a:link, a:active {
+    text-decoration: none;
+}
+a:hover {
+    color: rgb(252, 103, 103);
+    opacity: 1;
+}
+#logo {
+    max-height: 100px;
+    max-width: 100px;
+    width: 100px;
+    height: 100px;
+    padding: 0px;
+}
+#flipped {
+    float: right;
+}
+#contactinfo {
+    color: white;
+    background-color: rgb(20, 20, 20);
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 20px;
+}
+  
+input[type=submit] {
+    background-color: rgb(252, 103, 103);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+input[type=submit]:hover {
+    background-color: #ffa2a2;
+    opacity: 1;
+}
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 100px;
+    font-size: 15px;
+}

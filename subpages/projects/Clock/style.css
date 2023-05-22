@@ -1,0 +1,28 @@
+body {
+    overflow: hidden;
+    color: white;
+}
+
+#container {
+    position: fixed;
+    text-align: center;
+    width: 20%;
+    left: 37%;
+    top: 28%;
+}
+
+#content {
+    position: fixed;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.308);
+    padding: 50px;
+    border-radius: 20px;
+}
+#clock {
+    font-size: 30px;
+}
+
+#background {
+    margin: -8px;
+    width: 120%;
+}
