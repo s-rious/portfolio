@@ -4,5 +4,5 @@ export default function Home() {
             <h1>Your Portfolio is Working!</h1>
             <p>Edit this file to build your homepage.</p>
         </div>
-    );
+    )
 }

@@ -1,8 +1,7 @@
-import type { NextConfig } from "next";
+import { defineConfig } from 'next'
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
-};
-
-export default nextConfig;
+export default defineConfig({
+    experimental: {
+        appDir: true
+    }
+})
