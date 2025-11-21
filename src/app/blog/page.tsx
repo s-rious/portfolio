@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import blogPosts from '@/data/blogPosts.json';
 import Link from 'next/link';
 
