@@ -3,11 +3,12 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '@/components/Footer';
+import siteConfig from '@/data/siteConfig.json'; // <-- import your JSON
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'CAMRY.DEV',
+    title: siteConfig.siteTitle, // <-- use it here if you want default metadata
     description: 'CAMRY Development Portfolio',
 };
 
@@ -20,7 +21,7 @@ export default function RootLayout({
         <html lang="en">
         <head>
             <link rel="icon" href="/favicon.ico" />
-            <title>{title}</title>
+            <title>{siteConfig.siteTitle}</title> {/* <-- use siteConfig here */}
         </head>
 
         <body className={inter.className}>
