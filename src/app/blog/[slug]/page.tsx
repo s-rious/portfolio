@@ -1,6 +1,7 @@
 import blogPosts from '@/data/blogPosts.json';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+export const runtime = 'edge';
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
     const post = blogPosts.find(p => p.slug === params.slug);
