@@ -5,7 +5,7 @@
     "description": "My first installation of game development: a story-based puzzle game.",
     "date": "2023-04-04",
     "tags": ["C#", "Unreal Engine 5"],
-    "image": "/projects/imgs/ecommerce.jpg",
+    "image": "/imgs/projectsImgs/wordescape.png",
     "link": "https://github.com/s-rious/Word-Escape",
     "featured": true
   },
@@ -15,7 +15,7 @@
     "description": "A dark narrative revolving around the concept of self-identity and depression",
     "date": "2025-01-01",
     "tags": ["C#", "Unreal Engine 5"],
-    "image": "/projects/imgs/portfolio.jpg",
+    "image": "/imgs/projectsImgs/portfolio.jpg",
     "link": "https://github.com/s-rious/stitched-up",
     "featured": true
   },
@@ -27,7 +27,7 @@
     "tags": [
       "React Native"
     ],
-    "image": "/projects/imgs/project3.jpg",
+    "image": "/imgs/projectsImgs/project3.jpg",
     "link": "https://github.com/s-rious",
     "featured": true
   }

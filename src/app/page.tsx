@@ -286,7 +286,11 @@ export default function Home() {
                                 className="flex-shrink-0 w-[90vw] md:w-[600px] bg-[#1a1816] rounded-lg overflow-hidden shadow-2xl"
                             >
                                 <div className="h-64 md:h-80 bg-gray-700 flex items-center justify-center text-gray-400 font-inter text-xl">
-                                    Project Image
+                                    <img
+                                        src={project.img}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover"
+                                    />
                                 </div>
                                 <div className="p-8">
                                     <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-inter">{project.title}</h3>
