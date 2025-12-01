@@ -204,7 +204,7 @@ export default function Projects() {
                                                         key={tag}
                                                         className="px-3 py-1 bg-[#14B8A6]/10 border border-[#14B8A6]/30 text-[#14B8A6] rounded text-xs font-mono"
                                                     >
-                                                        *{tag}
+                                                        {tag}
                                                     </span>
                                                 ))}
                                             </div>

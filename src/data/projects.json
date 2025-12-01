@@ -21,12 +21,11 @@
   },
   {
     "id": 3,
-    "title": "PROJECT 3",
-    "description": "A secret project in development. Stay tuned...",
+    "title": "For Us",
+    "description": "A social media platform to build connections between peers and friends alike",
     "date": "2025-01-01",
     "tags": [
-      "C#",
-      "Unreal Engine 5"
+      "React Native"
     ],
     "image": "/projects/imgs/project3.jpg",
     "link": "https://github.com/s-rious",

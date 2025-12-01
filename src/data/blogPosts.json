@@ -5,7 +5,7 @@
     "excerpt": "Who is CAMRY? What is this webpage for?",
     "date": "2025-11-20",
     "slug": "who-is-camry",
-    "tags": ["web development", "info"],
+    "tags": ["web-development", "info"],
     "content": "My name is Cameron Rydwell, or CAMRY, and I am a 21 year old aspiring software and electrical engineer. I have been studying software engineering for 3 years, and have recently swapped to electrical engineering to close the gap between physical systems and software support. I have been heavily invested in computers since I was a child, playing Minecraft on a crappy laptop with my brothers every night. I was first introduced to programming in my freshman year of high school, which got me hooked in the creative world in my finger tips. Soon after, I applied for West-MEC, a private trade school based in the valley of Arizona and began working on serious projects that would later become products I work on in my personal life. My first real project was a mobile app named 'RYDWELL SCHOOLS' (creative, right?). This app was for the Future Business Leaders of America (FBLA) Mobile Application Development competition that I signed up for. Through this app, I was able to score myself first place in ARIZONA: STATE for the competition, moving me to the NATIONAL level in Chicago, Illinois later that year. Although the tank ran out of gas on that project, I have been hooked on making products I believe in and that aid me in my journey behind the keyboard. Later on, I developed 'WORD ESCAPE' for FBLA's Computer Game and Programming Simulation competition, winning first place in ARIZONA: REGIONAL and ARIZONA: STATE, moving on to the NATIONAL competition in Atlanta, Georgia, with an undisclosed placement thereafter. I have since begun improving this game (view HERE) and began writing a story for it. Feel free to check out that project and see how it connects to the future games I am working on!"
   },
   {
@@ -14,7 +14,7 @@
     "excerpt": "Is this thing on?",
     "date": "2025-11-19",
     "slug": "testing",
-    "tags": [""],
+    "tags": ["web-development"],
     "content": "Sound stage set... lights set... actors in place... microphones rolling... cameras in position... ready, set, go!"
   }
 ]

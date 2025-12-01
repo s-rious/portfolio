@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
+import siteConfig from '@/data/siteConfig.json';
 
 export default function Home() {
     // Terminal conversation state
@@ -18,6 +19,7 @@ export default function Home() {
     // Horizontal scroll state
     const [scrollProgress, setScrollProgress] = useState(0);
     const projectsSectionRef = useRef<HTMLDivElement>(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     // Load featured projects from JSON
     const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
@@ -102,10 +104,10 @@ export default function Home() {
         return () => observer.disconnect();
     }, [hasAnimated]);
 
-    // Horizontal scroll effect
+    // Improved horizontal scroll effect
     useEffect(() => {
         const handleScroll = () => {
-            if (!projectsSectionRef.current) return;
+            if (!projectsSectionRef.current || !scrollContainerRef.current) return;
 
             const section = projectsSectionRef.current;
             const rect = section.getBoundingClientRect();
@@ -114,6 +116,7 @@ export default function Home() {
             if (rect.top <= 0 && rect.bottom >= windowHeight) {
                 const scrollableHeight = rect.height - windowHeight;
                 const progress = Math.abs(rect.top) / scrollableHeight;
+
                 setScrollProgress(Math.min(Math.max(progress, 0), 1));
             } else if (rect.top > 0) {
                 setScrollProgress(0);
@@ -123,13 +126,15 @@ export default function Home() {
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [featuredProjects]);
 
     const languages = [
         {
             name: 'JavaScript',
-            color: '#F59E0B',
+            color: siteConfig.theme.colors.accent,
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#F7DF1E"/>
@@ -139,7 +144,7 @@ export default function Home() {
         },
         {
             name: 'C#',
-            color: '#14B8A6',
+            color: siteConfig.theme.colors.primary,
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#239120"/>
@@ -149,7 +154,7 @@ export default function Home() {
         },
         {
             name: 'C++',
-            color: '#14B8A6',
+            color: siteConfig.theme.colors.primary,
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#00599C"/>
@@ -159,7 +164,7 @@ export default function Home() {
         },
         {
             name: 'React',
-            color: '#14B8A6',
+            color: siteConfig.theme.colors.primary,
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#222"/>
@@ -170,7 +175,7 @@ export default function Home() {
         },
         {
             name: 'HTML/CSS',
-            color: '#F87171',
+            color: siteConfig.theme.colors.secondary,
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#E34F26"/>
@@ -180,14 +185,25 @@ export default function Home() {
         },
     ];
 
+    const getTransformValue = () => {
+        if (!scrollContainerRef.current) return 0;
+
+        const scrollWidth = scrollContainerRef.current.scrollWidth;
+        const containerWidth = projectsSectionRef.current?.clientWidth || window.innerWidth;
+
+        const maxScroll = Math.max(scrollWidth - containerWidth, 0);
+        return scrollProgress * maxScroll;
+    };
+
+
     return (
         <div className="scroll-smooth bg-[#0f0e0d]">
             <div className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0f0e0d] px-6 pt-20">
                 <div className="relative w-full max-w-6xl h-[80vh] bg-black rounded-lg border border-white shadow-2xl overflow-hidden">
                     <div className="absolute top-4 left-4 flex gap-2 z-20">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-brand-secondary"></div>
+                        <div className="w-3 h-3 rounded-full bg-brand-accent"></div>
+                        <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
                     </div>
 
                     <div className="absolute inset-0 p-6 pt-12 font-mono text-white text-sm opacity-20 overflow-auto select-none leading-loose">
@@ -199,12 +215,19 @@ export default function Home() {
                     <div className="absolute inset-0 flex items-center justify-center z-10 px-6">
                         <div className="text-center">
                             <h1
-                                className="text-5xl md:text-7xl font-bold mb-4 font-inter bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent"
+                                className="
+    text-5xl md:text-7xl font-bold mb-4 font-inter
+    bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent
+    bg-[length:200%_auto]
+    animate-gradient
+    bg-clip-text text-transparent
+  "
                             >
-                                CAMRY.DEV
+                                {siteConfig.siteName}
                             </h1>
+
                             <p className="text-xl md:text-2xl text-white font-inter">
-                                Full-Stack Software Engineer, Studying Electrical Engineering
+                                {siteConfig.tagline}
                             </p>
                         </div>
                     </div>
@@ -242,9 +265,10 @@ export default function Home() {
             <div ref={projectsSectionRef} className="relative h-[300vh] bg-[#0f0e0d]">
                 <div className="sticky top-0 h-screen flex items-center overflow-hidden pt-16">
                     <div
-                        className="flex gap-8 px-8 transition-transform duration-100 ease-out"
+                        ref={scrollContainerRef}
+                        className="flex gap-8 px-8 transition-transform duration-100 ease-out will-change-transform"
                         style={{
-                            transform: `translateX(-${scrollProgress * 42}%)`
+                            transform: `translateX(-${getTransformValue()}px)`
                         }}
                     >
                         <div className="flex-shrink-0 w-[90vw] md:w-[600px] flex flex-col justify-center px-12">
@@ -252,7 +276,7 @@ export default function Home() {
                                 Featured Projects
                             </h2>
                             <p className="text-xl text-gray-400 font-inter leading-relaxed">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Explore some of my most impactful work across various domains of software development.
+                                Explore my most important projects, ranging from video games to mobile applications.
                             </p>
                         </div>
 
@@ -271,15 +295,15 @@ export default function Home() {
                                         {project.tags.map((tag: string) => (
                                             <span
                                                 key={tag}
-                                                className="px-4 py-2 bg-[#14B8A6] text-white rounded-full text-sm font-inter"
+                                                className="px-4 py-2 bg-brand-primary text-white rounded-full text-sm font-inter"
                                             >
-                        #{tag}
-                      </span>
+                                                {tag}
+                                            </span>
                                         ))}
                                     </div>
                                     <Link
                                         href={project.link || `/projects/${project.id}`}
-                                        className="inline-block px-8 py-3 bg-[#F87171] text-white font-medium rounded-md hover:bg-[#EF4444] transition-colors font-inter text-lg"
+                                        className="inline-block px-8 py-3 bg-brand-secondary text-white font-medium rounded-md hover:bg-[#EF4444] transition-colors font-inter text-lg"
                                     >
                                         View Project
                                     </Link>
@@ -296,13 +320,13 @@ export default function Home() {
                         className="inline-block text-5xl md:text-7xl font-bold font-inter relative group cursor-pointer"
                     >
                         <span className="relative z-10 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-[length:200%_auto] animate-gradient-shine group-hover:animate-none bg-clip-text text-transparent transition-all duration-700">
-        Wanna get in touch?
-      </span>
-                        <span className="absolute inset-0 bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
-        Wanna get in touch?
-      </span>
-                        <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center rounded-full"></span>
-                        <span className="absolute inset-0 blur-xl bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] opacity-0 group-hover:opacity-20 transition-opacity duration-700"></span>
+                            Wanna get in touch?
+                        </span>
+                        <span className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
+                            Wanna get in touch?
+                        </span>
+                        <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center rounded-full"></span>
+                        <span className="absolute inset-0 blur-xl bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent opacity-0 group-hover:opacity-20 transition-opacity duration-700"></span>
                     </Link>
                 </div>
             </div>

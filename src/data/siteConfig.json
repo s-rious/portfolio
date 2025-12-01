@@ -1,0 +1,29 @@
+{
+  "siteName": "CAMRY.DEV",
+  "siteTitle": "CAMRY.DEV",
+  "siteDescription": "CAMRY Development Portfolio - Full-Stack Software Engineer and Electrical Engineering Student",
+  "tagline": "Full-Stack Software Engineer, Studying Electrical Engineering",
+  "owner": {
+    "name": "Cameron Rydwell",
+    "displayName": "CAMRY"
+  },
+  "theme": {
+    "colors": {
+      "primary": "#14B8A6",
+      "secondary": "#F87171",
+      "accent": "#F59E0B"
+    }
+  },
+  "logo": {
+    "symbol": ";",
+    "description": "CAMRY Logo Symbol"
+  },
+  "footer": {
+    "tagline": "BLENDING THE DIGITAL AND PHYSICAL WORLD."
+  },
+  "seo": {
+    "defaultTitle": "CAMRY.DEV",
+    "titleTemplate": "%s | CAMRY.DEV",
+    "description": "Portfolio of Cameron Rydwell - Full-Stack Software Engineer and Electrical Engineering Student"
+  }
+}
