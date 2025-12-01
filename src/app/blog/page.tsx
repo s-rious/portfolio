@@ -9,6 +9,7 @@ export default function Blog() {
         new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
+
     return (
         <div className="min-h-screen bg-[#0f0e0d] p-8 pt-28">
             <div className="max-w-5xl mx-auto">
@@ -51,7 +52,7 @@ export default function Blog() {
                                 >
                                     {/* Post Number */}
                                     <div className="absolute -left-3 top-6 w-6 h-6 bg-[#14B8A6] rounded-full flex items-center justify-center text-black text-xs font-bold font-mono">
-                                        {index + 1}
+                                        {2 - index}
                                     </div>
 
                                     {/* Post Header */}
@@ -62,11 +63,11 @@ export default function Blog() {
                                             </h2>
                                         </Link>
                                         <div className="text-xs text-gray-500 font-mono whitespace-nowrap">
-                                            {new Date(post.date).toLocaleDateString('en-US', {
-                                                year: '2-digit',
-                                                month: '2-digit',
-                                                day: '2-digit'
-                                            })}
+                                            {(() => {
+                                                const [y, m, d] = post.date.split('-');
+                                                return `${m}/${d}/${y.slice(2)}`;
+                                            })()}
+
                                         </div>
                                     </div>
 

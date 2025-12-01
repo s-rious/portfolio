@@ -38,11 +38,12 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
                         {/* Right side - Date */}
                         <div className="text-gray-500 text-xs font-mono">
-                            {new Date(post.date).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric'
-                            })}
+                            {(() => {
+                                const [y, m, d] = post.date.split('-');
+                                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                                return `${months[parseInt(m) - 1]} ${parseInt(d)}, ${y}`;
+                            })()}
+
                         </div>
                     </div>
 
