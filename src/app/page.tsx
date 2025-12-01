@@ -3,10 +3,11 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 
-
 export default function Home() {
-    // Terminal morse code state
-    const [morseCode, setMorseCode] = useState('> ');
+    // Terminal conversation state
+    const [conversationLines, setConversationLines] = useState<string[]>([]);
+    const [currentLineIndex, setCurrentLineIndex] = useState(0);
+    const [currentLineText, setCurrentLineText] = useState('');
 
     // Typing Section State
     const [displayText, setDisplayText] = useState('');
@@ -17,6 +18,25 @@ export default function Home() {
     // Horizontal scroll state
     const [scrollProgress, setScrollProgress] = useState(0);
     const projectsSectionRef = useRef<HTMLDivElement>(null);
+
+    // Load featured projects from JSON
+    const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
+
+    useEffect(() => {
+        import('@/data/projects.json').then((data) => {
+            const featured = data.default.filter((p: any) => p.featured).slice(0, 3);
+            setFeaturedProjects(featured);
+        });
+    }, []);
+
+    const conversation = [
+        { role: 'USER', text: 'CAMRY is a software developer, isnt he?' },
+        { role: 'SYSTEM', text: 'CAMRY is a software engineer alongside electrical engineer.' },
+        { role: 'USER', text: 'Thats pretty fascinating! He must be really fascinated with creative works as a whole!' },
+        { role: 'SYSTEM', text: 'That is true. He is overjoyed with the ability to create art fabricated from his fingertips alone.' },
+        { role: 'USER', text: 'Is there any more to know about him?' },
+        { role: 'SYSTEM', text: "I'm sure this project of his is riddled with them. But hush now, as I fear the audience might be able to sense the conversation we are having." },
+    ];
 
     // Convert text to morse code
     const textToMorse = (text: string) => {
@@ -30,23 +50,28 @@ export default function Home() {
         return text.toLowerCase().split('').map(char => morseMap[char] || char).join(' ');
     };
 
-    // Terminal morse code typing animation
+    // Terminal conversation typing animation
     useEffect(() => {
-        const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-        const morse = '> ' + textToMorse(loremIpsum);
+        if (currentLineIndex >= conversation.length) return;
 
-        let index = 2;
+        const currentLine = conversation[currentLineIndex];
+        const fullLine = `${currentLine.role}: ${textToMorse(currentLine.text)}`;
+
+        let charIndex = 0;
         const interval = setInterval(() => {
-            if (index <= morse.length) {
-                setMorseCode(morse.slice(0, index));
-                index++;
+            if (charIndex <= fullLine.length) {
+                setCurrentLineText(fullLine.slice(0, charIndex));
+                charIndex++;
             } else {
                 clearInterval(interval);
+                setConversationLines(prev => [...prev, fullLine]);
+                setCurrentLineText('');
+                setCurrentLineIndex(prev => prev + 1);
             }
-        }, 10);
+        }, 15);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [currentLineIndex]);
 
     // Typing animation on scroll
     useEffect(() => {
@@ -86,20 +111,25 @@ export default function Home() {
             const rect = section.getBoundingClientRect();
             const windowHeight = window.innerHeight;
 
-            if (rect.top <= 0 && rect.bottom > windowHeight) {
-                const progress = Math.abs(rect.top) / (rect.height - windowHeight);
-                setScrollProgress(Math.min(progress, 1));
+            if (rect.top <= 0 && rect.bottom >= windowHeight) {
+                const scrollableHeight = rect.height - windowHeight;
+                const progress = Math.abs(rect.top) / scrollableHeight;
+                setScrollProgress(Math.min(Math.max(progress, 0), 1));
+            } else if (rect.top > 0) {
+                setScrollProgress(0);
+            } else if (rect.bottom < windowHeight) {
+                setScrollProgress(1);
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const languages = [
         {
             name: 'JavaScript',
-            color: '#F7DF1E',
+            color: '#F59E0B',
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#F7DF1E"/>
@@ -109,7 +139,7 @@ export default function Home() {
         },
         {
             name: 'C#',
-            color: '#239120',
+            color: '#14B8A6',
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#239120"/>
@@ -119,7 +149,7 @@ export default function Home() {
         },
         {
             name: 'C++',
-            color: '#00599C',
+            color: '#14B8A6',
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#00599C"/>
@@ -129,7 +159,7 @@ export default function Home() {
         },
         {
             name: 'React',
-            color: '#61DAFB',
+            color: '#14B8A6',
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#222"/>
@@ -140,7 +170,7 @@ export default function Home() {
         },
         {
             name: 'HTML/CSS',
-            color: '#E34F26',
+            color: '#F87171',
             logo: (
                 <svg viewBox="0 0 256 256" className="w-10 h-10">
                     <rect width="256" height="256" fill="#E34F26"/>
@@ -150,58 +180,26 @@ export default function Home() {
         },
     ];
 
-    const featuredProjects = [
-            {
-                "id": 1,
-                "title": "WORD ESCAPE",
-                "description": "My first installation of game development: a story-based puzzle game.",
-                "date": "2023-04-04",
-                "tags": ["C#", "Unreal Engine 5"],
-                "image": "/projects/ecommerce.jpg",
-                "link": "https://github.com/s-rious/Word-Escape",
-                "featured": true
-            },
-            {
-                "id": 2,
-                "title": "STITCHED UP",
-                "description": "A dark narrative revolving around the concept of self-identity and depression",
-                "date": "2025-01-01",
-                "tags": ["C#", "Engine Engine 5"],
-                "image": "/projects/portfolio.jpg",
-                "link": "https://github.com/s-rious/stitched-up",
-                "featured": true
-            },
-        {
-            id: 3,
-            title: 'Language Learning App',
-            description: 'Mobile application for learning new languages with AI-powered pronunciation feedback.',
-            tags: ['Mobile', 'AI/ML'],
-            image: '/placeholder-project-3.jpg'
-        },
-    ];
-
     return (
-        <div className="scroll-smooth bg-[#1a1816]">
-            {/* Hero Section - Terminal */}
-            <div className="relative h-screen flex items-center justify-center overflow-hidden bg-[#1a1816] px-6 pt-20">
+        <div className="scroll-smooth bg-[#0f0e0d]">
+            <div className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0f0e0d] px-6 pt-20">
                 <div className="relative w-full max-w-6xl h-[80vh] bg-black rounded-lg border border-white shadow-2xl overflow-hidden">
-                    {/* Mac-style window buttons */}
                     <div className="absolute top-4 left-4 flex gap-2 z-20">
                         <div className="w-3 h-3 rounded-full bg-red-500"></div>
                         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                         <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
 
-                    {/* Morse code background */}
-                    <div className="absolute inset-0 p-6 pt-12 font-mono text-white text-xs opacity-20 overflow-hidden select-none leading-relaxed break-all">
-                        {morseCode}
+                    <div className="absolute inset-0 p-6 pt-12 font-mono text-white text-sm opacity-20 overflow-auto select-none leading-loose">
+                        {conversationLines.map((line, i) => (
+                            <div key={i} className="mb-2">{line}</div>
+                        ))}
+                        {currentLineText && <div className="mb-2">{currentLineText}</div>}
                     </div>
-
-                    {/* Main content centered */}
                     <div className="absolute inset-0 flex items-center justify-center z-10 px-6">
                         <div className="text-center">
                             <h1
-                                className="text-5xl md:text-7xl font-bold mb-4 font-inter bg-gradient-to-r from-[#2d5a3d] via-[#c54545] to-[#2d5a3d] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent"
+                                className="text-5xl md:text-7xl font-bold mb-4 font-inter bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent"
                             >
                                 CAMRY.DEV
                             </h1>
@@ -212,15 +210,16 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-
-            {/* Typing Section */}
-            <div ref={sectionRef} className="min-h-[60vh] bg-[#1a1816] flex flex-col items-center justify-center px-6 py-12">
-                <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white text-center max-w-5xl font-inter leading-tight mb-8">
-                    {displayText}
-                    <span className="animate-pulse">|</span>
-                </h2>
-
-                {/* Language Boxes - Close to typing text */}
+            <div ref={sectionRef} className="min-h-[60vh] bg-[#0f0e0d] flex flex-col items-center justify-center px-6 py-12">
+                <div className="min-h-[200px] md:min-h-[300px] flex items-center justify-center">
+                    <h2
+                        className="text-4xl md:text-6xl lg:text-7xl font-bold text-white text-center max-w-5xl font-inter leading-tight"
+                        style={{ textShadow: '-4px 4px 8px rgba(0, 0, 0, 0.6)' }}
+                    >
+                        {displayText}
+                        <span className="animate-blink-slow">|</span>
+                    </h2>
+                </div>
                 <div className="mt-6">
                     <div className="flex flex-wrap justify-center gap-4">
                         {languages.map((lang) => (
@@ -229,7 +228,7 @@ export default function Home() {
                                 className="px-6 py-3 rounded-xl border-2 transition-all duration-300 hover:shadow-lg cursor-pointer font-inter flex items-center gap-3"
                                 style={{
                                     borderColor: lang.color,
-                                    backgroundColor: 'rgba(26, 24, 22, 0.8)'
+                                    backgroundColor: 'rgba(15, 14, 13, 0.8)'
                                 }}
                             >
                                 {lang.logo}
@@ -240,19 +239,27 @@ export default function Home() {
                 </div>
             </div>
 
-            {/* Featured Projects - Horizontal Scroll */}
-            <div ref={projectsSectionRef} className="relative h-[300vh] bg-[#1a1816]">
+            <div ref={projectsSectionRef} className="relative h-[300vh] bg-[#0f0e0d]">
                 <div className="sticky top-0 h-screen flex items-center overflow-hidden pt-16">
                     <div
                         className="flex gap-8 px-8 transition-transform duration-100 ease-out"
                         style={{
-                            transform: `translateX(-${scrollProgress * 66.666}%)`
+                            transform: `translateX(-${scrollProgress * 42}%)`
                         }}
                     >
-                        {featuredProjects.map((project, index) => (
+                        <div className="flex-shrink-0 w-[90vw] md:w-[600px] flex flex-col justify-center px-12">
+                            <h2 className="text-6xl md:text-7xl font-bold text-white mb-6 font-inter">
+                                Featured Projects
+                            </h2>
+                            <p className="text-xl text-gray-400 font-inter leading-relaxed">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Explore some of my most impactful work across various domains of software development.
+                            </p>
+                        </div>
+
+                        {featuredProjects.map((project) => (
                             <div
                                 key={project.id}
-                                className="flex-shrink-0 w-[90vw] md:w-[600px] bg-[#2a2726] rounded-lg overflow-hidden shadow-2xl"
+                                className="flex-shrink-0 w-[90vw] md:w-[600px] bg-[#1a1816] rounded-lg overflow-hidden shadow-2xl"
                             >
                                 <div className="h-64 md:h-80 bg-gray-700 flex items-center justify-center text-gray-400 font-inter text-xl">
                                     Project Image
@@ -261,18 +268,18 @@ export default function Home() {
                                     <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-inter">{project.title}</h3>
                                     <p className="text-gray-300 mb-6 font-inter text-lg leading-relaxed">{project.description}</p>
                                     <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.tags.map((tag) => (
+                                        {project.tags.map((tag: string) => (
                                             <span
                                                 key={tag}
-                                                className="px-4 py-2 bg-[#2d5a3d] text-white rounded-full text-sm font-inter"
+                                                className="px-4 py-2 bg-[#14B8A6] text-white rounded-full text-sm font-inter"
                                             >
                         #{tag}
                       </span>
                                         ))}
                                     </div>
                                     <Link
-                                        href={`/projects/${project.link}`}
-                                        className="inline-block px-8 py-3 bg-[#c54545] text-white font-medium rounded-md hover:bg-[#a33838] transition-colors font-inter text-lg"
+                                        href={project.link || `/projects/${project.id}`}
+                                        className="inline-block px-8 py-3 bg-[#F87171] text-white font-medium rounded-md hover:bg-[#EF4444] transition-colors font-inter text-lg"
                                     >
                                         View Project
                                     </Link>
@@ -282,16 +289,20 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-
-            {/* Contact Section */}
-            <div className="bg-[#1a1816] py-32 px-6">
+            <div className="bg-[#0f0e0d] py-32 px-6">
                 <div className="max-w-4xl mx-auto text-center">
                     <Link
                         href="/contact"
-                        className="inline-block text-5xl md:text-7xl font-bold text-white font-inter relative overflow-hidden group transition-all duration-500"
+                        className="inline-block text-5xl md:text-7xl font-bold font-inter relative group cursor-pointer"
                     >
-                        <span className="relative z-10">Wanna get in touch?</span>
-                        <span className="absolute inset-0 bg-gradient-to-r from-transparent via-[#c5a545] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out opacity-50"></span>
+                        <span className="relative z-10 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-[length:200%_auto] animate-gradient-shine group-hover:animate-none bg-clip-text text-transparent transition-all duration-700">
+        Wanna get in touch?
+      </span>
+                        <span className="absolute inset-0 bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
+        Wanna get in touch?
+      </span>
+                        <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center rounded-full"></span>
+                        <span className="absolute inset-0 blur-xl bg-gradient-to-r from-[#14B8A6] via-[#F87171] to-[#F59E0B] opacity-0 group-hover:opacity-20 transition-opacity duration-700"></span>
                     </Link>
                 </div>
             </div>

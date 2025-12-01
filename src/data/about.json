@@ -1,0 +1,21 @@
+{
+  "name": "CAMERON RYDWELL",
+  "age": 21,
+  "schoolStatus": "Undergraduate Student",
+  "major": "Electrical Engineering",
+  "languagesCertified": ["JavaScript", "C#", "Python", "HTML/CSS"],
+  "languagesLearning": ["Rust", "Go", "React", "C++", "Java"],
+  "awards": [
+    "Deans List 2x",
+    "FBLA 2022 - STATE and REGIONAL 1st Place: Mobile Application Development",
+    "FBLA 2023 - STATE and REGIONAL 1st Place: Computer Game and Programming Simulation"
+  ],
+  "bio": "I'm a full-stack software engineer with a passion for creating innovative solutions that bridge the gap between hardware and software. My journey in tech started with a curiosity about how things work, and it has evolved into a deep love for building systems that make a real impact. When I'm not coding, you'll find me tinkering with electronics, streaming video games, or working on my next creative project.",
+  "title": "Full-Stack Software Engineer, Studying Electrical Engineering",
+  "socials": {
+    "github": "https://github.com/s-rious",
+    "linkedin": "https://www.linkedin.com/in/cameron-rydwell-52681a268",
+    "twitter": "https://twitter.com/s7rious",
+    "email": "him@camry.dev"
+  }
+}

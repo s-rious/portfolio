@@ -18,5 +18,18 @@
     "image": "/projects/portfolio.jpg",
     "link": "https://github.com/s-rious/stitched-up",
     "featured": true
+  },
+  {
+    "id": 3,
+    "title": "PROJECT 3",
+    "description": "A secret project in development. Stay tuned...",
+    "date": "2025-01-01",
+    "tags": [
+      "C#",
+      "Engine Engine 5"
+    ],
+    "image": "/projects/portfolio.jpg",
+    "link": "https://github.com/s-rious",
+    "featured": true
   }
 ]

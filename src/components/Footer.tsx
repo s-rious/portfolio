@@ -5,7 +5,6 @@ export default function Footer() {
         <footer className="bg-black text-white mt-auto">
             <div className="max-w-7xl mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Logo & Description */}
                     <div>
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
@@ -19,8 +18,6 @@ export default function Footer() {
                             BLENDING THE DIGITAL AND PHYSICAL WORLD.
                         </p>
                     </div>
-
-                    {/* Quick Links */}
                     <div>
                         <h3 className="text-white font-semibold mb-4" style={{ fontFamily: 'Georgia, serif' }}>Quick Links</h3>
                         <ul className="space-y-2">
@@ -29,8 +26,6 @@ export default function Footer() {
                             <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">Contact</a></li>
                         </ul>
                     </div>
-
-                    {/* Social Links */}
                     <div>
                         <h3 className="text-white font-semibold mb-4" style={{ fontFamily: 'Georgia, serif' }}>Connect</h3>
                         <ul className="space-y-2">
@@ -40,8 +35,6 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-
-                {/* Bottom Bar */}
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center">
                     <p className="text-gray-400 text-sm">
                         © {currentYear} Cameron Rydwell. All rights reserved.
