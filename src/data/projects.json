@@ -5,7 +5,7 @@
     "description": "My first installation of game development: a story-based puzzle game.",
     "date": "2023-04-04",
     "tags": ["C#", "Unreal Engine 5"],
-    "image": "/projects/ecommerce.jpg",
+    "image": "/projects/imgs/ecommerce.jpg",
     "link": "https://github.com/s-rious/Word-Escape",
     "featured": true
   },
@@ -14,8 +14,8 @@
     "title": "STITCHED UP",
     "description": "A dark narrative revolving around the concept of self-identity and depression",
     "date": "2025-01-01",
-    "tags": ["C#", "Engine Engine 5"],
-    "image": "/projects/portfolio.jpg",
+    "tags": ["C#", "Unreal Engine 5"],
+    "image": "/projects/imgs/portfolio.jpg",
     "link": "https://github.com/s-rious/stitched-up",
     "featured": true
   },
@@ -26,9 +26,9 @@
     "date": "2025-01-01",
     "tags": [
       "C#",
-      "Engine Engine 5"
+      "Unreal Engine 5"
     ],
-    "image": "/projects/portfolio.jpg",
+    "image": "/projects/imgs/project3.jpg",
     "link": "https://github.com/s-rious",
     "featured": true
   }
