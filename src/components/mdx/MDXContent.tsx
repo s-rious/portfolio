@@ -5,7 +5,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import Link from 'next/link';
+import 'highlight.js/styles/github-dark.css';
 
 interface MDXContentProps {
     content: string;
@@ -17,92 +17,41 @@ export default function MDXContent({ content }: MDXContentProps) {
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeHighlight]}
             components={{
-                // Headings
                 h1: ({ children }) => (
-                    <h1 className="text-4xl font-bold text-white mb-6 mt-8 font-inter">
-                        {children}
-                    </h1>
+                    <h1 className="text-4xl font-bold mt-8 mb-4 text-white">{children}</h1>
                 ),
                 h2: ({ children }) => (
-                    <h2 className="text-3xl font-bold text-white mb-4 mt-8 font-inter">
-                        {children}
-                    </h2>
+                    <h2 className="text-3xl font-bold mt-8 mb-4 text-white">{children}</h2>
                 ),
                 h3: ({ children }) => (
-                    <h3 className="text-2xl font-semibold text-white mb-3 mt-6 font-inter">
-                        {children}
-                    </h3>
+                    <h3 className="text-2xl font-bold mt-6 mb-3 text-white">{children}</h3>
                 ),
                 h4: ({ children }) => (
-                    <h4 className="text-xl font-semibold text-white mb-2 mt-4 font-inter">
-                        {children}
-                    </h4>
+                    <h4 className="text-xl font-bold mt-4 mb-2 text-white">{children}</h4>
                 ),
-
-                // Paragraphs
                 p: ({ children }) => (
-                    <p className="text-gray-300 mb-4 leading-relaxed font-sans text-lg">
-                        {children}
-                    </p>
+                    <p className="mb-4 text-gray-300 leading-relaxed">{children}</p>
                 ),
-
-                // Links
-                a: ({ href, children }) => {
-                    const isExternal = href?.startsWith('http');
-
-                    if (isExternal) {
-                        return (
-                            <a
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-brand-primary hover:text-brand-accent transition-colors underline"
-                            >
-                                {children}
-                            </a>
-                        );
-                    }
-
-                    return (
-                        <Link
-                            href={href || '#'}
-                            className="text-brand-primary hover:text-brand-accent transition-colors underline"
-                        >
-                            {children}
-                        </Link>
-                    );
-                },
-
-                // Lists
                 ul: ({ children }) => (
-                    <ul className="list-disc list-inside mb-6 text-gray-300 space-y-2 ml-4">
-                        {children}
-                    </ul>
+                    <ul className="list-disc list-inside mb-4 space-y-2 text-gray-300">{children}</ul>
                 ),
                 ol: ({ children }) => (
-                    <ol className="list-decimal list-inside mb-6 text-gray-300 space-y-2 ml-4">
-                        {children}
-                    </ol>
+                    <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-300">{children}</ol>
                 ),
                 li: ({ children }) => (
-                    <li className="text-gray-300 leading-relaxed">
-                        {children}
-                    </li>
+                    <li className="text-gray-300">{children}</li>
                 ),
-
-                // Blockquotes
                 blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-brand-primary pl-6 pr-4 py-3 my-6 bg-white/5 rounded-r-lg italic text-gray-400">
+                    <blockquote className="border-l-4 border-brand-primary pl-4 my-4 italic text-gray-400">
                         {children}
                     </blockquote>
                 ),
-
-                // Code
                 code: ({ inline, className, children, ...props }: any) => {
+
                     if (inline) {
                         return (
                             <code
-                                className="bg-white/10 text-brand-accent px-2 py-0.5 rounded font-mono text-sm"
+                                className="bg-gray-900 px-1.5 py-0.5 rounded text-sm text-brand-primary font-mono"
                                 {...props}
                             >
                                 {children}
@@ -111,74 +60,34 @@ export default function MDXContent({ content }: MDXContentProps) {
                     }
 
                     return (
-                        <code
-                            className={`${className} text-sm`}
-                            {...props}
+                        <pre
+                            className="bg-gray-900 rounded-lg p-4 my-4 overflow-x-auto text-sm"
                         >
-                            {children}
-                        </code>
+                            <code className={className} {...props}>
+                                {children}
+                            </code>
+                        </pre>
                     );
                 },
-
-                pre: ({ children }) => (
-                    <pre className="bg-[#0d1117] border border-white/20 rounded-lg p-4 overflow-x-auto mb-6 font-mono text-sm">
+                a: ({ children, href }) => (
+                    <a
+                        href={href}
+                        className="text-brand-primary hover:text-brand-accent underline transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         {children}
-                    </pre>
+                    </a>
                 ),
-
-                // Images
                 img: ({ src, alt }) => (
-                    <div className="my-8 rounded-lg overflow-hidden border border-white/20">
-                        <img
-                            src={src}
-                            alt={alt || ''}
-                            className="w-full h-auto"
-                            loading="lazy"
-                        />
-                        {alt && (
-                            <p className="text-center text-gray-500 text-sm mt-2 pb-2">
-                                {alt}
-                            </p>
-                        )}
-                    </div>
+                    <img
+                        src={src}
+                        alt={alt || ''}
+                        className="rounded-lg my-4 max-w-full h-auto border border-white/20"
+                    />
                 ),
-
-                // Horizontal rule
                 hr: () => (
-                    <hr className="border-white/20 my-8" />
-                ),
-
-                // Tables
-                table: ({ children }) => (
-                    <div className="overflow-x-auto mb-6">
-                        <table className="min-w-full border border-white/20 rounded-lg">
-                            {children}
-                        </table>
-                    </div>
-                ),
-                th: ({ children }) => (
-                    <th className="border border-white/20 px-4 py-2 bg-white/5 text-white font-semibold text-left">
-                        {children}
-                    </th>
-                ),
-                td: ({ children }) => (
-                    <td className="border border-white/20 px-4 py-2 text-gray-300">
-                        {children}
-                    </td>
-                ),
-
-                // Strong/Bold
-                strong: ({ children }) => (
-                    <strong className="font-bold text-white">
-                        {children}
-                    </strong>
-                ),
-
-                // Emphasis/Italic
-                em: ({ children }) => (
-                    <em className="italic text-gray-300">
-                        {children}
-                    </em>
+                    <hr className="my-8 border-white/10" />
                 ),
             }}
         >

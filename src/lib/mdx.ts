@@ -1,81 +1,80 @@
 // src/lib/mdx.ts
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
 
-const contentDirectory = path.join(process.cwd(), 'src/content/blog');
+const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
 export interface Post {
     slug: string;
     title: string;
-    excerpt: string;
     date: string;
     tags: string[];
     image?: string;
     content: string;
+    excerpt: string;
 }
 
-export function getAllPosts(): Post[] {
-    return fs.readdirSync(contentDirectory)
-        .filter(filename => filename.endsWith('.mdx') || filename.endsWith('.md'))
-        .map(filename => {
-            const slug = filename.replace(/\.mdx?$/, '');
-            const filePath = path.join(contentDirectory, filename);
-            const fileContent = fs.readFileSync(filePath, 'utf8');
-            const { data, content } = matter(fileContent);
+// Helper to normalize slugs (lowercase, hyphens)
+const normalizeSlug = (slug: string) => slug.toLowerCase();
 
-            return {
-                slug,
-                title: data.title || 'Untitled',
-                excerpt: data.excerpt || '',
-                date: data.date || new Date().toISOString(),
-                tags: data.tags || [],
-                image: data.image,
-                content,
-            } as Post;
-        })
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-}
-
-
-export function getPostBySlug(slug: string): Post | null {
+export async function getAllPosts(): Promise<Post[]> {
     try {
-        const filePath = path.join(contentDirectory, `${slug}.mdx`);
+        const fileNames = await fs.readdir(postsDirectory);
+        const allPosts = await Promise.all(
+            fileNames
+                .filter((f) => f.endsWith('.mdx'))
+                .map(async (fileName) => {
+                    const slug = normalizeSlug(fileName.replace(/\.mdx$/, ''));
+                    const fullPath = path.join(postsDirectory, fileName);
+                    const fileContents = await fs.readFile(fullPath, 'utf8');
+                    const { data, content } = matter(fileContents);
 
-        if (!fs.existsSync(filePath)) {
-            // Try .md extension
-            const mdFilePath = path.join(contentDirectory, `${slug}.md`);
-            if (!fs.existsSync(mdFilePath)) {
-                return null;
-            }
-            const fileContent = fs.readFileSync(mdFilePath, 'utf8');
-            const { data, content } = matter(fileContent);
+                    const firstParagraph = content
+                        .split('\n')
+                        .find((line) => line.trim() !== '') || '';
 
-            return {
-                slug,
-                title: data.title || 'Untitled',
-                excerpt: data.excerpt || '',
-                date: data.date || new Date().toISOString(),
-                tags: data.tags || [],
-                image: data.image,
-                content,
-            };
-        }
+                    return {
+                        slug,
+                        title: data.title || slug,
+                        date: data.date || new Date().toISOString().split('T')[0],
+                        tags: data.tags || [],
+                        image: data.image,
+                        content,
+                        excerpt: firstParagraph.slice(0, 150),
+                    } as Post;
+                })
+        );
 
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const { data, content } = matter(fileContent);
+        return allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
+    } catch (error) {
+        console.error('Error reading posts:', error);
+        return [];
+    }
+}
+
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+    try {
+        const normalizedSlug = normalizeSlug(slug);
+        const fullPath = path.join(postsDirectory, `${normalizedSlug}.mdx`);
+        const fileContents = await fs.readFile(fullPath, 'utf8');
+        const { data, content } = matter(fileContents);
+
+        const firstParagraph = content
+            .split('\n')
+            .find((line) => line.trim() !== '') || '';
 
         return {
-            slug,
-            title: data.title || 'Untitled',
-            excerpt: data.excerpt || '',
-            date: data.date || new Date().toISOString(),
+            slug: normalizedSlug,
+            title: data.title || normalizedSlug,
+            date: data.date || new Date().toISOString().split('T')[0],
             tags: data.tags || [],
             image: data.image,
             content,
+            excerpt: firstParagraph.slice(0, 150),
         };
     } catch (error) {
-        console.error(`Error reading post ${slug}:`, error);
+        console.error('Post not found:', slug, error);
         return null;
     }
 }

@@ -1,20 +1,37 @@
 // src/app/blog/[slug]/page.tsx
-import { getPostBySlug, getAllPosts } from '@/lib/mdx';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import MDXContent from '@/components/mdx/MDXContent';
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-    const post = getPostBySlug(params.slug);
+import { getPostBySlug, Post } from "@/lib/mdx";
+import Link from "next/link";
+import MDXContent from "@/components/mdx/MDXContent";
+
+type BlogPostProps = {
+    params: { slug: string } | Promise<{ slug: string }>;
+};
+
+export const runtime = "nodejs";
+
+export default async function BlogPost({ params }: BlogPostProps) {
+    // Unwrap params promise (Next.js 16+ App Router requirement)
+    const { slug } = await params;
+    console.log("Visiting slug:", slug);
+
+    // Fetch post
+    const post: Post | null = await getPostBySlug(slug);
 
     if (!post) {
-        notFound();
+        console.error("Post not found:", slug);
+        return (
+            <div className="min-h-screen flex items-center justify-center text-white">
+                <h1 className="text-4xl font-bold">Post not found 😿</h1>
+            </div>
+        );
     }
 
     return (
         <div className="min-h-screen bg-[#0f0e0d] p-8 pt-28">
             <div className="max-w-4xl mx-auto">
                 <div className="relative bg-black rounded-lg border border-white/20 shadow-2xl overflow-hidden">
+                    {/* Header */}
                     <div className="bg-[#1a1816] border-b border-white/10 px-4 py-3 flex items-center justify-between">
                         <Link
                             href="/blog"
@@ -33,14 +50,15 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                         </div>
 
                         <div className="text-gray-500 text-xs font-mono">
-                            {new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric'
+                            {new Date(post.date + "T12:00:00").toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
                             })}
                         </div>
                     </div>
 
+                    {/* Content */}
                     <div className="p-8 md:p-12">
                         {post.image && (
                             <div className="mb-8 rounded-lg overflow-hidden border border-white/20">
@@ -87,11 +105,4 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             </div>
         </div>
     );
-}
-
-export async function generateStaticParams() {
-    const posts = getAllPosts();
-    return posts.map(post => ({
-        slug: post.slug,
-    }));
 }

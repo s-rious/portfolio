@@ -1,9 +1,19 @@
 // src/app/blog/page.tsx
-import { getAllPosts } from '@/lib/mdx';
 import Link from 'next/link';
+import { getAllPosts, Post } from '@/lib/mdx';
 
-export default function Blog() {
-    const posts = getAllPosts();
+export const runtime = 'nodejs';
+
+export default async function Blog() {
+    const posts: Post[] = await getAllPosts();
+
+    if (!posts || posts.length === 0) {
+        return (
+            <div className="min-h-screen flex items-center justify-center text-white">
+                <h1 className="text-4xl font-bold">No blog posts found 😿</h1>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#0f0e0d] p-8 pt-28">
@@ -18,9 +28,7 @@ export default function Blog() {
                         <div className="absolute left-1/2 transform -translate-x-1/2 text-gray-500 text-sm font-mono">
                             ~/blog
                         </div>
-                        <div className="text-gray-500 text-xs font-mono">
-                            {posts.length} POSTS
-                        </div>
+                        <div className="text-gray-500 text-xs font-mono">{posts.length} POSTS</div>
                     </div>
 
                     <div className="p-8 md:p-12">
@@ -66,7 +74,7 @@ export default function Blog() {
                                             {new Date(post.date).toLocaleDateString('en-US', {
                                                 month: '2-digit',
                                                 day: '2-digit',
-                                                year: '2-digit'
+                                                year: '2-digit',
                                             })}
                                         </div>
                                     </div>
@@ -83,7 +91,7 @@ export default function Blog() {
                                     </div>
 
                                     <p className="text-gray-300 mb-4 font-sans leading-relaxed">
-                                        {post.excerpt}
+                                        {post.excerpt}...
                                     </p>
 
                                     <Link
@@ -91,7 +99,9 @@ export default function Blog() {
                                         className="inline-flex items-center gap-2 text-brand-secondary hover:text-brand-accent font-mono text-sm transition-colors duration-300"
                                     >
                                         <span>READ_POST</span>
-                                        <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+                                        <span className="group-hover:translate-x-1 transition-transform duration-300">
+                                            →
+                                        </span>
                                     </Link>
                                 </article>
                             ))}
