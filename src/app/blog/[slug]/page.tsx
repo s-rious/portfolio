@@ -3,6 +3,7 @@ import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import MDXContent from '@/components/mdx/MDXContent';
+export const runtime = 'nodejs';
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
     const post = getPostBySlug(params.slug);
