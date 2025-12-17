@@ -1,10 +1,11 @@
-import blogPosts from '@/data/blogPosts.json';
+// src/app/blog/[slug]/page.tsx
+import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-export const runtime = 'edge';
+import MDXContent from '@/components/mdx/MDXContent';
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
-    const post = blogPosts.find(p => p.slug === params.slug);
+    const post = getPostBySlug(params.slug);
 
     if (!post) {
         notFound();
@@ -32,16 +33,26 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                         </div>
 
                         <div className="text-gray-500 text-xs font-mono">
-                            {(() => {
-                                const [y, m, d] = post.date.split('-');
-                                const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                return `${months[parseInt(m) - 1]} ${parseInt(d)}, ${y}`;
-                            })()}
+                            {new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
+                            })}
                         </div>
                     </div>
 
                     <div className="p-8 md:p-12">
-                        <article className="font-mono text-white">
+                        {post.image && (
+                            <div className="mb-8 rounded-lg overflow-hidden border border-white/20">
+                                <img
+                                    src={post.image}
+                                    alt={post.title}
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                        )}
+
+                        <article>
                             <h1 className="text-3xl md:text-5xl font-bold mb-6 font-inter text-white leading-tight">
                                 {post.title}
                             </h1>
@@ -58,12 +69,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                             </div>
 
                             <div className="prose prose-invert max-w-none">
-                                <div className="text-base md:text-lg leading-relaxed whitespace-pre-wrap text-gray-300 font-sans">
-                                    <span className="text-gray-500 font-mono">$ cat {post.slug}.txt</span>
-                                    <div className="mt-4 pl-4 border-l-2 border-brand-primary/30">
-                                        {post.content}
-                                    </div>
-                                </div>
+                                <MDXContent content={post.content} />
                             </div>
 
                             <div className="mt-12 pt-6 border-t border-white/10">
@@ -81,4 +87,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             </div>
         </div>
     );
+}
+
+export async function generateStaticParams() {
+    const posts = getAllPosts();
+    return posts.map(post => ({
+        slug: post.slug,
+    }));
 }

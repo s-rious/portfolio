@@ -287,7 +287,7 @@ export default function Home() {
                             >
                                 <div className="h-64 md:h-80 bg-gray-700 flex items-center justify-center text-gray-400 font-inter text-xl">
                                     <img
-                                        src={project.img}
+                                        src={project.image}
                                         alt={project.title}
                                         className="w-full h-full object-cover"
                                     />
