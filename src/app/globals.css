@@ -62,3 +62,38 @@ body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+@keyframes gradient-shine {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
+
+.animate-gradient-shine {
+    animation: gradient-shine 3s linear infinite;
+}
+
+pre[data-theme="dark"] {
+    background-color: #0d1117 !important;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
+
+code[data-theme="dark"] {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.highlighted {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 2px solid #14B8A6;
+    padding-left: 0.5rem;
+}
+
+.word {
+    background-color: rgba(20, 184, 166, 0.2);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
