@@ -2,9 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-// This entire module only executes during Next.js build (generateStaticParams, etc.)
-// It will never run on the Edge Runtime at request time.
-
 const contentDirectory = path.join(process.cwd(), 'src/content/blog');
 
 export interface Post {
@@ -18,14 +15,10 @@ export interface Post {
 }
 
 export function getAllPosts(): Post[] {
-    if (!fs.existsSync(contentDirectory)) {
-        console.warn('[mdx.ts] Blog content directory not found:', contentDirectory);
-        return [];
-    }
+    if (!fs.existsSync(contentDirectory)) return [];
 
-    const files = fs.readdirSync(contentDirectory);
-
-    return files
+    return fs
+        .readdirSync(contentDirectory)
         .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
         .map(filename => {
             const slug = filename.replace(/\.mdx?$/, '');
@@ -46,18 +39,13 @@ export function getAllPosts(): Post[] {
 }
 
 export function getPostBySlug(slug: string): Post | null {
-    // Try .mdx first, then .md
     const candidates = [
         path.join(contentDirectory, `${slug}.mdx`),
         path.join(contentDirectory, `${slug}.md`),
     ];
 
     const filePath = candidates.find(p => fs.existsSync(p));
-
-    if (!filePath) {
-        console.warn(`[mdx.ts] Post not found: ${slug}`);
-        return null;
-    }
+    if (!filePath) return null;
 
     const raw = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(raw);
@@ -74,10 +62,7 @@ export function getPostBySlug(slug: string): Post | null {
 }
 
 export function getPostSlugs(): string[] {
-    if (!fs.existsSync(contentDirectory)) {
-        return [];
-    }
-
+    if (!fs.existsSync(contentDirectory)) return [];
     return fs
         .readdirSync(contentDirectory)
         .filter(f => f.endsWith('.mdx') || f.endsWith('.md'))
