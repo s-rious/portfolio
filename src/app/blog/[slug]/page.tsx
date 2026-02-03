@@ -4,6 +4,7 @@ import { getPostBySlug, getPostSlugs } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import MDXContent from '@/components/mdx/MDXContent';
+import type { Metadata } from 'next';
 
 // Build-time: generates one static page per .mdx file
 export async function generateStaticParams() {
@@ -12,7 +13,11 @@ export async function generateStaticParams() {
 }
 
 // Build-time: pre-fetches the post content so the page is fully static
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({
+                                           params,
+                                       }: {
+    params: { slug: string };
+}): Promise<Metadata> {
     const post = getPostBySlug(params.slug);
     return {
         title: post?.title || 'Blog Post',
