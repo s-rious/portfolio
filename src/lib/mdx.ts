@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const contentDirectory = path.join(process.cwd(), 'src/content/blogImgs');
+// This runs only at build-time
+const contentDirectory = path.join(process.cwd(), 'src/content/blog');
 
 export interface Post {
     slug: string;
@@ -14,7 +15,6 @@ export interface Post {
     content: string;
 }
 
-// Get all posts sorted by date
 export function getAllPosts(): Post[] {
     if (!fs.existsSync(contentDirectory)) {
         console.warn('[mdx.ts] Blog content directory not found:', contentDirectory);
@@ -30,20 +30,25 @@ export function getAllPosts(): Post[] {
             const raw = fs.readFileSync(path.join(contentDirectory, filename), 'utf8');
             const { data, content } = matter(raw);
 
+            // Ensure images are prefixed with / if not already
+            let imagePath: string | undefined;
+            if (data.image) {
+                imagePath = data.image.startsWith('/') ? data.image : `/${data.image}`;
+            }
+
             return {
                 slug,
                 title: data.title || 'Untitled',
                 excerpt: data.excerpt || '',
                 date: data.date || new Date().toISOString(),
                 tags: data.tags || [],
-                image: data.image,
+                image: imagePath,
                 content,
             };
         })
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-// Get a single post
 export function getPostBySlug(slug: string): Post | null {
     const candidates = [
         path.join(contentDirectory, `${slug}.mdx`),
@@ -51,7 +56,6 @@ export function getPostBySlug(slug: string): Post | null {
     ];
 
     const filePath = candidates.find(p => fs.existsSync(p));
-
     if (!filePath) {
         console.warn(`[mdx.ts] Post not found: ${slug}`);
         return null;
@@ -60,18 +64,22 @@ export function getPostBySlug(slug: string): Post | null {
     const raw = fs.readFileSync(filePath, 'utf8');
     const { data, content } = matter(raw);
 
+    let imagePath: string | undefined;
+    if (data.image) {
+        imagePath = data.image.startsWith('/') ? data.image : `/${data.image}`;
+    }
+
     return {
         slug,
         title: data.title || 'Untitled',
         excerpt: data.excerpt || '',
         date: data.date || new Date().toISOString(),
         tags: data.tags || [],
-        image: data.image,
+        image: imagePath,
         content,
     };
 }
 
-// Get all slugs for static generation
 export function getPostSlugs(): string[] {
     if (!fs.existsSync(contentDirectory)) return [];
     return fs

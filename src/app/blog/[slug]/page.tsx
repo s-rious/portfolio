@@ -4,7 +4,7 @@ import Link from 'next/link';
 import MDXContent from '@/components/mdx/MDXContent';
 import { getPostBySlug, getPostSlugs, Post } from '@/lib/mdx';
 
-// Generate static pages for each MDX
+// Generate static paths
 export async function generateStaticParams() {
     const slugs = getPostSlugs();
     if (!slugs.length) console.warn('No blog posts found at build time!');
@@ -12,15 +12,21 @@ export async function generateStaticParams() {
 }
 
 // Pre-fetch metadata
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({
+                                           params,
+                                       }: {
+    params: { slug: string };
+}): Promise<Metadata> {
     const post = getPostBySlug(params.slug);
     if (!post) notFound();
+
     return {
         title: post.title,
         description: post.excerpt,
     };
 }
 
+// Page component
 export default function BlogPost({ params }: { params: { slug: string } }) {
     const post: Post | null = getPostBySlug(params.slug);
     if (!post) notFound();
@@ -52,7 +58,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                     <div className="p-8 md:p-12">
                         {post.image && (
                             <div className="mb-8 rounded-lg overflow-hidden border border-white/20">
-                                <img src={post.image.startsWith('/') ? post.image : `/${post.image}`} alt={post.title} className="w-full h-auto" />
+                                <img src={post.image} alt={post.title} className="w-full h-auto" />
                             </div>
                         )}
 
