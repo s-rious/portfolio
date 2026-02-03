@@ -1,37 +1,39 @@
-// src/app/blog/[slug]/page.tsx
+export const runtime = 'edge';
 
-import { getPostBySlug, Post } from "@/lib/mdx";
-import Link from "next/link";
-import MDXContent from "@/components/mdx/MDXContent";
+// These imports run at BUILD time only during generateStaticParams.
+// The actual page receives pre-resolved props via the static params map.
+import { getPostBySlug, getPostSlugs } from '@/lib/mdx';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import MDXContent from '@/components/mdx/MDXContent';
 
-type BlogPostProps = {
-    params: { slug: string } | Promise<{ slug: string }>;
-};
+// Build-time: generates one static page per .mdx file
+export async function generateStaticParams() {
+    const slugs = getPostSlugs();
+    return slugs.map(slug => ({ slug }));
+}
 
-export const runtime = "nodejs";
+// Build-time: pre-fetches the post content so the page is fully static
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const post = getPostBySlug(params.slug);
+    return {
+        title: post?.title || 'Blog Post',
+        description: post?.excerpt || '',
+    };
+}
 
-export default async function BlogPost({ params }: BlogPostProps) {
-    // Unwrap params promise (Next.js 16+ App Router requirement)
-    const { slug } = await params;
-    console.log("Visiting slug:", slug);
-
-    // Fetch post
-    const post: Post | null = await getPostBySlug(slug);
+export default function BlogPost({ params }: { params: { slug: string } }) {
+    const post = getPostBySlug(params.slug);
 
     if (!post) {
-        console.error("Post not found:", slug);
-        return (
-            <div className="min-h-screen flex items-center justify-center text-white">
-                <h1 className="text-4xl font-bold">Post not found 😿</h1>
-            </div>
-        );
+        notFound();
     }
 
     return (
         <div className="min-h-screen bg-[#0f0e0d] p-8 pt-28">
             <div className="max-w-4xl mx-auto">
                 <div className="relative bg-black rounded-lg border border-white/20 shadow-2xl overflow-hidden">
-                    {/* Header */}
+                    {/* Terminal Header */}
                     <div className="bg-[#1a1816] border-b border-white/10 px-4 py-3 flex items-center justify-between">
                         <Link
                             href="/blog"
@@ -50,16 +52,16 @@ export default async function BlogPost({ params }: BlogPostProps) {
                         </div>
 
                         <div className="text-gray-500 text-xs font-mono">
-                            {new Date(post.date + "T12:00:00").toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "short",
-                                day: "numeric",
+                            {new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric'
                             })}
                         </div>
                     </div>
 
-                    {/* Content */}
                     <div className="p-8 md:p-12">
+                        {/* Hero image */}
                         {post.image && (
                             <div className="mb-8 rounded-lg overflow-hidden border border-white/20">
                                 <img
@@ -75,6 +77,7 @@ export default async function BlogPost({ params }: BlogPostProps) {
                                 {post.title}
                             </h1>
 
+                            {/* Tags */}
                             <div className="flex flex-wrap gap-2 mb-8 pb-6 border-b border-white/10">
                                 {post.tags.map((tag) => (
                                     <span
@@ -86,10 +89,12 @@ export default async function BlogPost({ params }: BlogPostProps) {
                                 ))}
                             </div>
 
+                            {/* MDX rendered content */}
                             <div className="prose prose-invert max-w-none">
                                 <MDXContent content={post.content} />
                             </div>
 
+                            {/* Back link */}
                             <div className="mt-12 pt-6 border-t border-white/10">
                                 <Link
                                     href="/blog"
