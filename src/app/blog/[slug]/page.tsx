@@ -1,7 +1,5 @@
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
-// These imports run at BUILD time only during generateStaticParams.
-// The actual page receives pre-resolved props via the static params map.
 import { getPostBySlug, getPostSlugs } from '@/lib/mdx';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
