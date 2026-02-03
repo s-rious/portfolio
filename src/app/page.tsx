@@ -5,23 +5,19 @@ import Link from 'next/link';
 import siteConfig from '@/data/siteConfig.json';
 
 export default function Home() {
-    // Terminal conversation state
     const [conversationLines, setConversationLines] = useState<string[]>([]);
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
     const [currentLineText, setCurrentLineText] = useState('');
 
-    // Typing Section State
     const [displayText, setDisplayText] = useState('');
     const [hasAnimated, setHasAnimated] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const fullText = 'Developing Projects To Shape a Better World';
 
-    // Horizontal scroll state
     const [scrollProgress, setScrollProgress] = useState(0);
     const projectsSectionRef = useRef<HTMLDivElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    // Load featured projects from JSON
     const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
 
     useEffect(() => {
@@ -40,7 +36,6 @@ export default function Home() {
         { role: 'SYSTEM', text: "I'm sure this project of his is riddled with them. But hush now, as I fear the audience might be able to sense the conversation we are having." },
     ];
 
-    // Convert text to morse code
     const textToMorse = (text: string) => {
         const morseMap: { [key: string]: string } = {
             'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.', 'f': '..-.',
@@ -52,7 +47,6 @@ export default function Home() {
         return text.toLowerCase().split('').map(char => morseMap[char] || char).join(' ');
     };
 
-    // Terminal conversation typing animation
     useEffect(() => {
         if (currentLineIndex >= conversation.length) return;
 
@@ -75,7 +69,6 @@ export default function Home() {
         return () => clearInterval(interval);
     }, [currentLineIndex]);
 
-    // Typing animation on scroll
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -104,7 +97,6 @@ export default function Home() {
         return () => observer.disconnect();
     }, [hasAnimated]);
 
-    // Improved horizontal scroll effect
     useEffect(() => {
         const handleScroll = () => {
             if (!projectsSectionRef.current || !scrollContainerRef.current) return;
@@ -116,7 +108,6 @@ export default function Home() {
             if (rect.top <= 0 && rect.bottom >= windowHeight) {
                 const scrollableHeight = rect.height - windowHeight;
                 const progress = Math.abs(rect.top) / scrollableHeight;
-
                 setScrollProgress(Math.min(Math.max(progress, 0), 1));
             } else if (rect.top > 0) {
                 setScrollProgress(0);
@@ -187,17 +178,15 @@ export default function Home() {
 
     const getTransformValue = () => {
         if (!scrollContainerRef.current) return 0;
-
         const scrollWidth = scrollContainerRef.current.scrollWidth;
         const containerWidth = projectsSectionRef.current?.clientWidth || window.innerWidth;
-
         const maxScroll = Math.max(scrollWidth - containerWidth, 0);
         return scrollProgress * maxScroll;
     };
 
-
     return (
         <div className="scroll-smooth bg-[#0f0e0d]">
+            {/* Hero */}
             <div className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0f0e0d] px-6 pt-20">
                 <div className="relative w-full max-w-6xl h-[80vh] bg-black rounded-lg border border-white shadow-2xl overflow-hidden">
                     <div className="absolute top-4 left-4 flex gap-2 z-20">
@@ -214,18 +203,9 @@ export default function Home() {
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center z-10 px-6">
                         <div className="text-center">
-                            <h1
-                                className="
-    text-5xl md:text-7xl font-bold mb-4 font-inter
-    bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent
-    bg-[length:200%_auto]
-    animate-gradient
-    bg-clip-text text-transparent
-  "
-                            >
+                            <h1 className="text-5xl md:text-7xl font-bold mb-4 font-inter bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent">
                                 {siteConfig.siteName}
                             </h1>
-
                             <p className="text-xl md:text-2xl text-white font-inter">
                                 {siteConfig.tagline}
                             </p>
@@ -233,6 +213,8 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+            {/* Typing Section */}
             <div ref={sectionRef} className="min-h-[60vh] bg-[#0f0e0d] flex flex-col items-center justify-center px-6 py-12">
                 <div className="min-h-[200px] md:min-h-[300px] flex items-center justify-center">
                     <h2
@@ -262,6 +244,7 @@ export default function Home() {
                 </div>
             </div>
 
+            {/* Horizontal Scroll Projects */}
             <div ref={projectsSectionRef} className="relative h-[300vh] bg-[#0f0e0d]">
                 <div className="sticky top-0 h-screen flex items-center overflow-hidden pt-16">
                     <div
@@ -285,12 +268,20 @@ export default function Home() {
                                 key={project.id}
                                 className="flex-shrink-0 w-[90vw] md:w-[600px] bg-[#1a1816] rounded-lg overflow-hidden shadow-2xl"
                             >
-                                <div className="h-64 md:h-80 bg-gray-700 flex items-center justify-center text-gray-400 font-inter text-xl">
+                                {/* Image with fallback */}
+                                <div className="h-64 md:h-80 bg-[#1a1816] overflow-hidden relative">
                                     <img
                                         src={project.image}
                                         alt={project.title}
                                         className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            e.currentTarget.style.display = 'none';
+                                        }}
                                     />
+                                    {/* Fallback — always rendered behind the image */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <span className="text-gray-500 font-mono text-sm">[ {project.title} ]</span>
+                                    </div>
                                 </div>
                                 <div className="p-8">
                                     <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-inter">{project.title}</h3>
@@ -307,6 +298,8 @@ export default function Home() {
                                     </div>
                                     <Link
                                         href={project.link || `/projects/${project.id}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="inline-block px-8 py-3 bg-brand-secondary text-white font-medium rounded-md hover:bg-[#EF4444] transition-colors font-inter text-lg"
                                     >
                                         View Project
@@ -317,13 +310,15 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+            {/* Contact CTA */}
             <div className="bg-[#0f0e0d] py-32 px-6">
                 <div className="max-w-4xl mx-auto text-center">
                     <Link
                         href="/contact"
                         className="inline-block text-5xl md:text-7xl font-bold font-inter relative group cursor-pointer"
                     >
-                        <span className="relative z-10 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-[length:200%_auto] animate-gradient-shine group-hover:animate-none bg-clip-text text-transparent transition-all duration-700">
+                        <span className="relative z-10 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent transition-all duration-700">
                             Wanna get in touch?
                         </span>
                         <span className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">

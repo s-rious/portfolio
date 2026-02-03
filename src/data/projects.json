@@ -15,7 +15,7 @@
     "description": "A dark narrative revolving around the concept of self-identity and depression",
     "date": "2025-01-01",
     "tags": ["C#", "Unreal Engine 5"],
-    "image": "/imgs/projectsImgs/portfolio.jpg",
+    "image": "/imgs/projectsImgs/stitchedup.png",
     "link": "https://github.com/s-rious/stitched-up",
     "featured": true
   },
@@ -24,10 +24,8 @@
     "title": "For Us",
     "description": "A social media platform to build connections between peers and friends alike",
     "date": "2025-01-01",
-    "tags": [
-      "React Native"
-    ],
-    "image": "/imgs/projectsImgs/project3.jpg",
+    "tags": ["React Native"],
+    "image": "/imgs/projectsImgs/forus.png",
     "link": "https://github.com/s-rious",
     "featured": true
   }
