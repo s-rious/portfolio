@@ -12,15 +12,12 @@ export async function generateStaticParams() {
 }
 
 // Pre-fetch metadata
-export async function generateMetadata({
-                                           params,
-                                       }: {
-    params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const post = getPostBySlug(params.slug);
+    if (!post) notFound();
     return {
-        title: post?.title || 'Blog Post',
-        description: post?.excerpt || '',
+        title: post.title,
+        description: post.excerpt,
     };
 }
 
@@ -55,7 +52,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                     <div className="p-8 md:p-12">
                         {post.image && (
                             <div className="mb-8 rounded-lg overflow-hidden border border-white/20">
-                                <img src={post.image} alt={post.title} className="w-full h-auto" />
+                                <img src={post.image.startsWith('/') ? post.image : `/${post.image}`} alt={post.title} className="w-full h-auto" />
                             </div>
                         )}
 
