@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
@@ -37,23 +37,6 @@ export default function Home() {
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-    /* useEffect(() => {
-        fetch('/api/youtube/rss')
-            .then(res => res.json())
-            .then(data => {
-                setCurrentStatus((prev: any) => ({
-                    ...(prev || {}),
-                    latestVideo: {
-                        title: data.title,
-                        uploadedAgo: new Date(data.publishedAt).toLocaleDateString(),
-                        url: data.url,
-                        thumbnail: data.thumbnail,
-                    }
-                }))
-            })
-            .catch(console.error)
-    }, []) */
-
 
     const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,6 +77,18 @@ export default function Home() {
 
     return (
         <div className="bg-black text-white">
+            <style jsx>{`
+                .interest-card:hover .interest-bg {
+                    opacity: 0.2 !important;
+                }
+                .interest-card:hover .interest-glow {
+                    opacity: 1 !important;
+                }
+                .interest-card:hover .interest-text {
+                    transform: scale(1.1) !important;
+                    color: #FF2E63 !important;
+                }
+            `}</style>
             {/* Spacer for hero scroll */}
             <div style={{ height: `${heroScrollHeight}px` }} />
             {/* Sticky Hero */}
@@ -143,29 +138,41 @@ export default function Home() {
                         ].map((item, i) => (
                             <div
                                 key={item.word}
-                                className="text-center relative group cursor-pointer z-0 h-32 md:h-40 flex items-center justify-center"
+                                className="interest-card text-center relative cursor-pointer h-32 md:h-40 flex items-center justify-center overflow-hidden"
                                 style={{
                                     animation: `fadeInUp 0.6s ease-out ${i * 0.1}s both`
                                 }}
                             >
                                 {/* Background Preview Image */}
                                 <div
-                                    className="absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                                    className="interest-bg absolute inset-0"
                                     style={{
                                         backgroundImage: `url(${item.image})`,
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'center',
                                         filter: 'blur(8px)',
-                                        transform: 'scale(1.2)'
+                                        transform: 'scale(1.2)',
+                                        opacity: 0,
+                                        transition: 'opacity 0.5s'
                                     }}
                                 />
+
+                                {/* Gradient overlay */}
                                 <div
-                                    className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-white/20"
+                                    className="interest-glow absolute inset-0"
+                                    style={{
+                                        background: 'radial-gradient(circle at center, rgba(255, 46, 99, 0.3), transparent 70%)',
+                                        opacity: 0,
+                                        transition: 'opacity 0.5s'
+                                    }}
                                 />
 
                                 <h2
-                                    className="text-4xl md:text-6xl font-black relative z-10 group-hover:scale-110 transition-transform duration-300"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                                    className="interest-text text-4xl md:text-6xl font-black relative z-10"
+                                    style={{
+                                        fontFamily: "'Bebas Neue', sans-serif",
+                                        transition: 'all 0.3s'
+                                    }}
                                 >
                                     {item.word}
                                 </h2>
