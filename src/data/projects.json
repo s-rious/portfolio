@@ -21,11 +21,11 @@
   },
   {
     "id": 3,
-    "title": "For Us",
-    "description": "A social media platform to build connections between peers and friends alike",
+    "title": "TO BE ANNOUNCED",
+    "description": "TO BE ANNOUNCED. HINT: SOCIAL MEDIA PLATFORM",
     "date": "2025-01-01",
     "tags": ["React Native"],
-    "image": "/imgs/projectsImgs/forus.png",
+    "image": "/imgs/projectsImgs/placeholder.png",
     "link": "https://github.com/s-rious",
     "featured": true
   }

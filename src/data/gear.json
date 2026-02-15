@@ -1,0 +1,63 @@
+{
+  "coding": [
+    {
+      "name": "HP Omen 16 (RTX 4060, I7-14650HX)",
+      "category": "Laptop",
+      "link": "https://www.hp.com/us-en/shop/mlp/omen",
+      "icon": "💻"
+    },
+    {
+      "name": "Ducky One 2 SF",
+      "category": "Keyboard",
+      "link": "https://ducky.global",
+      "icon": "⌨️"
+    }
+  ],
+  "content": [
+    {
+      "name": "iPhone 17 Pro + Samsung S22",
+      "category": "Camera",
+      "link": "#",
+      "icon": "📷"
+    },
+    {
+      "name": "DJI Mic 3",
+      "category": "Microphone",
+      "link": "https://www.dji.com/mic-3",
+      "icon": "🎤"
+    }
+  ],
+  "gaming": [
+    {
+      "name": "Custom Built PC",
+      "category": "Tower",
+      "specs": "RTX 5070 OC | Ryzen 7 5800X | 32GB RAM DDR4-4200",
+      "link": "#",
+      "icon": "🎮"
+    },
+    {
+      "name": "Monsgeek M1 V5",
+      "category": "Keyboard",
+      "link": "https://www.monsgeek.com/product/monsgeek-m1-v5-via-1980s-mechanical-keyboard",
+      "icon": "⌨️"
+    },
+    {
+      "name": "Logitech G Pro X Superlight 2",
+      "category": "Mouse",
+      "link": "https://www.logitechg.com/en-us/shop/p/pro-x2-superlight-wireless-mouse",
+      "icon": "🖱️"
+    },
+    {
+      "name": "Shure MV7+",
+      "category": "Microphone",
+      "link": "https://www.shure.com/en-US/products/microphones/mv7",
+      "icon": "🎤"
+    },
+    {
+      "name": "Linsoul SIMGOT EM6L",
+      "category": "Headphones",
+      "link": "https://www.linsoul.com/products/simgot-em6l",
+      "icon": "🎧"
+    }
+  ]
+}

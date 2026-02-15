@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Stitched Up",
+    "icon": "🎮",
+    "category": "Game Development",
+    "eta": "Q2 2027",
+    "status": "In Progress",
+    "description": "Building the story influenced by my own life"
+  },
+  {
+    "title": "YouTube Series: Redefining who I am",
+    "icon": "📺",
+    "category": "Content",
+    "eta": "February 2026",
+    "status": "Drafting and Filming",
+    "description": "Weekly vlogs showcasing my personality and daily lifestyle."
+  },
+  {
+    "title": "Portfolio v2 Launch",
+    "icon": "🌐",
+    "category": "Web Development",
+    "eta": "February 2026",
+    "status": "In Progress",
+    "description": "Complete overhaul with graphical intention and guidance"
+  },
+  {
+    "title": "Car Build Documentation",
+    "icon": "🚗",
+    "category": "Personal",
+    "eta": "Summer 2026",
+    "status": "In Progress",
+    "description": "Video series documenting car modifications and builds"
+  }
+]

@@ -1,333 +1,539 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import siteConfig from '@/data/siteConfig.json';
 
 export default function Home() {
-    const [conversationLines, setConversationLines] = useState<string[]>([]);
-    const [currentLineIndex, setCurrentLineIndex] = useState(0);
-    const [currentLineText, setCurrentLineText] = useState('');
-
-    const [displayText, setDisplayText] = useState('');
-    const [hasAnimated, setHasAnimated] = useState(false);
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const fullText = 'Developing Projects To Shape a Better World';
-
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const projectsSectionRef = useRef<HTMLDivElement>(null);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
-
+    const [scrollY, setScrollY] = useState(0);
     const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
+    const [currentStatus, setCurrentStatus] = useState<any>(null);
+    const [gear, setGear] = useState<any>(null);
+    const [roadmap, setRoadmap] = useState<any[]>([]);
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+    const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
     useEffect(() => {
-        import('@/data/projects.json').then((data) => {
-            const featured = data.default.filter((p: any) => p.featured).slice(0, 3);
-            setFeaturedProjects(featured);
+        // Load all data
+        Promise.all([
+            import('@/data/projects.json'),
+            import('@/data/currentStatus.json'),
+            import('@/data/gear.json'),
+            import('@/data/roadmap.json')
+        ]).then(([projectsData, statusData, gearData, roadmapData]) => {
+            setFeaturedProjects(projectsData.default.filter((p: any) => p.featured).slice(0, 3));
+            setCurrentStatus(statusData.default);
+            setGear(gearData.default);
+            setRoadmap(roadmapData.default);
+        }).catch(() => {
+            // Fallback if files don't exist yet
+            import('@/data/projects.json').then((data) => {
+                setFeaturedProjects(data.default.filter((p: any) => p.featured).slice(0, 3));
+            });
         });
     }, []);
 
-    const conversation = [
-        { role: 'USER', text: 'CAMRY is a software developer, isnt he?' },
-        { role: 'SYSTEM', text: 'CAMRY is a software engineer alongside electrical engineer.' },
-        { role: 'USER', text: 'Thats pretty fascinating! He must be really fascinated with creative works as a whole!' },
-        { role: 'SYSTEM', text: 'That is true. He is overjoyed with the ability to create art fabricated from his fingertips alone.' },
-        { role: 'USER', text: 'Is there any more to know about him?' },
-        { role: 'SYSTEM', text: "I'm sure this project of his is riddled with them. But hush now, as I fear the audience might be able to sense the conversation we are having." },
-    ];
-
-    const textToMorse = (text: string) => {
-        const morseMap: { [key: string]: string } = {
-            'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.', 'f': '..-.',
-            'g': '--.', 'h': '....', 'i': '..', 'j': '.---', 'k': '-.-', 'l': '.-..',
-            'm': '--', 'n': '-.', 'o': '---', 'p': '.--.', 'q': '--.-', 'r': '.-.',
-            's': '...', 't': '-', 'u': '..-', 'v': '...-', 'w': '.--', 'x': '-..-',
-            'y': '-.--', 'z': '--..', ' ': '/'
-        };
-        return text.toLowerCase().split('').map(char => morseMap[char] || char).join(' ');
-    };
-
     useEffect(() => {
-        if (currentLineIndex >= conversation.length) return;
-
-        const currentLine = conversation[currentLineIndex];
-        const fullLine = `${currentLine.role}: ${textToMorse(currentLine.text)}`;
-
-        let charIndex = 0;
-        const interval = setInterval(() => {
-            if (charIndex <= fullLine.length) {
-                setCurrentLineText(fullLine.slice(0, charIndex));
-                charIndex++;
-            } else {
-                clearInterval(interval);
-                setConversationLines(prev => [...prev, fullLine]);
-                setCurrentLineText('');
-                setCurrentLineIndex(prev => prev + 1);
-            }
-        }, 15);
-
-        return () => clearInterval(interval);
-    }, [currentLineIndex]);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !hasAnimated) {
-                    setHasAnimated(true);
-                    let index = 0;
-                    const interval = setInterval(() => {
-                        if (index <= fullText.length) {
-                            setDisplayText(fullText.slice(0, index));
-                            index++;
-                        } else {
-                            clearInterval(interval);
-                        }
-                    }, 50);
-
-                    return () => clearInterval(interval);
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, [hasAnimated]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (!projectsSectionRef.current || !scrollContainerRef.current) return;
-
-            const section = projectsSectionRef.current;
-            const rect = section.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-
-            if (rect.top <= 0 && rect.bottom >= windowHeight) {
-                const scrollableHeight = rect.height - windowHeight;
-                const progress = Math.abs(rect.top) / scrollableHeight;
-                setScrollProgress(Math.min(Math.max(progress, 0), 1));
-            } else if (rect.top > 0) {
-                setScrollProgress(0);
-            } else if (rect.bottom < windowHeight) {
-                setScrollProgress(1);
-            }
-        };
-
+        const handleScroll = () => setScrollY(window.scrollY);
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
-
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [featuredProjects]);
+    }, []);
+    useEffect(() => {
+        fetch('/api/youtube/rss')
+            .then(res => res.json())
+            .then(data => {
+                setCurrentStatus((prev: any) => ({
+                    ...(prev || {}),
+                    latestVideo: {
+                        title: data.title,
+                        uploadedAgo: new Date(data.publishedAt).toLocaleDateString(),
+                        url: data.url,
+                        thumbnail: data.thumbnail,
+                    }
+                }))
+            })
+            .catch(console.error)
+    }, [])
 
-    const languages = [
-        {
-            name: 'JavaScript',
-            color: siteConfig.theme.colors.accent,
-            logo: (
-                <svg viewBox="0 0 256 256" className="w-10 h-10">
-                    <rect width="256" height="256" fill="#F7DF1E"/>
-                    <path d="M67.312 213.932l19.59-11.856c3.78 6.701 7.218 12.371 15.465 12.371 7.905 0 12.89-3.092 12.89-15.12v-81.798h24.057v82.138c0 24.917-14.606 36.259-35.916 36.259-19.245 0-30.416-9.967-36.087-21.996M152.381 211.354l19.588-11.341c5.157 8.421 11.859 14.607 23.715 14.607 9.969 0 16.325-4.984 16.325-11.858 0-8.248-6.53-11.17-17.528-15.98l-6.013-2.58c-17.357-7.387-28.87-16.667-28.87-36.257 0-18.044 13.747-31.792 35.228-31.792 15.294 0 26.292 5.328 34.196 19.247l-18.732 12.03c-4.125-7.389-8.591-10.31-15.465-10.31-7.046 0-11.514 4.468-11.514 10.31 0 7.217 4.468 10.14 14.778 14.608l6.014 2.577c20.45 8.765 31.963 17.7 31.963 37.804 0 21.654-17.012 33.51-39.867 33.51-22.339 0-36.774-10.654-43.819-24.574" fill="#000"/>
-                </svg>
-            )
-        },
-        {
-            name: 'C#',
-            color: siteConfig.theme.colors.primary,
-            logo: (
-                <svg viewBox="0 0 256 256" className="w-10 h-10">
-                    <rect width="256" height="256" fill="#239120"/>
-                    <path d="M128 0C57.308 0 0 57.308 0 128s57.308 128 128 128 128-57.308 128-128S198.692 0 128 0zm33.474 182.462c-5.553 5.553-13.066 8.515-21.088 8.515-16.481 0-29.897-13.416-29.897-29.897 0-8.022 2.962-15.535 8.515-21.088 5.553-5.553 13.066-8.515 21.088-8.515s15.535 2.962 21.088 8.515c5.553 5.553 8.515 13.066 8.515 21.088 0 8.022-2.962 15.535-8.515 21.088z" fill="#FFF"/>
-                </svg>
-            )
-        },
-        {
-            name: 'C++',
-            color: siteConfig.theme.colors.primary,
-            logo: (
-                <svg viewBox="0 0 256 256" className="w-10 h-10">
-                    <rect width="256" height="256" fill="#00599C"/>
-                    <path d="M180.828 77.106l-60.414-34.882c-5.423-3.132-12.1-3.132-17.522 0L42.478 77.106c-5.423 3.132-8.761 8.914-8.761 15.164v69.764c0 6.25 3.338 12.032 8.761 15.164l60.414 34.882c5.423 3.132 12.1 3.132 17.522 0l60.414-34.882c5.423-3.132 8.761-8.914 8.761-15.164V92.27c0-6.25-3.338-12.032-8.761-15.164z" fill="#FFF"/>
-                </svg>
-            )
-        },
-        {
-            name: 'React',
-            color: siteConfig.theme.colors.primary,
-            logo: (
-                <svg viewBox="0 0 256 256" className="w-10 h-10">
-                    <rect width="256" height="256" fill="#222"/>
-                    <path d="M210.483 73.824c-2.646-1.434-5.31-2.754-7.986-3.98-48.372-22.463-102.414-22.463-150.786 0-2.676 1.226-5.34 2.546-7.986 3.98C24.52 84.37 13.103 98.74 13.103 114.49c0 15.748 11.417 30.12 30.622 40.666 2.646 1.433 5.31 2.753 7.986 3.98 48.372 22.462 102.414 22.462 150.786 0 2.676-1.227 5.34-2.547 7.986-3.98 19.205-10.546 30.622-24.918 30.622-40.666 0-15.75-11.417-30.12-30.622-40.666zM128 163.125c-26.878 0-48.625-21.747-48.625-48.625S101.122 65.875 128 65.875s48.625 21.747 48.625 48.625-21.747 48.625-48.625 48.625z" fill="#61DAFB"/>
-                    <circle cx="128" cy="114.5" r="23.375" fill="#61DAFB"/>
-                </svg>
-            )
-        },
-        {
-            name: 'HTML/CSS',
-            color: siteConfig.theme.colors.secondary,
-            logo: (
-                <svg viewBox="0 0 256 256" className="w-10 h-10">
-                    <rect width="256" height="256" fill="#E34F26"/>
-                    <path d="M41 25l18.5 208L128 256l68.5-23L215 25H41zm151.5 165.7L128 213.5l-64.5-22.8-4.5-50.4h31.6l2.3 25.5 35.1 9.5 35.1-9.5 3.6-40.7H85.5l-2.3-26.3h94.6l2.4-27.5H67.8l-2.4-26.3h125.3l-2.5 28.3z" fill="#FFF"/>
-                </svg>
-            )
-        },
-    ];
 
-    const getTransformValue = () => {
-        if (!scrollContainerRef.current) return 0;
-        const scrollWidth = scrollContainerRef.current.scrollWidth;
-        const containerWidth = projectsSectionRef.current?.clientWidth || window.innerWidth;
-        const maxScroll = Math.max(scrollWidth - containerWidth, 0);
-        return scrollProgress * maxScroll;
+    const handleSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubscribeStatus('loading');
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_key: 'bbae9f51-efb6-45bc-beaa-7a8585764cbf', // Same key as contact form
+                    subject: 'New Subscriber',
+                    email: subscribeEmail,
+                    message: `New subscriber: ${subscribeEmail}`
+                }),
+            });
+
+            if (response.ok) {
+                setSubscribeStatus('success');
+                setSubscribeEmail('');
+                setTimeout(() => setSubscribeStatus('idle'), 5000);
+            } else {
+                new Error('Failed');
+            }
+        } catch (error) {
+            setSubscribeStatus('error');
+            setTimeout(() => setSubscribeStatus('idle'), 5000);
+        }
     };
+
+    // Hero scroll logic (now 4 scenes instead of 5)
+    const heroScrollHeight = typeof window !== 'undefined' ? window.innerHeight * 4 : 4000;
+    const sceneIndex = Math.min(3, Math.floor((scrollY / heroScrollHeight) * 4));
 
     return (
-        <div className="scroll-smooth bg-[#0f0e0d]">
-            {/* Hero */}
-            <div className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0f0e0d] px-6 pt-20">
-                <div className="relative w-full max-w-6xl h-[80vh] bg-black rounded-lg border border-white shadow-2xl overflow-hidden">
-                    <div className="absolute top-4 left-4 flex gap-2 z-20">
-                        <div className="w-3 h-3 rounded-full bg-brand-secondary"></div>
-                        <div className="w-3 h-3 rounded-full bg-brand-accent"></div>
-                        <div className="w-3 h-3 rounded-full bg-brand-primary"></div>
-                    </div>
+        <div className="bg-black text-white">
 
-                    <div className="absolute inset-0 p-6 pt-12 font-mono text-white text-sm opacity-20 overflow-auto select-none leading-loose">
-                        {conversationLines.map((line, i) => (
-                            <div key={i} className="mb-2">{line}</div>
-                        ))}
-                        {currentLineText && <div className="mb-2">{currentLineText}</div>}
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center z-10 px-6">
-                        <div className="text-center">
-                            <h1 className="text-5xl md:text-7xl font-bold mb-4 font-inter bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent">
-                                {siteConfig.siteName}
-                            </h1>
-                            <p className="text-xl md:text-2xl text-white font-inter">
-                                {siteConfig.tagline}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Spacer for hero scroll */}
+            <div style={{ height: `${heroScrollHeight}px` }} />
 
-            {/* Typing Section */}
-            <div ref={sectionRef} className="min-h-[60vh] bg-[#0f0e0d] flex flex-col items-center justify-center px-6 py-12">
-                <div className="min-h-[200px] md:min-h-[300px] flex items-center justify-center">
-                    <h2
-                        className="text-4xl md:text-6xl lg:text-7xl font-bold text-white text-center max-w-5xl font-inter leading-tight"
-                        style={{ textShadow: '-4px 4px 8px rgba(0, 0, 0, 0.6)' }}
+            {/* Sticky Hero */}
+            <div
+                className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-10"
+                style={{
+                    opacity: scrollY < heroScrollHeight ? 1 : 0,
+                    pointerEvents: scrollY < heroScrollHeight ? 'auto' : 'none'
+                }}
+            >
+                {/* Scene 0: Name + Title */}
+                <div
+                    className="absolute inset-0 flex flex-col items-center justify-center px-6"
+                    style={{
+                        opacity: sceneIndex === 0 ? 1 : 0,
+                        transition: 'opacity 0.6s ease'
+                    }}
+                >
+                    <h1
+                        className="text-7xl md:text-9xl font-black tracking-tight mb-4"
+                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                     >
-                        {displayText}
-                        <span className="animate-blink-slow">|</span>
-                    </h2>
+                        CAMERON RYDWELL
+                    </h1>
+                    <div className="w-32 h-1 bg-white mb-6" />
+                    <p className="text-xl md:text-2xl text-gray-400 tracking-wide">
+                        Content Creator × Engineer
+                    </p>
                 </div>
-                <div className="mt-6">
-                    <div className="flex flex-wrap justify-center gap-4">
-                        {languages.map((lang) => (
+
+                {/* Scene 1: What You Do Grid */}
+                <div
+                    className="absolute inset-0 flex items-center justify-center px-6"
+                    style={{
+                        opacity: sceneIndex === 1 ? 1 : 0,
+                        transition: 'opacity 0.6s ease'
+                    }}
+                >
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 max-w-4xl">
+                        {[
+                            { word: 'GAMES', image: '/imgs/interests/games.png' },
+                            { word: 'CODE', image: '/imgs/interests/code.jpg' },
+                            { word: 'CARS', image: '/imgs/interests/cars.jpg' },
+                            { word: 'FILM', image: '/imgs/interests/film.png' },
+                            { word: 'ESPORTS', image: '/imgs/interests/esports.jpg' },
+                            { word: 'GYM', image: '/imgs/interests/gym.jpg' },
+                        ].map((item, i) => (
                             <div
-                                key={lang.name}
-                                className="px-6 py-3 rounded-xl border-2 transition-all duration-300 hover:shadow-lg cursor-pointer font-inter flex items-center gap-3"
+                                key={item.word}
+                                className="text-center relative group cursor-pointer z-0 h-32 md:h-40 flex items-center justify-center"
                                 style={{
-                                    borderColor: lang.color,
-                                    backgroundColor: 'rgba(15, 14, 13, 0.8)'
+                                    animation: `fadeInUp 0.6s ease-out ${i * 0.1}s both`
                                 }}
                             >
-                                {lang.logo}
-                                <span className="text-white font-semibold text-base">{lang.name}</span>
+                                {/* Background Preview Image */}
+                                <div
+                                    className="absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                                    style={{
+                                        backgroundImage: `url(${item.image})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center',
+                                        filter: 'blur(8px)',
+                                        transform: 'scale(1.2)'
+                                    }}
+                                />
+                                <div
+                                    className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-white/20"
+                                />
+
+                                <h2
+                                    className="text-4xl md:text-6xl font-black relative z-10 group-hover:scale-110 transition-transform duration-300"
+                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                                >
+                                    {item.word}
+                                </h2>
                             </div>
                         ))}
                     </div>
                 </div>
+                <div
+                    className="absolute inset-0 flex flex-col items-center justify-center px-6"
+                    style={{
+                        opacity: sceneIndex === 3 ? 1 : 0,
+                        transition: 'opacity 0.6s ease'
+                    }}
+                >
+                    <h2
+                        className="text-6xl md:text-8xl font-black mb-12 relative z-10"
+                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    >
+                        OFF WE GO...
+                    </h2>
+
+                    {/* Curtain Reveal Hint */}
+                    <div className="flex flex-col items-center gap-4 relative z-10">
+                        <div className="text-sm text-gray-500 tracking-widest animate-pulse">
+                            SCROLL TO EXPLORE
+                        </div>
+                        <svg width="24" height="40" viewBox="0 0 24 40" className="animate-bounce">
+                            <rect x="8" y="4" width="8" height="32" rx="4" fill="none" stroke="white" strokeWidth="2"/>
+                            <circle cx="12" cy="12" r="2" fill="white">
+                                <animate attributeName="cy" values="12;24;12" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+
+                    {/* Curtain Edge Preview */}
+                    <div
+                        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+                        style={{
+                            background: 'linear-gradient(180deg, transparent 0%, #1A1A1A 100%)',
+                            opacity: 0.6
+                        }}
+                    />
+                </div>
             </div>
 
-            {/* Horizontal Scroll Projects */}
-            <div ref={projectsSectionRef} className="relative h-[300vh] bg-[#0f0e0d]">
-                <div className="sticky top-0 h-screen flex items-center overflow-hidden pt-16">
-                    <div
-                        ref={scrollContainerRef}
-                        className="flex gap-8 px-8 transition-transform duration-100 ease-out will-change-transform"
-                        style={{
-                            transform: `translateX(-${getTransformValue()}px)`
-                        }}
-                    >
-                        <div className="flex-shrink-0 w-[90vw] md:w-[600px] flex flex-col justify-center px-12">
-                            <h2 className="text-6xl md:text-7xl font-bold text-white mb-6 font-inter">
-                                Featured Projects
-                            </h2>
-                            <p className="text-xl text-gray-400 font-inter leading-relaxed">
-                                Explore my most important projects, ranging from video games to mobile applications.
-                            </p>
-                        </div>
+            {/* Main Content - Different Background Color */}
+            <div className="relative z-20 bg-[#1A1A1A]">
 
-                        {featuredProjects.map((project) => (
-                            <div
-                                key={project.id}
-                                className="flex-shrink-0 w-[90vw] md:w-[600px] bg-[#1a1816] rounded-lg overflow-hidden shadow-2xl"
+                {/* What's Happening Section - Now appears immediately after hero */}
+                {currentStatus && (
+                    <section className="py-32 px-6">
+                        <div className="max-w-7xl mx-auto">
+                            <h2
+                                className="text-5xl md:text-6xl font-black mb-16"
+                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                             >
-                                {/* Image with fallback */}
-                                <div className="h-64 md:h-80 bg-[#1a1816] overflow-hidden relative">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                            e.currentTarget.style.display = 'none';
-                                        }}
-                                    />
-                                    {/* Fallback — always rendered behind the image */}
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="text-gray-500 font-mono text-sm">[ {project.title} ]</span>
+                                WHAT'S HAPPENING
+                            </h2>
+
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                                {/* Latest Video */}
+                                <div className="border border-white/20 hover:border-[#FF2E63] transition-colors duration-300 group">
+                                    <div className="aspect-video overflow-hidden bg-black">
+                                        <img
+                                            src={currentStatus.latestVideo.thumbnail}
+                                            alt={currentStatus.latestVideo.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+
+                                    <div className="p-6">
+                                        <div className="text-xs text-gray-500 mb-2 tracking-wider">LATEST VIDEO</div>
+                                        <h3 className="text-2xl font-black mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                            {currentStatus.latestVideo?.title || 'Coming Soon'}
+                                        </h3>
+                                        <div className="flex gap-4 text-sm text-gray-500">
+                                            <span>{currentStatus.latestVideo?.uploadedAgo || 'Soon'}</span>
+                                        </div>
+                                        <a
+                                            href={currentStatus.latestVideo.url}
+                                            target="_blank"
+                                            className="inline-block mt-4 px-6 py-2 border border-white/20 hover:bg-white hover:text-black transition-all duration-300 text-sm tracking-wider"
+                                        >
+                                            WATCH NOW
+                                        </a>
                                     </div>
                                 </div>
-                                <div className="p-8">
-                                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-inter">{project.title}</h3>
-                                    <p className="text-gray-300 mb-6 font-inter text-lg leading-relaxed">{project.description}</p>
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.tags.map((tag: string) => (
-                                            <span
-                                                key={tag}
-                                                className="px-4 py-2 bg-brand-primary text-white rounded-full text-sm font-inter"
-                                            >
-                                                {tag}
-                                            </span>
+
+                                {/* Current Project */}
+                                <div className="border border-white/20">
+                                    <div className="p-6">
+                                        <div className="text-xs text-gray-500 mb-2 tracking-wider">CURRENT PROJECT</div>
+                                        <h3 className="text-4xl font-black mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                            {currentStatus.currentProject?.name || 'PROJECT NAME'}
+                                        </h3>
+                                        <p className="text-gray-400 mb-4">
+                                            {currentStatus.currentProject?.description || 'Project description'}
+                                        </p>
+                                        <div className="mb-4">
+                                            <div className="flex justify-between text-sm mb-2">
+                                                <span className="text-gray-500">{currentStatus.currentProject?.status || 'Status'}</span>
+                                                <span className="text-white">{currentStatus.currentProject?.progress || 0}%</span>
+                                            </div>
+                                            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                                                <div
+                                                    className="h-full bg-[#FF2E63] transition-all duration-500"
+                                                    style={{ width: `${currentStatus.currentProject?.progress || 0}%` }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="text-sm text-gray-500">
+                                            ETA: {currentStatus.currentProject?.eta || 'TBD'}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Next Stream */}
+                            {currentStatus.nextStream && (
+                                <div className="border border-white/20 p-8 bg-white/5">
+                                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                                        <div>
+                                            <div className="text-xs text-gray-500 mb-1 tracking-wider">NEXT STREAM</div>
+                                            <div className="text-3xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                                {currentStatus.nextStream.title}
+                                            </div>
+                                            <div className="text-gray-400 mt-2">
+                                                {new Date(currentStatus.nextStream.date).toLocaleDateString('en-US', {
+                                                    weekday: 'long',
+                                                    month: 'long',
+                                                    day: 'numeric',
+                                                    hour: 'numeric',
+                                                    minute: '2-digit'
+                                                })}
+                                            </div>
+                                        </div>
+                                        <a
+                                            href={currentStatus.nextStream.url}
+                                            target="_blank"
+                                            className="px-8 py-3 bg-[#FF2E63] hover:bg-[#FF2E63]/80 text-white font-black transition-all duration-300 text-sm tracking-wider"
+                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                                        >
+                                            VISIT TWITCH
+                                        </a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+                )}
+
+                {/* Featured Work */}
+                <section className="py-32 px-6 border-t border-white/10">
+                    <div className="max-w-7xl mx-auto">
+                        <h2
+                            className="text-5xl md:text-6xl font-black mb-16"
+                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                        >
+                            FEATURED WORK
+                        </h2>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {featuredProjects.map((project) => (
+                                <Link
+                                    key={project.id}
+                                    href={project.link || '#'}
+                                    target="_blank"
+                                    className="group border border-white/20 hover:border-[#FF2E63] transition-all duration-300"
+                                >
+                                    <div className="aspect-video bg-white/5 overflow-hidden relative">
+                                        {project.image ? (
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-gray-700">
+                                                [PROJECT IMAGE]
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-[#FF2E63]/0 group-hover:bg-[#FF2E63]/10 transition-colors duration-300" />
+                                    </div>
+                                    <div className="p-6">
+                                        <h3
+                                            className="text-2xl font-black mb-2 group-hover:text-[#FF2E63] transition-colors"
+                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                                        >
+                                            {project.title}
+                                        </h3>
+                                        <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                                            {project.description}
+                                        </p>
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.tags?.map((tag: string) => (
+                                                <span
+                                                    key={tag}
+                                                    className="px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-500"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* The Setup */}
+                {gear && (
+                    <section className="py-32 px-6 border-t border-white/10">
+                        <div className="max-w-7xl mx-auto">
+                            <h2
+                                className="text-5xl md:text-6xl font-black mb-16"
+                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                            >
+                                MY SETUP
+                            </h2>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {/* Coding */}
+                                <div>
+                                    <h3 className="text-2xl font-black mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        CODING
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {gear.coding?.map((item: any) => (
+                                            <div key={item.name} className="border-l-2 border-white/20 pl-4 hover:border-[#FF2E63] transition-colors">
+                                                <div className="text-sm text-gray-500">{item.category}</div>
+                                                <div className="font-medium">{item.name}</div>
+                                            </div>
                                         ))}
                                     </div>
-                                    <Link
-                                        href={project.link || `/projects/${project.id}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-block px-8 py-3 bg-brand-secondary text-white font-medium rounded-md hover:bg-[#EF4444] transition-colors font-inter text-lg"
-                                    >
-                                        View Project
-                                    </Link>
+                                </div>
+
+                                {/* Content Creation */}
+                                <div>
+                                    <h3 className="text-2xl font-black mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        CONTENT
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {gear.content?.map((item: any) => (
+                                            <div key={item.name} className="border-l-2 border-white/20 pl-4 hover:border-[#00E5FF] transition-colors">
+                                                <div className="text-sm text-gray-500">{item.category}</div>
+                                                <div className="font-medium">{item.name}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Gaming */}
+                                <div>
+                                    <h3 className="text-2xl font-black mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                        GAMING / STREAMING
+                                    </h3>
+                                    <div className="space-y-4">
+                                        {gear.gaming?.map((item: any) => (
+                                            <div key={item.name} className="border-l-2 border-white/20 pl-4 hover:border-[#CCFF00] transition-colors">
+                                                <div className="text-sm text-gray-500">{item.category}</div>
+                                                <div className="font-medium">{item.name}</div>
+                                                {item.specs && <div className="text-xs text-gray-600 mt-1">{item.specs}</div>}
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+                        </div>
+                    </section>
+                )}
 
-            {/* Contact CTA */}
-            <div className="bg-[#0f0e0d] py-32 px-6">
-                <div className="max-w-4xl mx-auto text-center">
-                    <Link
-                        href="/contact"
-                        className="inline-block text-5xl md:text-7xl font-bold font-inter relative group cursor-pointer"
-                    >
-                        <span className="relative z-10 bg-gradient-to-r from-gray-400 via-white to-gray-400 bg-clip-text text-transparent transition-all duration-700">
-                            Wanna get in touch?
-                        </span>
-                        <span className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out">
-                            Wanna get in touch?
-                        </span>
-                        <span className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center rounded-full"></span>
-                        <span className="absolute inset-0 blur-xl bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent opacity-0 group-hover:opacity-20 transition-opacity duration-700"></span>
-                    </Link>
-                </div>
+                {/* What's Next */}
+                {roadmap.length > 0 && (
+                    <section className="py-32 px-6 border-t border-white/10">
+                        <div className="max-w-7xl mx-auto">
+                            <h2
+                                className="text-5xl md:text-6xl font-black mb-16"
+                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                            >
+                                WHAT'S NEXT
+                            </h2>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {roadmap.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="border border-white/20 p-6 hover:border-[#FF2E63] transition-colors duration-300"
+                                    >
+                                        <div className="flex items-start gap-4">
+                                            <div className="text-4xl">{item.icon}</div>
+                                            <div className="flex-1">
+                                                <div className="flex items-start justify-between mb-2">
+                                                    <h3 className="text-xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                                                        {item.title}
+                                                    </h3>
+                                                    <span className={`text-xs px-2 py-1 ${
+                                                        item.status === 'Active' ? 'bg-[#FF2E63]/20 text-[#FF2E63]' :
+                                                            item.status === 'In Progress' ? 'bg-[#00E5FF]/20 text-[#00E5FF]' :
+                                                                'bg-white/10 text-gray-500'
+                                                    }`}>
+                                                        {item.status}
+                                                    </span>
+                                                </div>
+                                                <p className="text-sm text-gray-400 mb-2">{item.description}</p>
+                                                <div className="text-xs text-gray-600">ETA: {item.eta}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* Why Follow Me */}
+                <section className="py-32 px-6 border-t border-white/10">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <h2
+                            className="text-5xl md:text-6xl font-black mb-8"
+                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                        >
+                            WHY STICK AROUND?
+                        </h2>
+
+                        <p className="text-xl text-gray-400 mb-12 leading-relaxed max-w-2xl mx-auto">
+                            Follow along to see my day to day lifestyle as I figure out my identity as a 21 year old man located in Northern California. Explore the troubles of life through my endless passions in coding, content creation, gaming, car building, and gym bro'ing.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-12">
+                            {[
+                                'Real-time project updates',
+                                'Regularly scheduled videos/streams',
+                            ].map((item) => (
+                                <div key={item} className="flex items-center gap-3">
+                                    <div className="w-2 h-2 bg-[#FF2E63]" />
+                                    <span className="text-gray-300">{item}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <form onSubmit={handleSubscribe} className="max-w-md mx-auto mb-12">
+                            <div className="flex gap-3">
+                                <input
+                                    type="email"
+                                    value={subscribeEmail}
+                                    onChange={(e) => setSubscribeEmail(e.target.value)}
+                                    placeholder="your@email.com"
+                                    required
+                                    disabled={subscribeStatus === 'loading'}
+                                    className="flex-1 px-4 py-3 bg-white/5 border border-white/20 focus:border-[#FF2E63] text-white placeholder-gray-600 outline-none transition-colors disabled:opacity-50"
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={subscribeStatus === 'loading'}
+                                    className="px-8 py-3 bg-[#FF2E63] hover:bg-[#FF2E63]/80 text-white font-black tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                                >
+                                    {subscribeStatus === 'loading' ? 'SENDING...' : 'SUBSCRIBE'}
+                                </button>
+                            </div>
+                            {subscribeStatus === 'success' && (
+                                <p className="text-[#00E5FF] text-sm mt-3 text-center">✓ Subscribed! You'll get updates soon.</p>
+                            )}
+                            {subscribeStatus === 'error' && (
+                                <p className="text-[#FF2E63] text-sm mt-3 text-center">✗ Failed. Please try again.</p>
+                            )}
+                        </form>
+                    </div>
+                </section>
             </div>
         </div>
     );

@@ -1,0 +1,21 @@
+{
+  "latestVideo": {
+    "title": "Could not fetch data",
+    "url": "https://youtube.com/@seriousreal",
+    "thumbnail": "/imgs/video-placeholder.jpg",
+    "uploadedAgo": "Could not fetch data"
+  },
+  "currentProject": {
+    "name": "Moving Away From My Entire Life",
+    "status": "Final Edits",
+    "progress": 90,
+    "eta": "1 week",
+    "description": "My next video centered on my move away from my life in Arizona to begin my new life."
+  },
+  "nextStream": {
+    "date": "2026-02-20T17:30:00",
+    "platform": "Twitch",
+    "url": "https://twitch.tv/s_rious",
+    "title": "Title and Stream Category TBD"
+  }
+}

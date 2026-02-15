@@ -4,14 +4,11 @@ import Link from 'next/link';
 import MDXContent from '@/components/mdx/MDXContent';
 import { getPostBySlug, getPostSlugs, Post } from '@/lib/mdx';
 
-// Generate static paths
 export async function generateStaticParams() {
     const slugs = getPostSlugs();
-    if (!slugs.length) console.warn('No blog posts found at build time!');
     return slugs.map(slug => ({ slug }));
 }
 
-// Pre-fetch metadata
 export async function generateMetadata({
                                            params,
                                        }: {
@@ -26,67 +23,127 @@ export async function generateMetadata({
     };
 }
 
-// Page component
 export default function BlogPost({ params }: { params: { slug: string } }) {
     const post: Post | null = getPostBySlug(params.slug);
     if (!post) notFound();
+    const parseLocalDate = (dateStr: string) => {
+        const [year, month, day] = dateStr.split('-').map(Number)
+        return new Date(year, month - 1, day)
+    }
+
 
     return (
-        <div className="min-h-screen bg-[#0f0e0d] p-8 pt-28">
-            <div className="max-w-4xl mx-auto">
-                <div className="relative bg-black rounded-lg border border-white/20 shadow-2xl overflow-hidden">
-                    {/* Terminal header */}
-                    <div className="bg-[#1a1816] border-b border-white/10 px-4 py-3 flex items-center justify-between">
-                        <Link href="/blog" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors duration-300 group">
-                            <div className="flex gap-1.5">
-                                <div className="w-3 h-3 rounded-full bg-brand-secondary group-hover:bg-[#EF4444] transition-colors"></div>
-                                <div className="w-3 h-3 rounded-full bg-brand-accent group-hover:bg-brand-accent/80 transition-colors"></div>
-                                <div className="w-3 h-3 rounded-full bg-brand-primary group-hover:bg-brand-primary/80 transition-colors"></div>
-                            </div>
-                            <span className="text-sm font-mono ml-2">← BLOG</span>
-                        </Link>
-
-                        <div className="absolute left-1/2 transform -translate-x-1/2 text-gray-500 text-sm font-mono">
-                            blog/{post.slug}
-                        </div>
-
-                        <div className="text-gray-500 text-xs font-mono">
-                            {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                        </div>
+        <div className="min-h-screen bg-black text-white">
+            {/* Hero Image */}
+            {post.image ? (
+                <div className="relative w-full h-[60vh] overflow-hidden">
+                    <img
+                        src={post.image}
+                        alt={post.title}
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
+                </div>
+            ) : (
+                <div className="relative w-full h-[40vh] bg-white/5 flex items-center justify-center">
+                    <div className="text-center">
+                        <div className="text-8xl mb-4">📝</div>
+                        <div className="text-sm text-gray-600">[HERO IMAGE PLACEHOLDER]</div>
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black" />
+                </div>
+            )}
 
-                    <div className="p-8 md:p-12">
-                        {post.image && (
-                            <div className="mb-8 rounded-lg overflow-hidden border border-white/20">
-                                <img src={post.image} alt={post.title} className="w-full h-auto" />
-                            </div>
-                        )}
+            {/* Content */}
+            <div className="relative -mt-32 pt-32">
+                <div className="max-w-4xl mx-auto px-6 pb-20">
 
-                        <article>
-                            <h1 className="text-3xl md:text-5xl font-bold mb-6 font-inter text-white leading-tight">
-                                {post.title}
-                            </h1>
+                    {/* Back Link */}
+                    <Link
+                        href="/blog"
+                        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors mb-8 group"
+                    >
+                        <span className="group-hover:-translate-x-1 transition-transform duration-300">←</span>
+                        <span>BACK TO BLOG</span>
+                    </Link>
 
-                            <div className="flex flex-wrap gap-2 mb-8 pb-6 border-b border-white/10">
-                                {post.tags.map(tag => (
-                                    <span key={tag} className="px-3 py-1 bg-white/5 backdrop-blur-sm text-brand-primary border border-brand-primary/30 rounded-md text-xs font-mono">
-                    #{tag}
-                  </span>
+                    {/* Article Header */}
+                    <article>
+                        <div className="mb-12">
+                            {/* Tags */}
+                            <div className="flex flex-wrap gap-2 mb-6">
+                                {post.tags?.map((tag: string) => (
+                                    <span
+                                        key={tag}
+                                        className="px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-500 tracking-wider"
+                                    >
+                                        #{tag}
+                                    </span>
                                 ))}
                             </div>
 
-                            <div className="prose prose-invert max-w-none">
-                                <MDXContent content={post.content} />
+                            {/* Title */}
+                            <h1
+                                className="text-5xl md:text-7xl font-black mb-6 leading-tight"
+                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                            >
+                                {post.title}
+                            </h1>
+
+                            {/* Meta */}
+                            <div className="flex items-center gap-6 text-sm text-gray-500">
+                                <span>
+                                    {parseLocalDate(post.date).toLocaleDateString('en-US', {
+                                        month: 'short',
+                                        day: 'numeric',
+                                        year: 'numeric'
+                                    })}
+                                </span>
+                                <span>•</span>
+                                <span>Cameron Rydwell</span>
                             </div>
 
-                            <div className="mt-12 pt-6 border-t border-white/10">
-                                <Link href="/blog" className="inline-flex items-center gap-2 text-brand-secondary hover:text-brand-accent font-mono text-sm transition-colors duration-300 group">
+                            <div className="w-full h-px bg-white/10 mt-8" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="prose prose-invert prose-lg max-w-none">
+                            <MDXContent content={post.content} />
+                        </div>
+
+                        {/* Footer */}
+                        <div className="mt-16 pt-8 border-t border-white/10">
+                            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                                <Link
+                                    href="/blog"
+                                    className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group"
+                                >
                                     <span className="group-hover:-translate-x-1 transition-transform duration-300">←</span>
-                                    <span>RETURN TO BLOG</span>
+                                    <span>BACK TO BLOG</span>
                                 </Link>
+
+                                <div className="flex items-center gap-4">
+                                    <span className="text-sm text-gray-600">SHARE:</span>
+                                    <a
+                                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://camry.dev/blog/${post.slug}`)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-gray-500 hover:text-[#FF2E63] transition-colors"
+                                    >
+                                        TWITTER
+                                    </a>
+                                    <a
+                                        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://camry.dev/blog/${post.slug}`)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-gray-500 hover:text-[#FF2E63] transition-colors"
+                                    >
+                                        LINKEDIN
+                                    </a>
+                                </div>
                             </div>
-                        </article>
-                    </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </div>
