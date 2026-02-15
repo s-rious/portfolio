@@ -5,15 +5,12 @@ import MDXContent from '@/components/mdx/MDXContent';
 import { getPostBySlug, getPostSlugs, Post } from '@/lib/mdx';
 
 export async function generateStaticParams() {
-    const slugs = getPostSlugs();
+    // async-safe
+    const slugs = getPostSlugs(); // now wrapped in try/catch
     return slugs.map(slug => ({ slug }));
 }
 
-export async function generateMetadata({
-                                           params,
-                                       }: {
-    params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const post = getPostBySlug(params.slug);
     if (!post) notFound();
 
@@ -26,22 +23,18 @@ export async function generateMetadata({
 export default function BlogPost({ params }: { params: { slug: string } }) {
     const post: Post | null = getPostBySlug(params.slug);
     if (!post) notFound();
+
     const parseLocalDate = (dateStr: string) => {
         const [year, month, day] = dateStr.split('-').map(Number)
         return new Date(year, month - 1, day)
     }
-
 
     return (
         <div className="min-h-screen bg-black text-white">
             {/* Hero Image */}
             {post.image ? (
                 <div className="relative w-full h-[60vh] overflow-hidden">
-                    <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover"
-                    />
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black" />
                 </div>
             ) : (
@@ -57,36 +50,24 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             {/* Content */}
             <div className="relative -mt-32 pt-32">
                 <div className="max-w-4xl mx-auto px-6 pb-20">
-
-                    {/* Back Link */}
-                    <Link
-                        href="/blog"
-                        className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors mb-8 group"
-                    >
+                    <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors mb-8 group">
                         <span className="group-hover:-translate-x-1 transition-transform duration-300">←</span>
                         <span>BACK TO BLOG</span>
                     </Link>
 
-                    {/* Article Header */}
                     <article>
                         <div className="mb-12">
                             {/* Tags */}
                             <div className="flex flex-wrap gap-2 mb-6">
-                                {post.tags?.map((tag: string) => (
-                                    <span
-                                        key={tag}
-                                        className="px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-500 tracking-wider"
-                                    >
+                                {post.tags?.map(tag => (
+                                    <span key={tag} className="px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-500 tracking-wider">
                                         #{tag}
                                     </span>
                                 ))}
                             </div>
 
                             {/* Title */}
-                            <h1
-                                className="text-5xl md:text-7xl font-black mb-6 leading-tight"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
+                            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                 {post.title}
                             </h1>
 
@@ -106,7 +87,6 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                             <div className="w-full h-px bg-white/10 mt-8" />
                         </div>
 
-                        {/* Content */}
                         <div className="prose prose-invert prose-lg max-w-none">
                             <MDXContent content={post.content} />
                         </div>
@@ -114,10 +94,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                         {/* Footer */}
                         <div className="mt-16 pt-8 border-t border-white/10">
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                                <Link
-                                    href="/blog"
-                                    className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group"
-                                >
+                                <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors group">
                                     <span className="group-hover:-translate-x-1 transition-transform duration-300">←</span>
                                     <span>BACK TO BLOG</span>
                                 </Link>
