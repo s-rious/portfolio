@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start"
   },
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "dependencies": {
     "gray-matter": "latest",
     "next": "^16.1.6",
