@@ -37,7 +37,7 @@ export default function Home() {
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-    useEffect(() => {
+    /* useEffect(() => {
         fetch('/api/youtube/rss')
             .then(res => res.json())
             .then(data => {
@@ -52,7 +52,7 @@ export default function Home() {
                 }))
             })
             .catch(console.error)
-    }, [])
+    }, []) */
 
 
     const handleSubscribe = async (e: React.FormEvent) => {
@@ -85,15 +85,17 @@ export default function Home() {
     };
 
     // Hero scroll logic (now 4 scenes instead of 5)
-    const heroScrollHeight = typeof window !== 'undefined' ? window.innerHeight * 4 : 4000;
+    const [heroScrollHeight, setHeroScrollHeight] = useState(4000) // SSR fallback
+    useEffect(() => {
+        setHeroScrollHeight(window.innerHeight * 4)
+    }, [])
+
     const sceneIndex = Math.min(3, Math.floor((scrollY / heroScrollHeight) * 4));
 
     return (
         <div className="bg-black text-white">
-
             {/* Spacer for hero scroll */}
             <div style={{ height: `${heroScrollHeight}px` }} />
-
             {/* Sticky Hero */}
             <div
                 className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-10"
