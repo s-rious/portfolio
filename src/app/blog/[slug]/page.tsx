@@ -4,15 +4,28 @@ import Link from 'next/link';
 import MDXContent from '@/components/mdx/MDXContent';
 import { getPostBySlug, getPostSlugs, Post } from '@/lib/mdx';
 
+// This function is required for static generation
 export async function generateStaticParams() {
-    // async-safe
-    const slugs = getPostSlugs(); // now wrapped in try/catch
-    return slugs.map(slug => ({ slug }));
+    const slugs = getPostSlugs();
+    return slugs.map((slug) => ({
+        slug: slug,
+    }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const post = getPostBySlug(params.slug);
-    if (!post) notFound();
+// Generate metadata for each post
+export async function generateMetadata({
+                                           params
+                                       }: {
+    params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+    const resolvedParams = await params;
+    const post = getPostBySlug(resolvedParams.slug);
+
+    if (!post) {
+        return {
+            title: 'Post Not Found',
+        };
+    }
 
     return {
         title: post.title,
@@ -20,14 +33,22 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-    const post: Post | null = getPostBySlug(params.slug);
-    if (!post) notFound();
+export default async function BlogPost({
+                                           params
+                                       }: {
+    params: Promise<{ slug: string }>
+}) {
+    const resolvedParams = await params;
+    const post: Post | null = getPostBySlug(resolvedParams.slug);
+
+    if (!post) {
+        notFound();
+    }
 
     const parseLocalDate = (dateStr: string) => {
-        const [year, month, day] = dateStr.split('-').map(Number)
-        return new Date(year, month - 1, day)
-    }
+        const [year, month, day] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    };
 
     return (
         <div className="min-h-screen bg-black text-white">
