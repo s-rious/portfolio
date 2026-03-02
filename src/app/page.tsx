@@ -1,486 +1,488 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import TickerSection from '@/components/TickerSection';
 
+// ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
+
+function Label({ children }: { children: React.ReactNode }) {
+    return (
+        <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--gray-500)',
+        }}>{children}</span>
+    );
+}
+
+// ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function Home() {
     const [scrollY, setScrollY] = useState(0);
-    const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
-    const [currentStatus, setCurrentStatus] = useState<any>(null);
-    const [gear, setGear] = useState<any>(null);
-    const [roadmap, setRoadmap] = useState<any[]>([]);
-    const [subscribeEmail, setSubscribeEmail] = useState('');
-    const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [projects, setProjects]       = useState<any[]>([]);
+    const [status, setStatus]           = useState<any>(null);
+    const [gear, setGear]               = useState<any>(null);
+    const [roadmap, setRoadmap]         = useState<any[]>([]);
+    const [email, setEmail]             = useState('');
+    const [subStatus, setSubStatus]     = useState<'idle'|'loading'|'success'|'error'>('idle');
+    const [heroH, setHeroH]             = useState(2000);
 
     useEffect(() => {
-        // Load all data
+        setHeroH(window.innerHeight * 2.4);
+        const onScroll = () => setScrollY(window.scrollY);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
+
+    useEffect(() => {
         Promise.all([
             import('@/data/projects.json'),
             import('@/data/currentStatus.json'),
             import('@/data/gear.json'),
-            import('@/data/roadmap.json')
-        ]).then(([projectsData, statusData, gearData, roadmapData]) => {
-            setFeaturedProjects(projectsData.default.filter((p: any) => p.featured).slice(0, 3));
-            setCurrentStatus(statusData.default);
-            setGear(gearData.default);
-            setRoadmap(roadmapData.default);
-        }).catch(() => {
-            // Fallback if files don't exist yet
-            import('@/data/projects.json').then((data) => {
-                setFeaturedProjects(data.default.filter((p: any) => p.featured).slice(0, 3));
-            });
+            import('@/data/roadmap.json'),
+        ]).then(([p, s, g, r]) => {
+            setProjects(p.default.filter((x: any) => x.featured).slice(0, 3));
+            setStatus(s.default);
+            setGear(g.default);
+            setRoadmap(r.default);
         });
     }, []);
 
-    useEffect(() => {
-        const handleScroll = () => setScrollY(window.scrollY);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const progress = Math.min(1, scrollY / heroH);
+    const scene    = Math.min(1, Math.floor(progress * 2));
 
-    const handleSubscribe = async (e: React.FormEvent) => {
+    const handleSub = async (e: React.FormEvent) => {
         e.preventDefault();
-        setSubscribeStatus('loading');
-
+        setSubStatus('loading');
         try {
-            const response = await fetch('https://api.web3forms.com/submit', {
+            const r = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    access_key: 'bbae9f51-efb6-45bc-beaa-7a8585764cbf', // Same key as contact form
-                    subject: 'New Subscriber',
-                    email: subscribeEmail,
-                    message: `New subscriber: ${subscribeEmail}`
+                    access_key: 'bbae9f51-efb6-45bc-beaa-7a8585764cbf',
+                    subject: 'New Subscriber — CAMRY.DEV',
+                    email,
+                    message: `New subscriber: ${email}`,
                 }),
             });
-
-            if (response.ok) {
-                setSubscribeStatus('success');
-                setSubscribeEmail('');
-                setTimeout(() => setSubscribeStatus('idle'), 5000);
-            } else {
-                new Error('Failed');
-            }
-        } catch (error) {
-            setSubscribeStatus('error');
-            setTimeout(() => setSubscribeStatus('idle'), 5000);
-        }
+            if (r.ok) { setSubStatus('success'); setEmail(''); }
+            else new Error();
+        } catch { setSubStatus('error'); }
+        setTimeout(() => setSubStatus('idle'), 5000);
     };
 
-    // Hero scroll logic (now 4 scenes instead of 5)
-    const [heroScrollHeight, setHeroScrollHeight] = useState(4000) // SSR fallback
-    useEffect(() => {
-        setHeroScrollHeight(window.innerHeight * 4)
-    }, [])
-
-    const sceneIndex = Math.min(3, Math.floor((scrollY / heroScrollHeight) * 4));
-
+    // ── RENDER ───────────────────────────────────────────────────────────────
     return (
-        <div className="bg-black text-white">
-            <style jsx>{`
-                .interest-card:hover .interest-bg {
-                    opacity: 0.2 !important;
-                }
-                .interest-card:hover .interest-glow {
-                    opacity: 1 !important;
-                }
-                .interest-card:hover .interest-text {
-                    transform: scale(1.1) !important;
-                    color: #FF2E63 !important;
-                }
-            `}</style>
-            {/* Spacer for hero scroll */}
-            <div style={{ height: `${heroScrollHeight}px` }} />
-            {/* Sticky Hero */}
-            <div
-                className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-10"
-                style={{
-                    opacity: scrollY < heroScrollHeight ? 1 : 0,
-                    pointerEvents: scrollY < heroScrollHeight ? 'auto' : 'none'
-                }}
-            >
-                {/* Scene 0: Name + Title */}
-                <div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-6"
-                    style={{
-                        opacity: sceneIndex === 0 ? 1 : 0,
-                        transition: 'opacity 0.6s ease'
-                    }}
-                >
-                    <h1
-                        className="text-7xl md:text-9xl font-black tracking-tight mb-4"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        CAMERON RYDWELL
-                    </h1>
-                    <div className="w-32 h-1 bg-white mb-6" />
-                    <p className="text-xl md:text-2xl text-gray-400 tracking-wide">
-                        Content Creator × Engineer
-                    </p>
-                </div>
+        <div style={{ background: 'var(--black)', color: 'var(--white)' }}>
 
-                {/* Scene 1: What You Do Grid */}
-                <div
-                    className="absolute inset-0 flex items-center justify-center px-6"
-                    style={{
-                        opacity: sceneIndex === 1 ? 1 : 0,
-                        transition: 'opacity 0.6s ease'
-                    }}
-                >
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16 max-w-4xl">
-                        {[
-                            { word: 'GAMES', image: '/imgs/interests/games.png' },
-                            { word: 'CODE', image: '/imgs/interests/code.jpg' },
-                            { word: 'CARS', image: '/imgs/interests/cars.jpg' },
-                            { word: 'FILM', image: '/imgs/interests/film.png' },
-                            { word: 'ESPORTS', image: '/imgs/interests/esports.jpg' },
-                            { word: 'GYM', image: '/imgs/interests/gym.jpg' },
-                        ].map((item, i) => (
-                            <div
-                                key={item.word}
-                                className="interest-card text-center relative cursor-pointer h-32 md:h-40 flex items-center justify-center overflow-hidden"
-                                style={{
-                                    animation: `fadeInUp 0.6s ease-out ${i * 0.1}s both`
-                                }}
-                            >
-                                {/* Background Preview Image */}
-                                <div
-                                    className="interest-bg absolute inset-0"
-                                    style={{
-                                        backgroundImage: `url(${item.image})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        filter: 'blur(8px)',
-                                        transform: 'scale(1.2)',
-                                        opacity: 0,
-                                        transition: 'opacity 0.5s'
-                                    }}
-                                />
+            {/* ═══════════════════════════════════════════════════════ HERO SCROLL */}
+            <div style={{ height: `${heroH}px` }} />
 
-                                {/* Gradient overlay */}
-                                <div
-                                    className="interest-glow absolute inset-0"
-                                    style={{
-                                        background: 'radial-gradient(circle at center, rgba(255, 46, 99, 0.3), transparent 70%)',
-                                        opacity: 0,
-                                        transition: 'opacity 0.5s'
-                                    }}
-                                />
+            <div style={{
+                position: 'fixed',
+                inset: 0,
+                zIndex: 10,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: scrollY < heroH ? 1 : 0,
+                pointerEvents: scrollY < heroH ? 'auto' : 'none',
+                transition: 'opacity 0.6s ease',
+            }}>
 
-                                <h2
-                                    className="interest-text text-4xl md:text-6xl font-black relative z-10"
-                                    style={{
-                                        fontFamily: "'Bebas Neue', sans-serif",
-                                        transition: 'all 0.3s'
-                                    }}
-                                >
-                                    {item.word}
-                                </h2>
-                            </div>
-                        ))}
+                {/* SCENE 0 — Identity */}
+                <div style={{
+                    position: 'absolute', inset: 0,
+                    display: 'flex', flexDirection: 'column',
+                    justifyContent: 'center',
+                    padding: '0 6vw',
+                    opacity: scene === 0 ? 1 : 0,
+                    transition: 'opacity 0.7s ease',
+                    pointerEvents: 'none',
+                }}>
+                    {/* Top label */}
+                    <div style={{ position: 'absolute', top: '5rem', left: '6vw', right: '6vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Label>Sacramento, CA — Available for Partnerships</Label>
+                        <Label>camry.dev</Label>
                     </div>
-                </div>
-                <div
-                    className="absolute inset-0 flex flex-col items-center justify-center px-6"
-                    style={{
-                        opacity: sceneIndex === 3 ? 1 : 0,
-                        transition: 'opacity 0.6s ease'
-                    }}
-                >
-                    <h2
-                        className="text-6xl md:text-8xl font-black mb-12 relative z-10"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        OFF WE GO...
-                    </h2>
 
-                    {/* Curtain Reveal Hint */}
-                    <div className="flex flex-col items-center gap-4 relative z-10">
-                        <div className="text-sm text-gray-500 tracking-widest animate-pulse">
-                            SCROLL TO EXPLORE
+                    {/* Main name */}
+                    <div style={{ overflow: 'hidden' }}>
+                        <h1 style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: 'clamp(5rem, 16vw, 15rem)',
+                            lineHeight: 0.88,
+                            letterSpacing: '-0.01em',
+                            color: 'var(--white)',
+                            animation: 'fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both',
+                        }}>
+                            CAMERON
+                        </h1>
+                    </div>
+                    <div style={{ overflow: 'hidden' }}>
+                        <h1 style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: 'clamp(5rem, 16vw, 15rem)',
+                            lineHeight: 0.88,
+                            letterSpacing: '-0.01em',
+                            color: 'var(--white)',
+                            animation: 'fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.08s both',
+                            WebkitTextStroke: '1px var(--white)',
+                            WebkitTextFillColor: 'transparent',
+                        }}>
+                            RYDWELL
+                        </h1>
+                    </div>
+
+                    {/* Bottom row */}
+                    <div style={{
+                        position: 'absolute', bottom: '4rem', left: '6vw', right: '6vw',
+                        display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
+                        animation: 'fadeIn 1s ease 0.4s both',
+                    }}>
+                        <div>
+                            <Label>Role</Label>
+                            <p style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '0.85rem',
+                                letterSpacing: '0.1em',
+                                color: 'var(--gray-200)',
+                                marginTop: '6px',
+                            }}>
+                                Engineer × Creator × Visionary
+                            </p>
                         </div>
-                        <svg width="24" height="40" viewBox="0 0 24 40" className="animate-bounce">
-                            <rect x="8" y="4" width="8" height="32" rx="4" fill="none" stroke="white" strokeWidth="2"/>
-                            <circle cx="12" cy="12" r="2" fill="white">
-                                <animate attributeName="cy" values="12;24;12" dur="2s" repeatCount="indefinite"/>
-                            </circle>
-                        </svg>
+                        <div style={{ textAlign: 'right' }}>
+                            <Label>Scroll to enter</Label>
+                            <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'flex-end' }}>
+                                <svg width="18" height="32" viewBox="0 0 18 32" fill="none">
+                                    <rect x="1" y="1" width="16" height="30" rx="8" stroke="var(--gray-600)" strokeWidth="1.5" />
+                                    <circle cx="9" cy="9" r="2.5" fill="var(--red)">
+                                        <animate attributeName="cy" values="9;22;9" dur="2.2s" repeatCount="indefinite" />
+                                    </circle>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    {/* Curtain Edge Preview */}
-                    <div
-                        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-                        style={{
-                            background: 'linear-gradient(180deg, transparent 0%, #1A1A1A 100%)',
-                            opacity: 0.6
-                        }}
-                    />
+                {/* SCENE 1 — Transition */}
+                <div style={{
+                    position: 'absolute', inset: 0,
+                    display: 'flex', flexDirection: 'column',
+                    alignItems: 'center', justifyContent: 'center',
+                    opacity: scene === 1 ? 1 : 0,
+                    transition: 'opacity 0.7s ease',
+                    pointerEvents: 'none',
+                }}>
+                    <h2 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: 'clamp(3rem, 10vw, 9rem)',
+                        letterSpacing: '0.02em',
+                        color: 'var(--white)',
+                        textAlign: 'center',
+                    }}>
+                        DEFINE.
+                    </h2>
+                    <p style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.7rem',
+                        letterSpacing: '0.2em',
+                        color: 'var(--gray-500)',
+                        marginTop: '1.5rem',
+                    }}>
+                        — KEEP SCROLLING —
+                    </p>
                 </div>
             </div>
 
-            {/* Main Content - Different Background Color */}
-            <div className="relative z-20 bg-[#1A1A1A]">
+            {/* ═══════════════════════════════════════════════════ MAIN CONTENT */}
+            <div style={{ position: 'relative', zIndex: 20, background: 'var(--gray-900)' }}>
 
-                {/* What's Happening Section - Now appears immediately after hero */}
-                {currentStatus && (
-                    <section className="py-32 px-6">
-                        <div className="max-w-7xl mx-auto">
-                            <h2
-                                className="text-5xl md:text-6xl font-black mb-16"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
-                                WHAT'S HAPPENING
-                            </h2>
+                {/* ── TICKER ───────────────────────────────────────── */}
+                <TickerSection />
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                                {/* Latest Video */}
-                                <div className="border border-white/20 hover:border-[#FF2E63] transition-colors duration-300 group">
-                                    <div className="aspect-video overflow-hidden bg-black">
-                                        <img
-                                            src={currentStatus.latestVideo.thumbnail}
-                                            alt={currentStatus.latestVideo.title}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
+                {/* ── SECTION: WHAT'S HAPPENING ────────────────────── */}
+                {status && (
+                    <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
-                                    <div className="p-6">
-                                        <div className="text-xs text-gray-500 mb-2 tracking-wider">LATEST VIDEO</div>
-                                        <h3 className="text-2xl font-black mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                            {currentStatus.latestVideo?.title || 'Coming Soon'}
-                                        </h3>
-                                        <div className="flex gap-4 text-sm text-gray-500">
-                                            <span>{currentStatus.latestVideo?.uploadedAgo || 'Soon'}</span>
-                                        </div>
-                                        <a
-                                            href={currentStatus.latestVideo.url}
-                                            target="_blank"
-                                            className="inline-block mt-4 px-6 py-2 border border-white/20 hover:bg-white hover:text-black transition-all duration-300 text-sm tracking-wider"
-                                        >
-                                            WATCH NOW
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {/* Current Project */}
-                                <div className="border border-white/20">
-                                    <div className="p-6">
-                                        <div className="text-xs text-gray-500 mb-2 tracking-wider">CURRENT PROJECT</div>
-                                        <h3 className="text-4xl font-black mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                            {currentStatus.currentProject?.name || 'PROJECT NAME'}
-                                        </h3>
-                                        <p className="text-gray-400 mb-4">
-                                            {currentStatus.currentProject?.description || 'Project description'}
-                                        </p>
-                                        <div className="mb-4">
-                                            <div className="flex justify-between text-sm mb-2">
-                                                <span className="text-gray-500">{currentStatus.currentProject?.status || 'Status'}</span>
-                                                <span className="text-white">{currentStatus.currentProject?.progress || 0}%</span>
-                                            </div>
-                                            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                                                <div
-                                                    className="h-full bg-[#FF2E63] transition-all duration-500"
-                                                    style={{ width: `${currentStatus.currentProject?.progress || 0}%` }}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="text-sm text-gray-500">
-                                            ETA: {currentStatus.currentProject?.eta || 'TBD'}
-                                        </div>
-                                    </div>
-                                </div>
+                            {/* Header row */}
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
+                                    WHAT'S HAPPENING
+                                </h2>
+                                <Label>Updated regularly</Label>
                             </div>
 
-                            {/* Next Stream */}
-                            {currentStatus.nextStream && (
-                                <div className="border border-white/20 p-8 bg-white/5">
-                                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                                        <div>
-                                            <div className="text-xs text-gray-500 mb-1 tracking-wider">NEXT STREAM</div>
-                                            <div className="text-3xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                                {currentStatus.nextStream.title}
-                                            </div>
-                                            <div className="text-gray-400 mt-2">
-                                                {new Date(currentStatus.nextStream.date).toLocaleDateString('en-US', {
-                                                    weekday: 'long',
-                                                    month: 'long',
-                                                    day: 'numeric',
-                                                    hour: 'numeric',
-                                                    minute: '2-digit'
-                                                })}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1px', background: 'var(--gray-800)' }}>
+
+                                {/* Latest Video */}
+                                <div style={{ background: 'var(--gray-900)', padding: '0' }}>
+                                    <a href={status.latestVideo.url} target="_blank" rel="noopener noreferrer"
+                                       style={{ display: 'block', textDecoration: 'none' }}>
+                                        <div style={{ aspectRatio: '16/9', overflow: 'hidden', position: 'relative' }}>
+                                            <img src={status.latestVideo.thumbnail} alt={status.latestVideo.title}
+                                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(20%)', transition: 'filter 0.4s, transform 0.4s' }}
+                                                 className="video-thumb"
+                                            />
+                                            <div style={{
+                                                position: 'absolute', inset: 0,
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                background: 'rgba(8,8,8,0.35)',
+                                                transition: 'background 0.3s',
+                                            }}
+                                                 className="video-overlay"
+                                            >
+                                                <div style={{
+                                                    width: '52px', height: '52px',
+                                                    border: '1.5px solid var(--white)',
+                                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                    transition: 'background 0.2s',
+                                                }}
+                                                     className="play-btn"
+                                                >
+                                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="var(--white)">
+                                                        <path d="M0 0L16 9L0 18V0Z" />
+                                                    </svg>
+                                                </div>
                                             </div>
                                         </div>
-                                        <a
-                                            href={currentStatus.nextStream.url}
-                                            target="_blank"
-                                            className="px-8 py-3 bg-[#FF2E63] hover:bg-[#FF2E63]/80 text-white font-black transition-all duration-300 text-sm tracking-wider"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                                    </a>
+                                    <div style={{ padding: '1.75rem' }}>
+                                        <Label>Latest Video</Label>
+                                        <h3 style={{
+                                            fontFamily: 'var(--font-display)',
+                                            fontSize: '1.75rem',
+                                            letterSpacing: '0.03em',
+                                            margin: '0.5rem 0 0.75rem',
+                                            lineHeight: 1.1,
+                                        }}>
+                                            {status.latestVideo.title}
+                                        </h3>
+                                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)', marginBottom: '1.25rem' }}>
+                                            {status.latestVideo.uploadedAgo}
+                                        </p>
+                                        <a href={status.latestVideo.url} target="_blank" rel="noopener noreferrer"
+                                           style={{
+                                               display: 'inline-block',
+                                               fontFamily: 'var(--font-mono)',
+                                               fontSize: '0.65rem',
+                                               letterSpacing: '0.14em',
+                                               color: 'var(--white)',
+                                               textDecoration: 'none',
+                                               border: '1px solid var(--white)',
+                                               padding: '0.6rem 1.2rem',
+                                               transition: 'background 0.2s, color 0.2s',
+                                           }}
+                                           onMouseEnter={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.color = 'var(--black)'; }}
+                                           onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--white)'; }}
                                         >
-                                            VISIT TWITCH
+                                            WATCH NOW ↗
                                         </a>
                                     </div>
                                 </div>
-                            )}
+
+                                {/* Current Project + Next Stream stacked */}
+                                <div style={{ background: 'var(--gray-900)', display: 'flex', flexDirection: 'column' }}>
+
+                                    {/* Current Project */}
+                                    <div style={{ padding: '1.75rem', flex: 1 }}>
+                                        <Label>Current Project</Label>
+                                        <h3 style={{
+                                            fontFamily: 'var(--font-display)',
+                                            fontSize: 'clamp(2rem, 4vw, 3rem)',
+                                            letterSpacing: '0.03em',
+                                            margin: '0.5rem 0 0.75rem',
+                                            lineHeight: 1.1,
+                                        }}>
+                                            {status.currentProject.name}
+                                        </h3>
+                                        <p style={{
+                                            fontFamily: 'var(--font-body)',
+                                            fontSize: '1rem',
+                                            color: 'var(--gray-400)',
+                                            marginBottom: '2rem',
+                                            lineHeight: 1.6,
+                                        }}>
+                                            {status.currentProject.description}
+                                        </p>
+
+                                        {/* Progress */}
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                          {status.currentProject.status}
+                        </span>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--white)' }}>
+                          {status.currentProject.progress}%
+                        </span>
+                                            </div>
+                                            <div style={{ height: '1px', background: 'var(--gray-700)', position: 'relative' }}>
+                                                <div style={{
+                                                    position: 'absolute', top: 0, left: 0, bottom: 0,
+                                                    width: `${status.currentProject.progress}%`,
+                                                    background: 'var(--red)',
+                                                }} />
+                                            </div>
+                                        </div>
+
+                                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                                            ETA — {status.currentProject.eta}
+                                        </p>
+                                    </div>
+
+                                    {/* Next Stream — its own visual block */}
+                                    {status.nextStream && (
+                                        <a href={status.nextStream.url} target="_blank" rel="noopener noreferrer"
+                                           style={{
+                                               display: 'block',
+                                               textDecoration: 'none',
+                                               borderTop: '1px solid var(--gray-800)',
+                                               padding: '1.75rem',
+                                               background: '#0F0A0A',
+                                               transition: 'background 0.3s',
+                                           }}
+                                           onMouseEnter={e => (e.currentTarget.style.background = '#1A0808')}
+                                           onMouseLeave={e => (e.currentTarget.style.background = '#0F0A0A')}
+                                        >
+                                            {/* Live indicator */}
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                        <span style={{
+                            display: 'block', width: '7px', height: '7px',
+                            background: 'var(--red)', borderRadius: '50%',
+                        }} />
+                                                <Label>Next Stream</Label>
+                                                <span style={{
+                                                    marginLeft: 'auto',
+                                                    fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+                                                    letterSpacing: '0.14em', color: 'var(--red)',
+                                                    border: '1px solid var(--red)', padding: '2px 8px',
+                                                }}>
+                          TWITCH ↗
+                        </span>
+                                            </div>
+
+                                            <p style={{
+                                                fontFamily: 'var(--font-display)',
+                                                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+                                                letterSpacing: '0.03em',
+                                                color: 'var(--white)',
+                                                lineHeight: 1.1,
+                                                marginBottom: '0.6rem',
+                                            }}>
+                                                {status.nextStream.title}
+                                            </p>
+
+                                            <p style={{
+                                                fontFamily: 'var(--font-mono)',
+                                                fontSize: '0.65rem',
+                                                letterSpacing: '0.1em',
+                                                color: 'var(--gray-500)',
+                                            }}>
+                                                {new Date(status.nextStream.date).toLocaleDateString('en-US', {
+                                                    weekday: 'long', month: 'short', day: 'numeric',
+                                                    hour: 'numeric', minute: '2-digit'
+                                                })}
+                                            </p>
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </section>
                 )}
 
-                {/* Featured Work */}
-                <section className="py-32 px-6 border-t border-white/10">
-                    <div className="max-w-7xl mx-auto">
-                        <h2
-                            className="text-5xl md:text-6xl font-black mb-16"
-                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                        >
-                            FEATURED WORK
-                        </h2>
+                {/* ── SECTION: SELECTED WORK ──────────────────────── */}
+                <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {featuredProjects.map((project) => (
-                                <Link
-                                    key={project.id}
-                                    href={project.link || '#'}
-                                    target="_blank"
-                                    className="group border border-white/20 hover:border-[#FF2E63] transition-all duration-300"
-                                >
-                                    <div className="aspect-video bg-white/5 overflow-hidden relative">
-                                        {project.image ? (
-                                            <img
-                                                src={project.image}
-                                                alt={project.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-gray-700">
-                                                [PROJECT IMAGE]
-                                            </div>
-                                        )}
-                                        <div className="absolute inset-0 bg-[#FF2E63]/0 group-hover:bg-[#FF2E63]/10 transition-colors duration-300" />
-                                    </div>
-                                    <div className="p-6">
-                                        <h3
-                                            className="text-2xl font-black mb-2 group-hover:text-[#FF2E63] transition-colors"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                        >
-                                            {project.title}
-                                        </h3>
-                                        <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                                            {project.description}
-                                        </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.tags?.map((tag: string) => (
-                                                <span
-                                                    key={tag}
-                                                    className="px-3 py-1 bg-white/5 border border-white/10 text-xs text-gray-500"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </Link>
-                            ))}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
+                            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
+                                SELECTED WORK
+                            </h2>
+                            <Link href="/projects" style={{
+                                fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em',
+                                color: 'var(--gray-400)', textDecoration: 'none',
+                                borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px',
+                                transition: 'color 0.2s, border-color 0.2s',
+                            }}
+                                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }}
+                                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}
+                            >
+                                ALL PROJECTS →
+                            </Link>
                         </div>
+
+                        {/* Numbered project list */}
+                        {projects.map((proj, i) => (
+                            <ProjectRow key={proj.id} project={proj} index={i} />
+                        ))}
                     </div>
                 </section>
 
-                {/* The Setup */}
+                {/* ── SECTION: THE SETUP ──────────────────────────── */}
                 {gear && (
-                    <section className="py-32 px-6 border-t border-white/10">
-                        <div className="max-w-7xl mx-auto">
-                            <h2
-                                className="text-5xl md:text-6xl font-black mb-16"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
-                                MY SETUP
-                            </h2>
+                    <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                {/* Coding */}
-                                <div>
-                                    <h3 className="text-2xl font-black mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                        CODING
-                                    </h3>
-                                    <div className="space-y-4">
-                                        {gear.coding?.map((item: any) => (
-                                            <div key={item.name} className="border-l-2 border-white/20 pl-4 hover:border-[#FF2E63] transition-colors">
-                                                <div className="text-sm text-gray-500">{item.category}</div>
-                                                <div className="font-medium">{item.name}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Content Creation */}
-                                <div>
-                                    <h3 className="text-2xl font-black mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                        CONTENT
-                                    </h3>
-                                    <div className="space-y-4">
-                                        {gear.content?.map((item: any) => (
-                                            <div key={item.name} className="border-l-2 border-white/20 pl-4 hover:border-[#00E5FF] transition-colors">
-                                                <div className="text-sm text-gray-500">{item.category}</div>
-                                                <div className="font-medium">{item.name}</div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Gaming */}
-                                <div>
-                                    <h3 className="text-2xl font-black mb-6" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                        GAMING / STREAMING
-                                    </h3>
-                                    <div className="space-y-4">
-                                        {gear.gaming?.map((item: any) => (
-                                            <div key={item.name} className="border-l-2 border-white/20 pl-4 hover:border-[#CCFF00] transition-colors">
-                                                <div className="text-sm text-gray-500">{item.category}</div>
-                                                <div className="font-medium">{item.name}</div>
-                                                {item.specs && <div className="text-xs text-gray-600 mt-1">{item.specs}</div>}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
+                                    THE SETUP
+                                </h2>
+                                <Label>What I use to make things</Label>
                             </div>
-                        </div>
-                    </section>
-                )}
 
-                {/* What's Next */}
-                {roadmap.length > 0 && (
-                    <section className="py-32 px-6 border-t border-white/10">
-                        <div className="max-w-7xl mx-auto">
-                            <h2
-                                className="text-5xl md:text-6xl font-black mb-16"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
-                                WHAT'S NEXT
-                            </h2>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {roadmap.map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className="border border-white/20 p-6 hover:border-[#FF2E63] transition-colors duration-300"
-                                    >
-                                        <div className="flex items-start gap-4">
-                                            <div className="text-4xl">{item.icon}</div>
-                                            <div className="flex-1">
-                                                <div className="flex items-start justify-between mb-2">
-                                                    <h3 className="text-xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                                        {item.title}
-                                                    </h3>
-                                                    <span className={`text-xs px-2 py-1 ${
-                                                        item.status === 'Active' ? 'bg-[#FF2E63]/20 text-[#FF2E63]' :
-                                                            item.status === 'In Progress' ? 'bg-[#00E5FF]/20 text-[#00E5FF]' :
-                                                                'bg-white/10 text-gray-500'
-                                                    }`}>
-                                                        {item.status}
-                                                    </span>
-                                                </div>
-                                                <p className="text-sm text-gray-400 mb-2">{item.description}</p>
-                                                <div className="text-xs text-gray-600">ETA: {item.eta}</div>
-                                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0', borderTop: '1px solid var(--gray-800)', borderLeft: '1px solid var(--gray-800)' }}>
+                                {[
+                                    { label: 'Coding',          items: gear.coding,   accent: 'var(--red)'     },
+                                    { label: 'Content',         items: gear.content,  accent: 'var(--white)'   },
+                                    { label: 'Gaming / Stream', items: gear.gaming,   accent: 'var(--gray-400)' },
+                                ].map(col => (
+                                    <div key={col.label} style={{
+                                        borderRight: '1px solid var(--gray-800)',
+                                        borderBottom: '1px solid var(--gray-800)',
+                                        padding: '2rem',
+                                    }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem' }}>
+                                            <span style={{ width: '8px', height: '8px', background: col.accent, display: 'block' }} />
+                                            <Label>{col.label}</Label>
                                         </div>
+                                        {col.items?.map((item: any) => (
+                                            <div key={item.name} style={{
+                                                padding: '0.75rem 0',
+                                                borderBottom: '1px solid var(--gray-800)',
+                                            }}>
+                                                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--gray-500)', marginBottom: '3px' }}>
+                                                    {item.category}
+                                                </p>
+                                                <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'var(--white)' }}>
+                                                    {item.name}
+                                                </p>
+                                                {/* Single spec line */}
+                                                {item.specs && !item.subspecs && (
+                                                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gray-600)', marginTop: '2px' }}>
+                                                        {item.specs}
+                                                    </p>
+                                                )}
+                                                {/* Subspecs — individual component lines */}
+                                                {item.subspecs && (
+                                                    <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                                        {item.subspecs.map((sub: string, si: number) => (
+                                                            <p key={si} style={{
+                                                                fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+                                                                color: 'var(--gray-600)', paddingLeft: '0.75rem',
+                                                                borderLeft: '1px solid var(--gray-700)',
+                                                            }}>
+                                                                {sub}
+                                                            </p>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
                                     </div>
                                 ))}
                             </div>
@@ -488,62 +490,245 @@ export default function Home() {
                     </section>
                 )}
 
-                {/* Why Follow Me */}
-                <section className="py-32 px-6 border-t border-white/10">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h2
-                            className="text-5xl md:text-6xl font-black mb-8"
-                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                        >
-                            WHY STICK AROUND?
+                {/* ── SECTION: WHAT'S NEXT ────────────────────────── */}
+                {roadmap.length > 0 && (
+                    <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
+                                    WHAT'S NEXT
+                                </h2>
+                                <Label>Live roadmap</Label>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1px', background: 'var(--gray-800)' }}>
+                                {roadmap.map((item, i) => {
+                                    const statusColor = item.status === 'Active' ? 'var(--red)'
+                                        : item.status === 'In Progress' ? '#4ADE80'
+                                            : 'var(--gray-500)';
+                                    return (
+                                        <div key={i} style={{
+                                            background: 'var(--gray-900)',
+                                            padding: '2rem',
+                                        }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                                                <span style={{ width: '10px', height: '10px', background: 'var(--red)', display: 'block', flexShrink: 0, marginTop: '4px' }} />
+                                                <span style={{
+                                                    fontFamily: 'var(--font-mono)',
+                                                    fontSize: '0.58rem',
+                                                    letterSpacing: '0.12em',
+                                                    color: statusColor,
+                                                    border: `1px solid ${statusColor}`,
+                                                    padding: '3px 8px',
+                                                }}>
+                          {item.status?.toUpperCase()}
+                        </span>
+                                            </div>
+                                            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', letterSpacing: '0.03em', marginBottom: '0.5rem' }}>
+                                                {item.title}
+                                            </h3>
+                                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--gray-400)', lineHeight: 1.5, marginBottom: '1rem' }}>
+                                                {item.description}
+                                            </p>
+                                            <Label>ETA — {item.eta}</Label>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* ── SECTION: WHY STICK AROUND ───────────────────── */}
+                <section style={{ padding: '8rem 6vw' }}>
+                    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                        <Label>Why follow along</Label>
+
+                        <h2 style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: 'clamp(3rem, 8vw, 7rem)',
+                            letterSpacing: '0.02em',
+                            margin: '1rem 0 2rem',
+                            lineHeight: 0.92,
+                        }}>
+                            ONE LIFE.<br />
+                            <span style={{ WebkitTextStroke: '1px var(--white)', WebkitTextFillColor: 'transparent' }}>
+                ALL OF IT.
+              </span>
                         </h2>
 
-                        <p className="text-xl text-gray-400 mb-12 leading-relaxed max-w-2xl mx-auto">
-                            Follow along to see my day to day lifestyle as I figure out my identity as a 21 year old man located in Northern California. Explore the troubles of life through my endless passions in coding, content creation, gaming, car building, and gym bro'ing.
+                        <p style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '1.2rem',
+                            color: 'var(--gray-300)',
+                            lineHeight: 1.75,
+                            maxWidth: '600px',
+                            marginBottom: '3rem',
+                        }}>
+                            Come along for the day-to-day of a 21-year-old in Northern California who loves film, builds cars, games, lifts, and new tech.
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-12">
+                        {/* Subscribe form */}
+                        <form onSubmit={handleSub} style={{ display: 'flex', gap: '0', maxWidth: '480px', marginBottom: '1rem' }}>
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                placeholder="your@email.com"
+                                required
+                                disabled={subStatus === 'loading'}
+                                style={{
+                                    flex: 1,
+                                    background: 'var(--gray-800)',
+                                    border: '1px solid var(--gray-700)',
+                                    borderRight: 'none',
+                                    padding: '0.9rem 1.2rem',
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.75rem',
+                                    color: 'var(--white)',
+                                    outline: 'none',
+                                }}
+                            />
+                            <button type="submit" disabled={subStatus === 'loading'}
+                                    style={{
+                                        background: 'var(--red)',
+                                        border: '1px solid var(--red)',
+                                        padding: '0.9rem 1.5rem',
+                                        fontFamily: 'var(--font-mono)',
+                                        fontSize: '0.65rem',
+                                        letterSpacing: '0.14em',
+                                        color: 'var(--white)',
+                                        cursor: 'pointer',
+                                        whiteSpace: 'nowrap',
+                                        transition: 'background 0.2s',
+                                    }}
+                                    onMouseEnter={e => (e.currentTarget.style.background = '#BF0015')}
+                                    onMouseLeave={e => (e.currentTarget.style.background = 'var(--red)')}
+                            >
+                                {subStatus === 'loading' ? '...' : 'SUBSCRIBE'}
+                            </button>
+                        </form>
+
+                        {subStatus === 'success' && (
+                            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#4ADE80', letterSpacing: '0.1em' }}>
+                                ✓ You're in.
+                            </p>
+                        )}
+                        {subStatus === 'error' && (
+                            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--red)', letterSpacing: '0.1em' }}>
+                                ✗ Something went wrong. Try again or email directly.
+                            </p>
+                        )}
+
+                        {/* Social row */}
+                        <div style={{ display: 'flex', gap: '1.5rem', marginTop: '3rem', flexWrap: 'wrap' }}>
                             {[
-                                'Real-time project updates',
-                                'Regularly scheduled videos/streams',
-                            ].map((item) => (
-                                <div key={item} className="flex items-center gap-3">
-                                    <div className="w-2 h-2 bg-[#FF2E63]" />
-                                    <span className="text-gray-300">{item}</span>
-                                </div>
+                                { name: 'YouTube', url: 'https://youtube.com/seriousreal' },
+                                { name: 'Twitch',  url: 'https://twitch.tv/s_rious' },
+                                { name: 'X', url: 'https://x.com/s7rious' },
+                            ].map(s => (
+                                <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
+                                   style={{
+                                       fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em',
+                                       color: 'var(--gray-400)', textDecoration: 'none',
+                                       borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px',
+                                       transition: 'color 0.2s, border-color 0.2s',
+                                   }}
+                                   onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }}
+                                   onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}
+                                >
+                                    {s.name} ↗
+                                </a>
                             ))}
                         </div>
-
-                        <form onSubmit={handleSubscribe} className="max-w-md mx-auto mb-12">
-                            <div className="flex gap-3">
-                                <input
-                                    type="email"
-                                    value={subscribeEmail}
-                                    onChange={(e) => setSubscribeEmail(e.target.value)}
-                                    placeholder="your@email.com"
-                                    required
-                                    disabled={subscribeStatus === 'loading'}
-                                    className="flex-1 px-4 py-3 bg-white/5 border border-white/20 focus:border-[#FF2E63] text-white placeholder-gray-600 outline-none transition-colors disabled:opacity-50"
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={subscribeStatus === 'loading'}
-                                    className="px-8 py-3 bg-[#FF2E63] hover:bg-[#FF2E63]/80 text-white font-black tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                >
-                                    {subscribeStatus === 'loading' ? 'SENDING...' : 'SUBSCRIBE'}
-                                </button>
-                            </div>
-                            {subscribeStatus === 'success' && (
-                                <p className="text-[#00E5FF] text-sm mt-3 text-center">✓ Subscribed! You'll get updates soon.</p>
-                            )}
-                            {subscribeStatus === 'error' && (
-                                <p className="text-[#FF2E63] text-sm mt-3 text-center">✗ Failed. Please try again.</p>
-                            )}
-                        </form>
                     </div>
                 </section>
             </div>
         </div>
+    );
+}
+
+// ─── PROJECT ROW COMPONENT ────────────────────────────────────────────────────
+function ProjectRow({ project, index }: { project: any; index: number }) {
+    const [hov, setHov] = useState(false);
+    const num = String(index + 1).padStart(2, '0');
+
+    return (
+        <Link href={project.link || '#'} target={project.link ? '_blank' : undefined}
+              onMouseEnter={() => setHov(true)}
+              onMouseLeave={() => setHov(false)}
+              style={{
+                  display: 'grid',
+                  gridTemplateColumns: '4rem 1fr auto',
+                  alignItems: 'center',
+                  gap: '2rem',
+                  padding: '2rem 0',
+                  borderBottom: '1px solid var(--gray-800)',
+                  textDecoration: 'none',
+                  color: 'var(--white)',
+                  transition: 'background 0.2s',
+                  background: hov ? 'var(--gray-800)' : 'transparent',
+                  paddingLeft: hov ? '1rem' : '0',
+                  paddingRight: hov ? '1rem' : '0',
+              }}
+        >
+            {/* Number */}
+            <span style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                color: hov ? 'var(--red)' : 'var(--gray-600)',
+                transition: 'color 0.2s',
+            }}>
+        {num}
+      </span>
+
+            {/* Title + description */}
+            <div>
+                <h3 style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                    letterSpacing: '0.03em',
+                    transition: 'color 0.2s',
+                    color: hov ? 'var(--red)' : 'var(--white)',
+                    marginBottom: '0.25rem',
+                }}>
+                    {project.title}
+                </h3>
+                <p style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '0.95rem',
+                    color: 'var(--gray-500)',
+                    transition: 'color 0.2s',
+                }}>
+                    {project.description}
+                </p>
+                <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                    {project.tags?.map((tag: string) => (
+                        <span key={tag} style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '0.58rem',
+                            letterSpacing: '0.1em',
+                            color: 'var(--gray-600)',
+                            border: '1px solid var(--gray-800)',
+                            padding: '2px 8px',
+                        }}>
+              {tag}
+            </span>
+                    ))}
+                </div>
+            </div>
+
+            {/* Arrow */}
+            <span style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '1rem',
+                color: hov ? 'var(--red)' : 'var(--gray-700)',
+                transform: hov ? 'translate(4px, -4px)' : 'none',
+                transition: 'transform 0.2s, color 0.2s',
+            }}>
+        ↗
+      </span>
+        </Link>
     );
 }

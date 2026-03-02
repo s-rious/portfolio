@@ -1,63 +1,73 @@
 {
   "coding": [
     {
-      "name": "HP Omen 16 (RTX 4060, I7-14650HX)",
+      "name": "HP Omen 16",
       "category": "Laptop",
-      "link": "https://www.hp.com/us-en/shop/mlp/omen",
-      "icon": "💻"
+      "subspecs": [
+        "GPU — RTX 4060",
+        "CPU — Intel i7-14650HX",
+        "RAM — 16GB DDR5"
+      ],
+      "link": "https://www.hp.com/us-en/shop/mlp/omen"
     },
     {
       "name": "Ducky One 2 SF",
       "category": "Keyboard",
-      "link": "https://ducky.global",
-      "icon": "⌨️"
+      "link": "https://ducky.global"
     }
   ],
   "content": [
     {
-      "name": "iPhone 17 Pro + Samsung S22",
-      "category": "Camera",
-      "link": "#",
-      "icon": "📷"
+      "name": "Sony ZV-E10 Mark II",
+      "category": "Main Camera",
+      "subspecs": [
+        "Lens - 16mm-50mm f/3.5-5.6 OSS II",
+        "Vlog Tri-pod - Ulanzi TT38",
+        "Kitted in SmallRig and Ulanzi gear"
+      ],
+      "link": "#"
+    },
+    {
+      "name": "iPhone 17 Pro & Samsung Galaxy S22",
+      "category": "IRL Vlog Camera",
+      "link": "#"
     },
     {
       "name": "DJI Mic 3",
       "category": "Microphone",
-      "link": "https://www.dji.com/mic-3",
-      "icon": "🎤"
+      "link": "https://www.dji.com/mic-3"
     }
   ],
   "gaming": [
     {
       "name": "Custom Built PC",
       "category": "Tower",
-      "specs": "RTX 5070 OC | Ryzen 7 5800X | 32GB RAM DDR4-4200",
-      "link": "#",
-      "icon": "🎮"
+      "subspecs": [
+        "GPU — RTX 5070 OC",
+        "CPU — Ryzen 7 5800X",
+        "RAM — 32GB DDR4-4200"
+      ],
+      "link": "#"
     },
     {
       "name": "Monsgeek M1 V5",
       "category": "Keyboard",
-      "link": "https://www.monsgeek.com/product/monsgeek-m1-v5-via-1980s-mechanical-keyboard",
-      "icon": "⌨️"
+      "link": "https://www.monsgeek.com/product/monsgeek-m1-v5-via-1980s-mechanical-keyboard"
     },
     {
       "name": "Logitech G Pro X Superlight 2",
       "category": "Mouse",
-      "link": "https://www.logitechg.com/en-us/shop/p/pro-x2-superlight-wireless-mouse",
-      "icon": "🖱️"
+      "link": "https://www.logitechg.com/en-us/shop/p/pro-x2-superlight-wireless-mouse"
     },
     {
       "name": "Shure MV7+",
       "category": "Microphone",
-      "link": "https://www.shure.com/en-US/products/microphones/mv7",
-      "icon": "🎤"
+      "link": "https://www.shure.com/en-US/products/microphones/mv7"
     },
     {
       "name": "Linsoul SIMGOT EM6L",
       "category": "Headphones",
-      "link": "https://www.linsoul.com/products/simgot-em6l",
-      "icon": "🎧"
+      "link": "https://www.linsoul.com/products/simgot-em6l"
     }
   ]
 }

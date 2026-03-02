@@ -1,21 +1,21 @@
 {
   "latestVideo": {
-    "title": "Moving 400 Miles Away From Everything",
-    "url": "https://youtu.be/YYt2WTFkwYM",
+    "title": "Filming my Mundane Life...",
+    "url": "https://youtu.be/4aibBnE2sis",
     "thumbnail": "/imgs/interests/recentUpload.png",
-    "uploadedAgo": "February 15th, 2026"
+    "uploadedAgo": "March 2nd, 2026"
   },
   "currentProject": {
-    "name": "TBD - YouTube Video",
-    "status": "Script Writing",
-    "progress": 50,
+    "name": "VLOG - A Short Trip to LA",
+    "status": "Editing",
+    "progress": 60,
     "eta": "1 week",
-    "description": "My next video centered around my day-to-day life."
+    "description": "A short trip back home to LA and OC with my parents, but romanticized.."
   },
   "nextStream": {
-    "date": "2026-02-20T17:30:00",
+    "date": "2026-03-12T17:30:00",
     "platform": "Twitch",
     "url": "https://twitch.tv/s_rious",
-    "title": "Title and Stream Category TBD"
+    "title": "What's New? Where Do We Go? What's Next?"
   }
 }

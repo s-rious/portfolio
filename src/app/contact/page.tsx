@@ -3,254 +3,220 @@
 import { useState, FormEvent } from 'react';
 import aboutData from '@/data/about.json';
 
+function Label({ children }: { children: React.ReactNode }) {
+    return (
+        <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase' as const,
+            color: 'var(--gray-500)',
+            display: 'block',
+            marginBottom: '0.6rem',
+        }}>
+      {children}
+    </span>
+    );
+}
+
+const inputStyle: React.CSSProperties = {
+    width: '100%',
+    background: 'var(--gray-800)',
+    border: '1px solid var(--gray-700)',
+    borderBottom: '1px solid var(--gray-600)',
+    padding: '0.85rem 1rem',
+    fontFamily: 'var(--font-body)',
+    fontSize: '1rem',
+    color: 'var(--white)',
+    outline: 'none',
+    transition: 'border-color 0.2s',
+};
+
 export default function Contact() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+    const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+    const [sending, setSending]   = useState(false);
+    const [status, setStatus]     = useState<'idle'|'success'|'error'>('idle');
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }));
-    };
+    const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+        setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
-    const handleSubmit = async (e: FormEvent) => {
+    const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setSubmitStatus('idle');
-
+        setSending(true);
         try {
-            // Web3Forms API endpoint
-            const response = await fetch('https://api.web3forms.com/submit', {
+            const r = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    access_key: 'bbae9f51-efb6-45bc-beaa-7a8585764cbf', // Replace with your actual key
-                    name: formData.name,
-                    email: formData.email,
-                    subject: formData.subject,
-                    message: formData.message,
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ access_key: 'bbae9f51-efb6-45bc-beaa-7a8585764cbf', ...form }),
             });
-
-            if (response.ok) {
-                setSubmitStatus('success');
-                setFormData({ name: '', email: '', subject: '', message: '' });
-                setTimeout(() => setSubmitStatus('idle'), 5000);
-            } else {
-                new Error('Failed to send message');
-            }
-        } catch (error) {
-            console.error('Contact form error:', error);
-            setSubmitStatus('error');
-            setTimeout(() => setSubmitStatus('idle'), 5000);
-        } finally {
-            setIsSubmitting(false);
-        }
+            if (r.ok) { setStatus('success'); setForm({ name: '', email: '', subject: '', message: '' }); }
+            else new Error();
+        } catch { setStatus('error'); }
+        setSending(false);
+        setTimeout(() => setStatus('idle'), 5000);
     };
 
     return (
-        <div className="min-h-screen bg-black text-white pt-32 pb-20">
-            <div className="max-w-5xl mx-auto px-6">
+        <div style={{ minHeight: '100vh', background: 'var(--black)', color: 'var(--white)', paddingTop: '8rem', paddingBottom: '6rem' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 6vw' }}>
 
                 {/* Header */}
-                <div className="mb-16">
-                    <h1
-                        className="text-6xl md:text-9xl font-black mb-4"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        GET IN TOUCH
+                <div style={{ marginBottom: '5rem' }}>
+                    <Label>Contact</Label>
+                    <h1 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: 'clamp(4rem, 12vw, 10rem)',
+                        letterSpacing: '-0.01em',
+                        lineHeight: 0.9,
+                        marginBottom: '1.5rem',
+                    }}>
+                        GET IN<br />TOUCH
                     </h1>
-                    <div className="w-32 h-1 bg-white mb-6" />
-                    <p className="text-xl text-gray-400 max-w-2xl">
-                        Have a project in mind? Want to collaborate? Just want to say hi?
-                        Drop me a message and I'll get back to you as soon as possible.
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.15rem', color: 'var(--gray-400)', maxWidth: '480px', lineHeight: 1.65 }}>
+                        Partnerships, collaborations, brand deals, or just want to say something. I read everything.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                {/* Body grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '4rem', alignItems: 'start' }}>
 
-                    {/* Contact Form */}
-                    <div className="lg:col-span-2">
-                        <form onSubmit={handleSubmit} className="space-y-6">
-
+                    {/* Form */}
+                    <form onSubmit={onSubmit}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'var(--gray-800)', marginBottom: '1px' }}>
                             {/* Name */}
-                            <div>
-                                <label
-                                    htmlFor="name"
-                                    className="block text-sm font-black mb-2 tracking-wider"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                >
-                                    NAME
-                                </label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/20 focus:border-[#FF2E63] text-white placeholder-gray-600 transition-all duration-300 outline-none"
-                                    placeholder="Your name"
+                            <div style={{ background: 'var(--gray-900)', padding: '1.5rem' }}>
+                                <Label>Name</Label>
+                                <input type="text" name="name" value={form.name} onChange={onChange} required placeholder="Cameron Rydwell"
+                                       style={inputStyle}
+                                       onFocus={e => (e.target.style.borderBottomColor = 'var(--red)')}
+                                       onBlur={e => (e.target.style.borderBottomColor = 'var(--gray-600)')}
                                 />
                             </div>
-
                             {/* Email */}
-                            <div>
-                                <label
-                                    htmlFor="email"
-                                    className="block text-sm font-black mb-2 tracking-wider"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                >
-                                    EMAIL
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/20 focus:border-[#FF2E63] text-white placeholder-gray-600 transition-all duration-300 outline-none"
-                                    placeholder="your@email.com"
+                            <div style={{ background: 'var(--gray-900)', padding: '1.5rem' }}>
+                                <Label>Email</Label>
+                                <input type="email" name="email" value={form.email} onChange={onChange} required placeholder="you@company.com"
+                                       style={inputStyle}
+                                       onFocus={e => (e.target.style.borderBottomColor = 'var(--red)')}
+                                       onBlur={e => (e.target.style.borderBottomColor = 'var(--gray-600)')}
                                 />
                             </div>
+                        </div>
 
-                            {/* Subject */}
-                            <div>
-                                <label
-                                    htmlFor="subject"
-                                    className="block text-sm font-black mb-2 tracking-wider"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                >
-                                    SUBJECT
-                                </label>
-                                <input
-                                    type="text"
-                                    id="subject"
-                                    name="subject"
-                                    value={formData.subject}
-                                    onChange={handleChange}
-                                    required
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/20 focus:border-[#FF2E63] text-white placeholder-gray-600 transition-all duration-300 outline-none"
-                                    placeholder="What's this about?"
-                                />
-                            </div>
+                        {/* Subject */}
+                        <div style={{ background: 'var(--gray-900)', padding: '1.5rem', border: '1px solid var(--gray-800)', borderBottom: 'none' }}>
+                            <Label>Subject</Label>
+                            <input type="text" name="subject" value={form.subject} onChange={onChange} required placeholder="Brand partnership / Collab / Say hi"
+                                   style={inputStyle}
+                                   onFocus={e => (e.target.style.borderBottomColor = 'var(--red)')}
+                                   onBlur={e => (e.target.style.borderBottomColor = 'var(--gray-600)')}
+                            />
+                        </div>
 
-                            {/* Message */}
-                            <div>
-                                <label
-                                    htmlFor="message"
-                                    className="block text-sm font-black mb-2 tracking-wider"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                >
-                                    MESSAGE
-                                </label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    required
-                                    rows={6}
-                                    className="w-full px-4 py-3 bg-white/5 border border-white/20 focus:border-[#FF2E63] text-white placeholder-gray-600 transition-all duration-300 resize-none outline-none"
-                                    placeholder="Your message..."
-                                />
-                            </div>
+                        {/* Message */}
+                        <div style={{ background: 'var(--gray-900)', padding: '1.5rem', border: '1px solid var(--gray-800)', borderBottom: 'none' }}>
+                            <Label>Message</Label>
+                            <textarea name="message" value={form.message} onChange={onChange} required rows={7}
+                                      placeholder="Tell me about it..."
+                                      style={{ ...inputStyle, resize: 'none' }}
+                                      onFocus={e => (e.target.style.borderBottomColor = 'var(--red)')}
+                                      onBlur={e => (e.target.style.borderBottomColor = 'var(--gray-600)')}
+                            />
+                        </div>
 
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="w-full bg-[#FF2E63] hover:bg-[#FF2E63]/80 text-white py-4 font-black text-lg tracking-wider transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                        {/* Submit */}
+                        <button type="submit" disabled={sending}
+                                style={{
+                                    width: '100%',
+                                    background: sending ? 'var(--gray-700)' : 'var(--red)',
+                                    border: 'none',
+                                    padding: '1.1rem',
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.75rem',
+                                    letterSpacing: '0.16em',
+                                    color: 'var(--white)',
+                                    cursor: sending ? 'not-allowed' : 'pointer',
+                                    transition: 'background 0.2s',
+                                }}
+                                onMouseEnter={e => { if (!sending) e.currentTarget.style.background = '#BF0015'; }}
+                                onMouseLeave={e => { if (!sending) e.currentTarget.style.background = 'var(--red)'; }}
+                        >
+                            {sending ? 'SENDING...' : 'SEND MESSAGE'}
+                        </button>
+
+                        {status === 'success' && (
+                            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: '#4ADE80', marginTop: '1rem' }}>
+                                ✓ Message sent. I'll get back to you soon.
+                            </p>
+                        )}
+                        {status === 'error' && (
+                            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--red)', marginTop: '1rem' }}>
+                                ✗ Failed to send. Email directly: him@camry.dev
+                            </p>
+                        )}
+                    </form>
+
+                    {/* Sidebar */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+
+                        {/* Direct */}
+                        <div style={{ border: '1px solid var(--gray-800)', padding: '1.75rem' }}>
+                            <Label>Direct Line</Label>
+                            <a href={`mailto:${aboutData.socials?.email || 'him@camry.dev'}`}
+                               style={{
+                                   fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.08em',
+                                   color: 'var(--white)', textDecoration: 'none',
+                                   borderBottom: '1px solid var(--red)', paddingBottom: '2px',
+                               }}
                             >
-                                {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
-                            </button>
-
-                            {/* Status Messages */}
-                            {submitStatus === 'success' && (
-                                <div className="p-4 border border-[#00E5FF] bg-[#00E5FF]/10 text-[#00E5FF]">
-                                    <p className="font-medium">✓ Message sent! I'll get back to you soon.</p>
-                                </div>
-                            )}
-
-                            {submitStatus === 'error' && (
-                                <div className="p-4 border border-[#FF2E63] bg-[#FF2E63]/10 text-[#FF2E63]">
-                                    <p className="font-medium">✗ Failed to send. Please try again or email me directly.</p>
-                                </div>
-                            )}
-                        </form>
-                    </div>
-
-                    {/* Contact Info */}
-                    <div className="space-y-8">
-
-                        {/* Direct Contact */}
-                        <div>
-                            <h3
-                                className="text-2xl font-black mb-4"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
-                                DIRECT CONTACT
-                            </h3>
-                            <a
-                                href={`mailto:${aboutData.socials?.email || 'him@camry.dev'}`}
-                                className="block px-6 py-3 border border-white/20 hover:border-[#FF2E63] hover:bg-[#FF2E63]/10 transition-all duration-300 text-center"
-                            >
-                                <span className="text-sm tracking-wider">EMAIL ME</span>
+                                him@camry.dev
                             </a>
                         </div>
 
-                        {/* Social Links */}
-                        <div>
-                            <h3
-                                className="text-2xl font-black mb-4"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
-                                CONNECT
-                            </h3>
-                            <div className="space-y-3">
-                                {aboutData.socials && Object.entries(aboutData.socials)
-                                    .filter(([platform]) => platform !== 'email')
-                                    .map(([platform, url]) => (
-                                        <a
-                                            key={platform}
-                                            href={url as string}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="block px-6 py-3 border border-white/20 hover:border-[#FF2E63] hover:bg-[#FF2E63]/10 transition-all duration-300 text-center text-sm tracking-wider"
-                                        >
-                                            {platform.toUpperCase()}
-                                        </a>
-                                    ))}
-                            </div>
+                        {/* Social */}
+                        <div style={{ border: '1px solid var(--gray-800)', padding: '1.75rem' }}>
+                            <Label>Find me on</Label>
+                            {aboutData.socials && Object.entries(aboutData.socials)
+                                .filter(([k]) => k !== 'email')
+                                .map(([platform, url]) => (
+                                    <a key={platform} href={url as string} target="_blank" rel="noopener noreferrer"
+                                       style={{
+                                           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                           fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.1em',
+                                           color: 'var(--gray-400)', textDecoration: 'none',
+                                           padding: '0.6rem 0',
+                                           borderBottom: '1px solid var(--gray-800)',
+                                           transition: 'color 0.2s',
+                                       }}
+                                       onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+                                       onMouseLeave={e => (e.currentTarget.style.color = 'var(--gray-400)')}
+                                    >
+                                        <span>{platform.toUpperCase()}</span>
+                                        <span>↗</span>
+                                    </a>
+                                ))}
                         </div>
 
-                        {/* Response Time */}
-                        <div className="p-6 bg-white/5 border border-white/10">
-                            <h3
-                                className="text-xl font-black mb-3"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                            >
-                                RESPONSE TIME
-                            </h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">
-                                I typically respond within 24-48 hours. For urgent matters,
-                                reach out via Twitter DM or email directly.
+                        {/* Response time */}
+                        <div style={{ border: '1px solid var(--gray-800)', padding: '1.75rem', background: 'var(--gray-900)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.75rem' }}>
+                                <span style={{ width: '6px', height: '6px', background: '#4ADE80', borderRadius: '50%', display: 'block' }} />
+                                <Label>Response time</Label>
+                            </div>
+                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--gray-400)', lineHeight: 1.6 }}>
+                                Typically within 24–48 hours. For urgent matters, DM on X or email me directly.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style>{`
+        @media (max-width: 900px) {
+          form + div { display: none !important; }
+          form { grid-column: 1 / -1 !important; }
+        }
+      `}</style>
         </div>
     );
 }
