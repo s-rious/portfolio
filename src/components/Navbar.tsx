@@ -90,10 +90,11 @@ export default function Navbar() {
                         })}
                     </div>
 
-                    {/* Hamburger (shows when scrolled) */}
+                    {/* Hamburger (shows when scrolled on desktop, always on mobile) */}
                     <button
                         onClick={() => setMenuOpen(v => !v)}
                         aria-label="Toggle menu"
+                        className="hamburger-btn"
                         style={{
                             background: 'none',
                             border: 'none',
@@ -202,7 +203,7 @@ export default function Navbar() {
             }}>CONNECT</span>
                         {[
                             { name: 'GitHub',   url: 'https://github.com/s-rious' },
-                            { name: 'X',  url: 'https://x.com/s7rious' },
+                            { name: 'Twitter',  url: 'https://x.com/s7rious' },
                             { name: 'YouTube',  url: 'https://youtube.com/seriousreal' },
                         ].map(s => (
                             <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
@@ -224,7 +225,13 @@ export default function Navbar() {
             </div>
 
             <style>{`
-        @media (max-width: 768px) { .hide-mobile { display: none !important; } }
+        @media (max-width: 768px) {
+          .hide-mobile { display: none !important; }
+          .hamburger-btn {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+          }
+        }
       `}</style>
         </>
     );

@@ -93,6 +93,7 @@ export default function Footer() {
             }}>CONNECT</span>
                         {[
                             { name: 'GitHub',   url: 'https://github.com/s-rious' },
+                            { name: 'X',        url: 'https://x.com/s7rious' },
                             { name: 'LinkedIn', url: 'https://www.linkedin.com/in/cameron-rydwell-52681a268' },
                             { name: 'YouTube',  url: 'https://youtube.com/seriousreal' },
                             { name: 'Twitch',   url: 'https://twitch.tv/s_rious' },
