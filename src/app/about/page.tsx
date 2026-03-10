@@ -129,7 +129,7 @@ export default function About() {
                         {[
                             {
                                 era: 'EARLY YEARS',
-                                period: 'Childhood — High School',
+                                period: 'Childhood to High School',
                                 color: 'var(--red)',
                                 text: [
                                     'Growing up, I lacked much drive in what I wanted to do. I started as a clothing model for ABC News, growing a passion for fashion. Afterwards, I tested the waters with eSports, freelance GFX/VFX work, and local computer tech gigs.',
@@ -142,7 +142,7 @@ export default function About() {
                                 color: '#4ADE80',
                                 text: [
                                     'Built RYDWELL SCHOOLS, a mobile app for FBLA\'s Mobile Application Development competition. Won 1st place in Arizona State. Advanced to Nationals in Chicago.',
-                                    'Followed with WORD ESCAPE for Computer Game & Programming Simulation. Another State championship. Another trip to Nationals — Atlanta. That\'s when I asked myself: do I keep coding, or venture into the next chapter?',
+                                    'Followed with WORD ESCAPE for Computer Game & Programming Simulation. Another State championship. Another trip to Nationals Atlanta. That\'s when I asked myself: do I keep coding, or venture into the next chapter?',
                             ],
                         },
                         {
@@ -150,7 +150,7 @@ export default function About() {
                             period: 'Present Day',
                             color: 'var(--white)',
                             text: [
-                            'Following the rise of AI, I swapped majors to Electrical Engineering — giving myself the leg up across all fields. Combining physical engineering with software development, I\'ve found my lane.',
+                            'Following the rise of AI, I swapped majors to Electrical Engineering, giving myself the leg up across all fields. Combining physical engineering with software development, I\'ve found my lane.',
                             'One simple truth: create what I\'m passionate about. I haven\'t stopped pushing since.',
                             ],
                         },
@@ -252,7 +252,7 @@ export default function About() {
                         </div>
                         <div style={{ marginLeft: '3%' }}>
                             <ScatterCard title="HARDWARE" photo={aboutData.electricalPhoto}
-                                         desc="Still my weakest field — but the one I find most fascinating. Learning fast." />
+                                         desc="Still my weakest field, but the one I find most fascinating." />
                         </div>
                     </div>
 
@@ -260,7 +260,7 @@ export default function About() {
                     <div className="scatter-col-right">
                         <div style={{ marginTop: '10%', marginBottom: '3rem' }}>
                             <ScatterCard title="GAMING" photo={aboutData.streamPhoto}
-                                         desc="From Fortnite to VALORANT — I've earned a reputation in the lower-tier comp scene. The dream lives on." />
+                                         desc="From Fortnite to VALORANT, I've earned a deep respect for the scene and still remain overwhelmingly passionate." />
                         </div>
                         <div style={{ marginLeft: '-5%', marginBottom: '3rem' }}>
                             <ScatterCard title="FITNESS" photo={aboutData.gymPhoto}
@@ -268,7 +268,7 @@ export default function About() {
                         </div>
                         <div style={{ marginTop: '2rem' }}>
                             <ScatterCard title="CONTENT" photo={aboutData.setupPhoto}
-                                         desc="Displaying my true self on screen. Truman Show energy, but I'm here for it." />
+                                         desc="Displaying my true self on screen, for all to see" />
                         </div>
                     </div>
 
@@ -292,7 +292,7 @@ export default function About() {
                                 { name: 'Tim Burton & Henry Selick', desc: 'Stop-motion aesthetic, dark whimsy, unique visual storytelling' },
                                 { name: 'A24 Films', desc: 'Clean, bold, professional. Earth without Art is just Eh.' },
                                 { name: 'Ludwig', desc: 'Atop the streaming sphere, winner of spirit and success.' },
-                                { name: 'Victor Nguyen', desc: 'Film, day-to-day life, LA dreams, stanced car — what else?' },
+                                { name: 'Victor Nguyen', desc: 'Film, day-to-day life, LA dreams, stanced car. What else?' },
                             ],
                         },
                         {
