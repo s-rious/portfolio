@@ -19,12 +19,13 @@
     "github": "https://github.com/s-rious",
     "linkedin": "https://www.linkedin.com/in/cameron-rydwell-52681a268",
     "twitter": "https://twitter.com/s7rious",
+    "x": "https://x/s7rious",
     "email": "him@camry.dev"
   },
   "carPhoto": "/imgs/general/carPhoto.jpg",
   "setupPhoto": "/imgs/general/setupPhoto.jpeg",
-  "filmPhoto": "/imgs/general/filmPhoto.jpg",
-  "gymPhoto": "/imgs/general/gymPhoto.jpg",
+  "filmPhoto": "/imgs/general/filmPhoto.jpeg",
+  "gymPhoto": "/imgs/general/gymPhoto.jpeg",
   "electricalPhoto": "/imgs/general/electricalPhoto.jpg",
-  "streamPhoto": "/imgs/general/streamPhoto.jpg"
+  "streamPhoto": "/imgs/general/streamPhoto.jpeg"
 }
