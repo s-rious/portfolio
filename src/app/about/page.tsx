@@ -88,7 +88,7 @@ export default function About() {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                             <div className="md:col-span-3">
                                 <div className="text-4xl font-black text-[#00E5FF]" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                                    BREAKTHROUGH
+                                    FOUNDATION
                                 </div>
                                 <div className="text-sm text-gray-600 mt-2">FBLA Competitions</div>
                             </div>
