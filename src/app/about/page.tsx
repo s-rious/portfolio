@@ -208,7 +208,7 @@ export default function About() {
                             </h3>
                             <p className="text-sm text-gray-400 leading-relaxed">
                                 Starting out in Fortnite, I have always loved the competitive spirit of eSports. Having my own journey in VALORANT,
-                                I have earned a reputation in the lower tier scene and still dream regularly of continuing it.
+                                I have earned a reputation in the lower tier scene and wonder what could've been.
                             </p>
                         </div>
 
@@ -225,7 +225,7 @@ export default function About() {
                                 FILMMAKING
                             </h3>
                             <p className="text-sm text-gray-400 leading-relaxed">
-                                Although not talented behind a camera, I still love picking it up and taking candid photos and videos of my surroundings. I always seem to find somewhere to be that I'd love to share.
+                                The best way for me to express myself, my visions, and my creative ideas. My newest passion, hobby, and hopefully my future!
                             </p>
                         </div>
 
@@ -276,7 +276,7 @@ export default function About() {
                                 CONTENT
                             </h3>
                             <p className="text-sm text-gray-400 leading-relaxed">
-                                Displaying my true self on screen for others to view. Truman Show vibes, anyone?
+                                A culmination of all I am and all I wish to be. My true self for your enjoyment!
                             </p>
                         </div>
                     </div>
@@ -299,19 +299,19 @@ export default function About() {
                             <ul className="space-y-3 text-gray-300">
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#FF2E63] mt-1">•</span>
-                                    <span><strong>Tim Burton & Henry Selick</strong> — Stop-motion aesthetic, dark whimsy, unique visual storytelling</span>
+                                    <span><strong>Tim Burton & Henry Selick</strong> : Stop-motion aesthetic, dark whimsy, unique visual storytelling</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#FF2E63] mt-1">•</span>
-                                    <span><strong>A24 Films</strong> — Clean, bold, professional presentation. Earth without Art is just Eh.</span>
+                                    <span><strong>A24 Films</strong> : Clean, bold, professional presentation. Earth without Art is just Eh.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#FF2E63] mt-1">•</span>
-                                    <span><strong>Ludwig</strong> — Atop the streaming sphere, bad at almost every video game, but winner of spirit and success.</span>
+                                    <span><strong>Ludwig</strong> : Atop the streaming sphere, bad at almost every video game, but winner of spirit and success.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#FF2E63] mt-1">•</span>
-                                    <span><strong>Victor Nguyen</strong> — Film, day-to-day life, LA dreams, stanced car, what else could you ask for?</span>
+                                    <span><strong>Victor Nguyen</strong> : Film, day-to-day life, LA dreams, stanced car, what else could you ask for?</span>
                                 </li>
                             </ul>
                         </div>
@@ -323,15 +323,15 @@ export default function About() {
                             <ul className="space-y-3 text-gray-300">
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#00E5FF] mt-1">•</span>
-                                    <span><strong>Alan Watts</strong> — A philosophical entertainer who always knows how to convey the message of humanity</span>
+                                    <span><strong>Alan Watts</strong> : A philosophical entertainer who always knows how to convey the message of humanity</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#00E5FF] mt-1">•</span>
-                                    <span><strong>William Shakespeare</strong> — One of the best writers of all time with a strong skeptical exploration of human existence.</span>
+                                    <span><strong>William Shakespeare</strong> : One of the best writers of all time with a strong skeptical exploration of human existence.</span>
                                 </li>
                                 <li className="flex items-start gap-3">
                                     <span className="text-[#00E5FF] mt-1">•</span>
-                                    <span><strong>James Gunn</strong> — Even when you succeed, you can still show your personality and convey your own desires.</span>
+                                    <span><strong>James Gunn</strong> : Even when you succeed, you can still show your personality and convey your own desires.</span>
                                 </li>
                             </ul>
                         </div>
