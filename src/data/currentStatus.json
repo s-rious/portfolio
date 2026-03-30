@@ -1,21 +1,21 @@
 {
   "latestVideo": {
-    "title": "Romanticizing A Trip To Los Angeles",
-    "url": "https://youtu.be/7s-NN2jEx0I?si=uATdjKDFqEg1WxLU",
+    "title": "I Tried Solo Hiking For The First Time...",
+    "url": "https://www.youtube.com/watch?v=2Kxp6lYeIiw",
     "thumbnail": "/imgs/interests/recentUpload.png",
-    "uploadedAgo": "March 20th, 2026"
+    "uploadedAgo": "March 30th, 2026"
   },
   "currentProject": {
-    "name": "VLOG - Hiking in Northern California",
-    "status": "Filming",
-    "progress": 10,
-    "eta": "1.5 weeks",
-    "description": "Hiking for the first time in Northern California."
+    "name": "VLOG - SHOPPING IN SF",
+    "status": "Scripting",
+    "progress": 5,
+    "eta": "1.5 Weeks",
+    "description": "Taking a Weekend Trip to San Francisco for Clothes Shopping"
   },
   "nextStream": {
-    "date": "2026-03-21T17:30:00",
+    "date": "2026-03-24T18:30:00",
     "platform": "Twitch",
     "url": "https://twitch.tv/s_rious",
-    "title": "What's New? Where Do We Go? What's Next?"
+    "title": "Unboxing Packages + Check In"
   }
 }

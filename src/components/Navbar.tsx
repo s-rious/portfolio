@@ -203,7 +203,7 @@ export default function Navbar() {
             }}>CONNECT</span>
                         {[
                             { name: 'GitHub',   url: 'https://github.com/s-rious' },
-                            { name: 'Twitter',  url: 'https://x.com/s7rious' },
+                            { name: 'X',  url: 'https://x.com/s7rious' },
                             { name: 'YouTube',  url: 'https://youtube.com/seriousreal' },
                         ].map(s => (
                             <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
