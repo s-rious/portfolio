@@ -36,34 +36,21 @@ function extractText(node: React.ReactNode): string {
 // ─── Callout config ───────────────────────────────────────────────────────────
 type CalloutType = 'info' | 'tip' | 'warning' | 'attention';
 const calloutStyles: Record<CalloutType, { border: string; bg: string; label: string; icon: string }> = {
-    info:    { border: 'border-[#00E5FF]', bg: 'bg-[#00E5FF]/10', label: 'text-[#00E5FF]', icon: 'ℹ INFO' },
-    tip:     { border: 'border-green-400',  bg: 'bg-green-400/10',  label: 'text-green-400',  icon: '✓ TIP' },
-    warning: { border: 'border-amber-400',  bg: 'bg-amber-400/10',  label: 'text-amber-400',  icon: '⚠ WARNING' },
-    attention:  { border: 'border-[#FF2E63]',  bg: 'bg-[#FF2E63]/10',  label: 'text-[#FF2E63]', icon: '✕ ATTENTION' },
+    info:      { border: 'border-[#00E5FF]', bg: 'bg-[#00E5FF]/10', label: 'text-[#00E5FF]', icon: 'ℹ INFO' },
+    tip:       { border: 'border-green-400',  bg: 'bg-green-400/10',  label: 'text-green-400',  icon: '✓ TIP' },
+    warning:   { border: 'border-amber-400',  bg: 'bg-amber-400/10',  label: 'text-amber-400',  icon: '⚠ WARNING' },
+    attention: { border: 'border-[#FF2E63]',  bg: 'bg-[#FF2E63]/10',  label: 'text-[#FF2E63]', icon: '✕ ATTENTION' },
 };
 
 // ─── Smart blockquote renderer ────────────────────────────────────────────────
-// Handles three cases detected from the blockquote's text content:
-//
-//   Callout — first line is [!type]:
-//   > [!info]
-//   > This is an info callout.
-//
-//   Pull quote — last line starts with —:
-//   > The world is not a problem to be solved.
-//   > - Alan Watts, The Book
-//
-//   Plain blockquote — everything else:
-//   > A quick thought or note.
-
 function SmartBlockquote({ children }: { children: React.ReactNode }) {
     const fullText = extractText(children);
     const lines = fullText.split('\n').map((l) => l.trim()).filter(Boolean);
 
     if (lines.length === 0) return null;
 
-    // ── Callout detection ─────────────────────────────────────────────────────
-    const calloutMatch = lines[0].match(/^\[!(info|tip|warning|attention)$/i);
+    // ── Callout detection — note the closing \] in the regex ─────────────────
+    const calloutMatch = lines[0].match(/^\[!(info|tip|warning|attention)\]$/i);
     if (calloutMatch) {
         const type = calloutMatch[1].toLowerCase() as CalloutType;
         const s = calloutStyles[type];
