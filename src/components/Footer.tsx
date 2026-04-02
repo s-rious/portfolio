@@ -38,7 +38,7 @@ export default function Footer() {
                             lineHeight: 1.7,
                             maxWidth: '240px',
                         }}>
-                            Engineer. Creator. Builder of things that matter.
+                            Engineer and Creator
                         </p>
                         <div style={{ display: 'flex', gap: '8px', marginTop: '1.25rem' }}>
                             <span style={{ width: '6px', height: '6px', background: 'var(--red)', display: 'block' }} />
@@ -187,7 +187,6 @@ export default function Footer() {
                         letterSpacing: '0.1em',
                         color: 'var(--gray-600)',
                     }}>
-            BLENDING THE DIGITAL & PHYSICAL WORLD.
           </span>
                 </div>
             </div>
