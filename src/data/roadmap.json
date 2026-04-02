@@ -1,23 +1,23 @@
 [
   {
-    "title": "Stitched Up",
-    "category": "Game Development",
-    "eta": "Q2 2027",
+    "title": "Fashion Sense",
+    "category": "Content",
+    "eta": "Spring 2026",
     "status": "In Progress",
-    "description": "Building the story influenced by my own life"
+    "description": "Redefining my fashion sense and closet."
   },
   {
     "title": "YouTube Series: Romanticizing Life",
     "category": "Content",
-    "eta": "March 2026",
+    "eta": "Summer 2026",
     "status": "Filming",
-    "description": "Bi-Weekly vlogs showcasing my personality and daily lifestyle."
+    "description": "Bi-Weekly vlogs traveling around and romanticizing everything I stumble across."
   },
   {
-    "title": "Car Build Documentation",
-    "category": "Personal",
-    "eta": "Summer 2026",
-    "status": "In Progress",
-    "description": "Video series documenting car modifications and builds"
+    "title": "Engineer My Life",
+    "category": "Content",
+    "eta": "Fall 2026",
+    "status": "Scripting",
+    "description": "Re-enrolling in college for Electrical Engineering and documenting my process."
   }
 ]

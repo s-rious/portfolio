@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import TickerSection from '@/components/TickerSection';
 
 // ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
@@ -21,7 +20,6 @@ function Label({ children }: { children: React.ReactNode }) {
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function Home() {
     const [scrollY, setScrollY] = useState(0);
-    const [projects, setProjects]       = useState<any[]>([]);
     const [status, setStatus]           = useState<any>(null);
     const [gear, setGear]               = useState<any>(null);
     const [roadmap, setRoadmap]         = useState<any[]>([]);
@@ -42,8 +40,7 @@ export default function Home() {
             import('@/data/currentStatus.json'),
             import('@/data/gear.json'),
             import('@/data/roadmap.json'),
-        ]).then(([p, s, g, r]) => {
-            setProjects(p.default.filter((x: any) => x.featured).slice(0, 3));
+        ]).then(([, s, g, r]) => {
             setStatus(s.default);
             setGear(g.default);
             setRoadmap(r.default);
@@ -395,34 +392,6 @@ export default function Home() {
                     </section>
                 )}
 
-                {/* ── SECTION: SELECTED WORK ──────────────────────── */}
-                <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
-                    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
-                            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
-                                SELECTED WORK
-                            </h2>
-                            <Link href="/projects" style={{
-                                fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em',
-                                color: 'var(--gray-400)', textDecoration: 'none',
-                                borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px',
-                                transition: 'color 0.2s, border-color 0.2s',
-                            }}
-                                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }}
-                                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}
-                            >
-                                ALL PROJECTS →
-                            </Link>
-                        </div>
-
-                        {/* Numbered project list */}
-                        {projects.map((proj, i) => (
-                            <ProjectRow key={proj.id} project={proj} index={i} />
-                        ))}
-                    </div>
-                </section>
-
                 {/* ── SECTION: THE SETUP ──────────────────────────── */}
                 {gear && (
                     <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
@@ -646,89 +615,5 @@ export default function Home() {
                 </section>
             </div>
         </div>
-    );
-}
-
-// ─── PROJECT ROW COMPONENT ────────────────────────────────────────────────────
-function ProjectRow({ project, index }: { project: any; index: number }) {
-    const [hov, setHov] = useState(false);
-    const num = String(index + 1).padStart(2, '0');
-
-    return (
-        <Link href={project.link || '#'} target={project.link ? '_blank' : undefined}
-              onMouseEnter={() => setHov(true)}
-              onMouseLeave={() => setHov(false)}
-              style={{
-                  display: 'grid',
-                  gridTemplateColumns: '4rem 1fr auto',
-                  alignItems: 'center',
-                  gap: '2rem',
-                  padding: '2rem 0',
-                  borderBottom: '1px solid var(--gray-800)',
-                  textDecoration: 'none',
-                  color: 'var(--white)',
-                  transition: 'background 0.2s',
-                  background: hov ? 'var(--gray-800)' : 'transparent',
-                  paddingLeft: hov ? '1rem' : '0',
-                  paddingRight: hov ? '1rem' : '0',
-              }}
-        >
-            {/* Number */}
-            <span style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                color: hov ? 'var(--red)' : 'var(--gray-600)',
-                transition: 'color 0.2s',
-            }}>
-        {num}
-      </span>
-
-            {/* Title + description */}
-            <div>
-                <h3 style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
-                    letterSpacing: '0.03em',
-                    transition: 'color 0.2s',
-                    color: hov ? 'var(--red)' : 'var(--white)',
-                    marginBottom: '0.25rem',
-                }}>
-                    {project.title}
-                </h3>
-                <p style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.95rem',
-                    color: 'var(--gray-500)',
-                    transition: 'color 0.2s',
-                }}>
-                    {project.description}
-                </p>
-                <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
-                    {project.tags?.map((tag: string) => (
-                        <span key={tag} style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.58rem',
-                            letterSpacing: '0.1em',
-                            color: 'var(--gray-600)',
-                            border: '1px solid var(--gray-800)',
-                            padding: '2px 8px',
-                        }}>
-              {tag}
-            </span>
-                    ))}
-                </div>
-            </div>
-
-            {/* Arrow */}
-            <span style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '1rem',
-                color: hov ? 'var(--red)' : 'var(--gray-700)',
-                transform: hov ? 'translate(4px, -4px)' : 'none',
-                transition: 'transform 0.2s, color 0.2s',
-            }}>
-        ↗
-      </span>
-        </Link>
     );
 }

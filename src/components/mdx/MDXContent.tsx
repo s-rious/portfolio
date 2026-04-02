@@ -10,59 +10,83 @@ interface MDXContentProps {
     content: string;
 }
 
-// ─── Callout component ────────────────────────────────────────────────────────
-type CalloutType = 'info' | 'tip' | 'warning' | 'danger';
-const calloutStyles: Record<CalloutType, { border: string; bg: string; label: string; icon: string }> = {
-    info:    { border: 'border-[#00E5FF]', bg: 'bg-[#00E5FF]/10', label: 'text-[#00E5FF]', icon: 'ℹ INFO' },
-    tip:     { border: 'border-green-400',  bg: 'bg-green-400/10',  label: 'text-green-400',  icon: '✓ TIP' },
-    warning: { border: 'border-amber-400',  bg: 'bg-amber-400/10',  label: 'text-amber-400',  icon: '⚠ WARNING' },
-    danger:  { border: 'border-[#FF2E63]',  bg: 'bg-[#FF2E63]/10',  label: 'text-[#FF2E63]', icon: '✕ DANGER' },
-};
-
-export function Callout({ type = 'info', children }: { type?: CalloutType; children: React.ReactNode }) {
-    const s = calloutStyles[type];
-    return (
-        <div className={`border-l-4 ${s.border} ${s.bg} pl-4 pr-4 py-3 my-4 rounded-r-lg`}>
-            <div className={`text-xs font-black tracking-wider mb-1 ${s.label}`}
-                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                {s.icon}
-            </div>
-            <div className="text-gray-300 text-sm leading-relaxed">{children}</div>
-        </div>
-    );
+// ─── Markdown preprocessor ────────────────────────────────────────────────────
+// Converts > - Author  →  > — Author so you never have to type the em dash.
+function preprocessMarkdown(content: string): string {
+    return content
+        .split('\n')
+        .map((line) => {
+            if (/^>\s*-\s+/.test(line)) {
+                return line.replace(/^(>\s*)-\s+/, '$1— ');
+            }
+            return line;
+        })
+        .join('\n');
 }
 
 // ─── Recursively extract plain text from any React node tree ──────────────────
-// Needed because react-markdown passes custom components as children,
-// so we can't rely on child.type === 'p' to find text content.
 function extractText(node: React.ReactNode): string {
     if (typeof node === 'string') return node;
     if (typeof node === 'number') return String(node);
-    if (Array.isArray(node)) return node.map(extractText).join('');
+    if (Array.isArray(node)) return node.map(extractText).join('\n');
     if (React.isValidElement(node)) return extractText((node.props as any).children);
     return '';
 }
 
+// ─── Callout config ───────────────────────────────────────────────────────────
+type CalloutType = 'info' | 'tip' | 'warning' | 'attention';
+const calloutStyles: Record<CalloutType, { border: string; bg: string; label: string; icon: string }> = {
+    info:    { border: 'border-[#00E5FF]', bg: 'bg-[#00E5FF]/10', label: 'text-[#00E5FF]', icon: 'ℹ INFO' },
+    tip:     { border: 'border-green-400',  bg: 'bg-green-400/10',  label: 'text-green-400',  icon: '✓ TIP' },
+    warning: { border: 'border-amber-400',  bg: 'bg-amber-400/10',  label: 'text-amber-400',  icon: '⚠ WARNING' },
+    attention:  { border: 'border-[#FF2E63]',  bg: 'bg-[#FF2E63]/10',  label: 'text-[#FF2E63]', icon: '✕ ATTENTION' },
+};
+
 // ─── Smart blockquote renderer ────────────────────────────────────────────────
-// Usage in your .mdx files:
+// Handles three cases detected from the blockquote's text content:
 //
-//   Simple (no attribution) — left border style:
-//   > Some quick thought or note.
+//   Callout — first line is [!type]:
+//   > [!info]
+//   > This is an info callout.
 //
-//   Pull quote (with — line) — centered, big, dramatic:
+//   Pull quote — last line starts with —:
 //   > The world is not a problem to be solved.
-//   > — Alan Watts, The Book
+//   > - Alan Watts, The Book
+//
+//   Plain blockquote — everything else:
+//   > A quick thought or note.
 
 function SmartBlockquote({ children }: { children: React.ReactNode }) {
     const fullText = extractText(children);
     const lines = fullText.split('\n').map((l) => l.trim()).filter(Boolean);
 
-    const lastLine = lines[lines.length - 1] ?? '';
-    const isAttribution = lastLine.startsWith('—') || lastLine.startsWith('--');
+    if (lines.length === 0) return null;
 
-    if (isAttribution) {
+    // ── Callout detection ─────────────────────────────────────────────────────
+    const calloutMatch = lines[0].match(/^\[!(info|tip|warning|attention)$/i);
+    if (calloutMatch) {
+        const type = calloutMatch[1].toLowerCase() as CalloutType;
+        const s = calloutStyles[type];
+        const body = lines.slice(1).join(' ').trim();
+
+        return (
+            <div className={`border-l-4 ${s.border} ${s.bg} pl-4 pr-4 py-3 my-4 rounded-r-lg`}>
+                <div
+                    className={`text-xs font-black tracking-wider mb-1 ${s.label}`}
+                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                >
+                    {s.icon}
+                </div>
+                <div className="text-gray-300 text-sm leading-relaxed">{body}</div>
+            </div>
+        );
+    }
+
+    // ── Pull quote detection ──────────────────────────────────────────────────
+    const lastLine = lines[lines.length - 1];
+    if (lastLine.startsWith('—')) {
         const quoteText = lines.slice(0, -1).join(' ').trim();
-        const attribution = lastLine.replace(/^—\s*|^--\s*/, '').trim();
+        const attribution = lastLine.replace(/^—\s*/, '').trim();
 
         const commaIdx = attribution.indexOf(',');
         const author = commaIdx !== -1 ? attribution.slice(0, commaIdx).trim() : attribution;
@@ -91,7 +115,7 @@ function SmartBlockquote({ children }: { children: React.ReactNode }) {
         );
     }
 
-    // No attribution — simple left-border blockquote
+    // ── Plain blockquote ──────────────────────────────────────────────────────
     return (
         <blockquote className="border-l-4 border-[#FF2E63] pl-4 my-4 italic text-gray-400 bg-white/5 py-3 rounded-r-lg">
             {children}
@@ -174,7 +198,7 @@ export default function MDXContent({ content }: MDXContentProps) {
                     return <input type={type} />;
                 },
 
-                // ── Blockquote — smart, detects attribution ───────────────────
+                // ── Blockquote — handles callouts, pull quotes, and plain ─────
                 blockquote: ({ children }) => <SmartBlockquote>{children}</SmartBlockquote>,
 
                 // ── Code ─────────────────────────────────────────────────────
@@ -257,7 +281,7 @@ export default function MDXContent({ content }: MDXContentProps) {
                 ),
             }}
         >
-            {content}
+            {preprocessMarkdown(content)}
         </ReactMarkdown>
     );
 }
