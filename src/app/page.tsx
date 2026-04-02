@@ -36,11 +36,10 @@ export default function Home() {
 
     useEffect(() => {
         Promise.all([
-            import('@/data/projects.json'),
             import('@/data/currentStatus.json'),
             import('@/data/gear.json'),
             import('@/data/roadmap.json'),
-        ]).then(([, s, g, r]) => {
+        ]).then(([s, g, r]) => {
             setStatus(s.default);
             setGear(g.default);
             setRoadmap(r.default);
