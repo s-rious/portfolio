@@ -26,6 +26,7 @@ export default function Home() {
     const [email, setEmail]             = useState('');
     const [subStatus, setSubStatus]     = useState<'idle'|'loading'|'success'|'error'>('idle');
     const [heroH, setHeroH]             = useState(2000);
+    const [livePlatform, setLivePlatform] = useState<'youtube' | 'twitch'>('youtube');
 
     useEffect(() => {
         setHeroH(window.innerHeight * 2.4);
@@ -309,12 +310,12 @@ export default function Home() {
                                         {/* Progress */}
                                         <div style={{ marginBottom: '1.5rem' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
-                          {status.currentProject.status}
-                        </span>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                                                    {status.currentProject.status}
+                                                </span>
                                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--white)' }}>
-                          {status.currentProject.progress}%
-                        </span>
+                                                    {status.currentProject.progress}%
+                                                </span>
                                             </div>
                                             <div style={{ height: '1px', background: 'var(--gray-700)', position: 'relative' }}>
                                                 <div style={{
@@ -330,60 +331,102 @@ export default function Home() {
                                         </p>
                                     </div>
 
-                                    {/* Next Stream — its own visual block */}
+                                    {/* Next Stream — platform toggle + embed */}
                                     {status.nextStream && (
-                                        <a href={status.nextStream.url} target="_blank" rel="noopener noreferrer"
-                                           style={{
-                                               display: 'block',
-                                               textDecoration: 'none',
-                                               borderTop: '1px solid var(--gray-800)',
-                                               padding: '1.75rem',
-                                               background: '#0F0A0A',
-                                               transition: 'background 0.3s',
-                                           }}
-                                           onMouseEnter={e => (e.currentTarget.style.background = '#1A0808')}
-                                           onMouseLeave={e => (e.currentTarget.style.background = '#0F0A0A')}
-                                        >
-                                            {/* Live indicator */}
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
-                        <span style={{
-                            display: 'block', width: '7px', height: '7px',
-                            background: 'var(--red)', borderRadius: '50%',
-                        }} />
-                                                <Label>Next Stream</Label>
-                                                <span style={{
-                                                    marginLeft: 'auto',
-                                                    fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
-                                                    letterSpacing: '0.14em', color: 'var(--red)',
-                                                    border: '1px solid var(--red)', padding: '2px 8px',
-                                                }}>
-                          TWITCH ↗
-                        </span>
+                                        <div style={{
+                                            borderTop: '1px solid var(--gray-800)',
+                                            background: '#0F0A0A',
+                                        }}>
+                                            {/* Header row */}
+                                            <div style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'space-between',
+                                                padding: '1.25rem 1.75rem 0',
+                                                flexWrap: 'wrap',
+                                                gap: '0.75rem',
+                                            }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <span style={{
+                                                        display: 'block', width: '7px', height: '7px',
+                                                        background: 'var(--red)', borderRadius: '50%',
+                                                    }} />
+                                                    <Label>Next Stream</Label>
+                                                </div>
+
+                                                {/* Platform toggle */}
+                                                <div style={{ display: 'flex' }}>
+                                                    {(['youtube', 'twitch'] as const).map((p, i) => {
+                                                        const active = livePlatform === p;
+                                                        const label  = p === 'youtube' ? 'YOUTUBE' : 'TWITCH';
+                                                        return (
+                                                            <button
+                                                                key={p}
+                                                                onClick={() => setLivePlatform(p)}
+                                                                style={{
+                                                                    fontFamily: 'var(--font-mono)',
+                                                                    fontSize: '0.58rem',
+                                                                    letterSpacing: '0.14em',
+                                                                    padding: '4px 12px',
+                                                                    border: '1px solid var(--red)',
+                                                                    borderRight: i === 0 ? 'none' : '1px solid var(--red)',
+                                                                    background: active ? 'var(--red)' : 'transparent',
+                                                                    color: active ? 'var(--white)' : 'var(--red)',
+                                                                    cursor: 'pointer',
+                                                                    transition: 'background 0.15s, color 0.15s',
+                                                                }}
+                                                            >
+                                                                {label}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
                                             </div>
 
-                                            <p style={{
-                                                fontFamily: 'var(--font-display)',
-                                                fontSize: 'clamp(1.4rem, 3vw, 2rem)',
-                                                letterSpacing: '0.03em',
-                                                color: 'var(--white)',
-                                                lineHeight: 1.1,
-                                                marginBottom: '0.6rem',
-                                            }}>
-                                                {status.nextStream.title}
-                                            </p>
+                                            {/* Stream title + date */}
+                                            <div style={{ padding: '0.9rem 1.75rem 1rem' }}>
+                                                <p style={{
+                                                    fontFamily: 'var(--font-display)',
+                                                    fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)',
+                                                    letterSpacing: '0.03em',
+                                                    color: 'var(--white)',
+                                                    lineHeight: 1.1,
+                                                    marginBottom: '0.4rem',
+                                                }}>
+                                                    {status.nextStream.title}
+                                                </p>
+                                                <p style={{
+                                                    fontFamily: 'var(--font-mono)',
+                                                    fontSize: '0.62rem',
+                                                    letterSpacing: '0.1em',
+                                                    color: 'var(--gray-500)',
+                                                }}>
+                                                    {new Date(status.nextStream.date).toLocaleDateString('en-US', {
+                                                        weekday: 'long', month: 'short', day: 'numeric',
+                                                        hour: 'numeric', minute: '2-digit',
+                                                    })}
+                                                </p>
+                                            </div>
 
-                                            <p style={{
-                                                fontFamily: 'var(--font-mono)',
-                                                fontSize: '0.65rem',
-                                                letterSpacing: '0.1em',
-                                                color: 'var(--gray-500)',
-                                            }}>
-                                                {new Date(status.nextStream.date).toLocaleDateString('en-US', {
-                                                    weekday: 'long', month: 'short', day: 'numeric',
-                                                    hour: 'numeric', minute: '2-digit'
-                                                })}
-                                            </p>
-                                        </a>
+                                            {/* Embed */}
+                                            <div style={{ aspectRatio: '16/9', width: '100%' }}>
+                                                {livePlatform === 'youtube' ? (
+                                                    <iframe
+                                                        src="https://www.youtube.com/embed/live_stream?channel=UCtLkQJdn-nysUBA7nNPR7QA&autoplay=0"
+                                                        style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    />
+                                                ) : (
+                                                    <iframe
+                                                        src="https://player.twitch.tv/?channel=s_rious&parent=camry.dev&autoplay=false"
+                                                        style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -429,13 +472,11 @@ export default function Home() {
                                                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'var(--white)' }}>
                                                     {item.name}
                                                 </p>
-                                                {/* Single spec line */}
                                                 {item.specs && !item.subspecs && (
                                                     <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gray-600)', marginTop: '2px' }}>
                                                         {item.specs}
                                                     </p>
                                                 )}
-                                                {/* Subspecs — individual component lines */}
                                                 {item.subspecs && (
                                                     <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                                                         {item.subspecs.map((sub: string, si: number) => (
@@ -490,8 +531,8 @@ export default function Home() {
                                                     border: `1px solid ${statusColor}`,
                                                     padding: '3px 8px',
                                                 }}>
-                          {item.status?.toUpperCase()}
-                        </span>
+                                                    {item.status?.toUpperCase()}
+                                                </span>
                                             </div>
                                             <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', letterSpacing: '0.03em', marginBottom: '0.5rem' }}>
                                                 {item.title}
@@ -522,8 +563,8 @@ export default function Home() {
                         }}>
                             ONE LIFE.<br />
                             <span style={{ WebkitTextStroke: '1px var(--white)', WebkitTextFillColor: 'transparent' }}>
-                ALL OF IT.
-              </span>
+                                ALL OF IT.
+                            </span>
                         </h2>
 
                         <p style={{
