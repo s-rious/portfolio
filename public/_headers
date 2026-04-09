@@ -1,0 +1,2 @@
+/*
+  Content-Security-Policy: frame-src 'self' https://player.twitch.tv https://www.youtube.com; frame-ancestors 'self' https://camry.dev https://www.camry.dev;
