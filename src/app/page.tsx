@@ -419,7 +419,7 @@ export default function Home() {
                                                     />
                                                 ) : (
                                                     <iframe
-                                                        src="https://player.twitch.tv/?channel=s_rious&parent=camry.dev&autoplay=false"
+                                                        src={`https://player.twitch.tv/?channel=s_rious&parent=${typeof window !== 'undefined' ? window.location.hostname : 'camry.dev'}&autoplay=false`}
                                                         style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowFullScreen
