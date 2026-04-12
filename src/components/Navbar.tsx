@@ -4,235 +4,198 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-const NAV_LINKS = [
-    { name: 'Projects', path: '/projects' },
-    { name: 'Blog',     path: '/blog'     },
-    { name: 'About',    path: '/about'    },
-    { name: 'Contact',  path: '/contact'  },
-];
-
 export default function Navbar() {
-    const [scrolled,    setScrolled]    = useState(false);
-    const [menuOpen,    setMenuOpen]    = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
     const pathname = usePathname();
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60);
-        window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
+    const navLinks = [
+        { name: 'ON TOUR', path: '/tour' },
+        { name: 'PROJECTS', path: '/projects' },
+        { name: 'BLOG', path: '/blog' },
+        { name: 'ABOUT', path: '/about' },
+        { name: 'CONTACT', path: '/contact' },
+    ];
 
-    // Close menu on route change
-    useEffect(() => setMenuOpen(false), [pathname]);
+    const isActive = (path: string) => pathname === path;
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            setIsScrolled(currentScrollY > 100);
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [lastScrollY]);
 
     return (
         <>
-            {/* ── NAV BAR ─────────────────────────────────────── */}
             <nav
                 style={{
                     position: 'fixed',
                     top: 0, left: 0, right: 0,
-                    zIndex: 100,
-                    transition: 'background 0.3s ease, border-color 0.3s ease',
-                    background: scrolled ? 'rgba(8,8,8,0.97)' : 'transparent',
-                    borderBottom: scrolled ? '1px solid #1C1B1A' : '1px solid transparent',
-                    backdropFilter: scrolled ? 'blur(12px)' : 'none',
+                    zIndex: 50,
+                    transition: 'background 0.3s, border-color 0.3s',
+                    background: isScrolled ? 'rgba(8,8,8,0.95)' : 'transparent',
+                    backdropFilter: isScrolled ? 'blur(16px)' : 'none',
+                    borderBottom: isScrolled ? '1px solid var(--gray-800)' : '1px solid transparent',
                 }}
             >
                 <div style={{
                     maxWidth: '1400px',
                     margin: '0 auto',
-                    padding: '0 2rem',
-                    height: '60px',
+                    padding: '1.25rem 6vw',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                 }}>
-
                     {/* Logo */}
-                    <Link href="/" style={{ textDecoration: 'none' }}>
-            <span style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.4rem',
-                letterSpacing: '0.06em',
-                color: 'var(--white)',
-            }}>
-              CAMRY<span style={{ color: 'var(--red)' }}>.</span>DEV
-            </span>
+                    <Link href="/" style={{ textDecoration: 'none', position: 'relative', zIndex: 50 }}>
+                        <span style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: '1.25rem',
+                            letterSpacing: '0.05em',
+                            color: 'var(--white)',
+                        }}>
+                            CAMRY.DEV
+                        </span>
                     </Link>
 
-                    {/* Desktop links */}
+                    {/* Desktop nav — hidden when scrolled */}
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '2.5rem',
+                        opacity: isScrolled ? 0 : 1,
+                        pointerEvents: isScrolled ? 'none' : 'auto',
                         transition: 'opacity 0.3s',
-                        opacity: scrolled ? 0 : 1,
-                        pointerEvents: scrolled ? 'none' : 'auto',
-                    }} className="hide-mobile">
-                        {NAV_LINKS.map(link => {
-                            const active = pathname === link.path;
-                            return (
-                                <Link key={link.path} href={link.path} style={{
+                    }}>
+                        {navLinks.map(link => (
+                            <Link
+                                key={link.path}
+                                href={link.path}
+                                style={{
                                     fontFamily: 'var(--font-mono)',
-                                    fontSize: '0.7rem',
-                                    letterSpacing: '0.14em',
-                                    textTransform: 'uppercase',
-                                    color: active ? 'var(--red)' : 'var(--gray-400)',
+                                    fontSize: '0.62rem',
+                                    letterSpacing: '0.16em',
                                     textDecoration: 'none',
-                                    transition: 'color 0.2s',
-                                    paddingBottom: active ? '2px' : '0',
-                                    borderBottom: active ? '1px solid var(--red)' : '1px solid transparent',
-                                }}>
-                                    {link.name}
-                                </Link>
-                            );
-                        })}
+                                    color: isActive(link.path) ? 'var(--red)' : 'var(--gray-400)',
+                                    borderBottom: isActive(link.path) ? '1px solid var(--red)' : '1px solid transparent',
+                                    paddingBottom: '2px',
+                                    transition: 'color 0.2s, border-color 0.2s',
+                                    // ON TOUR gets a subtle accent
+                                    ...(link.path === '/tour' && !isActive(link.path) ? {
+                                        color: 'var(--white)',
+                                    } : {}),
+                                }}
+                                onMouseEnter={e => {
+                                    if (!isActive(link.path)) {
+                                        (e.currentTarget as HTMLElement).style.color = 'var(--white)';
+                                    }
+                                }}
+                                onMouseLeave={e => {
+                                    if (!isActive(link.path)) {
+                                        (e.currentTarget as HTMLElement).style.color =
+                                            link.path === '/tour' ? 'var(--white)' : 'var(--gray-400)';
+                                    }
+                                }}
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
                     </div>
 
-                    {/* Hamburger (shows when scrolled on desktop, always on mobile) */}
+                    {/* Hamburger — shows when scrolled */}
                     <button
-                        onClick={() => setMenuOpen(v => !v)}
-                        aria-label="Toggle menu"
-                        className="hamburger-btn"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
                         style={{
+                            position: 'relative',
+                            zIndex: 50,
                             background: 'none',
                             border: 'none',
                             cursor: 'pointer',
-                            padding: '8px',
-                            opacity: scrolled ? 1 : 0,
-                            pointerEvents: scrolled ? 'auto' : 'none',
+                            padding: '0.5rem',
+                            opacity: isScrolled ? 1 : 0,
+                            pointerEvents: isScrolled ? 'auto' : 'none',
                             transition: 'opacity 0.3s',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '5px',
-                            zIndex: 110,
                         }}
+                        aria-label="Toggle menu"
                     >
-                        {[0,1,2].map(i => (
-                            <span key={i} style={{
-                                display: 'block',
-                                width: '22px',
-                                height: '1.5px',
-                                background: 'var(--white)',
-                                transition: 'transform 0.3s, opacity 0.3s',
-                                transform: menuOpen
-                                    ? i === 0 ? 'rotate(45deg) translate(4.5px, 4.5px)'
-                                        : i === 2 ? 'rotate(-45deg) translate(4.5px, -4.5px)'
-                                            : 'scaleX(0)'
-                                    : 'none',
-                                opacity: menuOpen && i === 1 ? 0 : 1,
+                        <div style={{ width: '24px', height: '18px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                            <span style={{
+                                display: 'block', width: '100%', height: '1.5px', background: 'var(--white)',
+                                transform: isMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none',
+                                transition: 'transform 0.3s',
                             }} />
-                        ))}
+                            <span style={{
+                                display: 'block', width: '100%', height: '1.5px', background: 'var(--white)',
+                                opacity: isMenuOpen ? 0 : 1,
+                                transition: 'opacity 0.3s',
+                            }} />
+                            <span style={{
+                                display: 'block', width: '100%', height: '1.5px', background: 'var(--white)',
+                                transform: isMenuOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none',
+                                transition: 'transform 0.3s',
+                            }} />
+                        </div>
                     </button>
                 </div>
             </nav>
 
-            {/* ── SLIDE-OVER MENU ─────────────────────────────── */}
+            {/* Slide-over menu */}
             <div style={{
-                position: 'fixed',
-                inset: 0,
-                zIndex: 99,
-                pointerEvents: menuOpen ? 'auto' : 'none',
+                position: 'fixed', inset: 0, zIndex: 40,
+                pointerEvents: isMenuOpen ? 'auto' : 'none',
             }}>
-                {/* Backdrop */}
+                {/* Overlay */}
                 <div
-                    onClick={() => setMenuOpen(false)}
+                    onClick={() => setIsMenuOpen(false)}
                     style={{
-                        position: 'absolute',
-                        inset: 0,
+                        position: 'absolute', inset: 0,
                         background: 'rgba(8,8,8,0.85)',
-                        opacity: menuOpen ? 1 : 0,
-                        transition: 'opacity 0.4s ease',
+                        opacity: isMenuOpen ? 1 : 0,
+                        transition: 'opacity 0.4s',
                     }}
                 />
 
                 {/* Panel */}
                 <div style={{
-                    position: 'absolute',
-                    top: 0, right: 0, bottom: 0,
-                    width: '320px',
-                    maxWidth: '85vw',
-                    background: 'var(--gray-900)',
+                    position: 'absolute', top: 0, right: 0, bottom: 0,
+                    width: '320px', maxWidth: '80vw',
+                    background: 'var(--black)',
                     borderLeft: '1px solid var(--gray-800)',
-                    transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
-                    transition: 'transform 0.4s cubic-bezier(0.16,1,0.3,1)',
+                    transform: isMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+                    transition: 'transform 0.45s cubic-bezier(0.16,1,0.3,1)',
                     display: 'flex',
                     flexDirection: 'column',
-                    padding: '5rem 2rem 2rem',
+                    padding: '6rem 2.5rem 2.5rem',
                 }}>
-                    {/* Eyebrow */}
-                    <span style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.6rem',
-                        letterSpacing: '0.2em',
-                        color: 'var(--gray-500)',
-                        marginBottom: '2rem',
-                    }}>
-            NAVIGATE
-          </span>
-
-                    {NAV_LINKS.map((link, i) => {
-                        const active = pathname === link.path;
-                        return (
-                            <Link key={link.path} href={link.path} style={{
+                    {navLinks.map((link, i) => (
+                        <Link
+                            key={link.path}
+                            href={link.path}
+                            onClick={() => setIsMenuOpen(false)}
+                            style={{
                                 fontFamily: 'var(--font-display)',
-                                fontSize: '2.2rem',
-                                letterSpacing: '0.06em',
-                                color: active ? 'var(--red)' : 'var(--white)',
+                                fontSize: '2rem',
+                                letterSpacing: '0.04em',
                                 textDecoration: 'none',
-                                padding: '0.75rem 0',
+                                color: isActive(link.path) ? 'var(--red)' : link.path === '/tour' ? 'var(--white)' : 'var(--gray-400)',
+                                padding: '1rem 0',
                                 borderBottom: '1px solid var(--gray-800)',
                                 transition: 'color 0.2s',
-                                animationDelay: `${i * 60}ms`,
-                            }}>
-                                {link.name.toUpperCase()}
-                            </Link>
-                        );
-                    })}
-
-                    {/* Social links bottom */}
-                    <div style={{ marginTop: 'auto', paddingTop: '2rem' }}>
-            <span style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.6rem',
-                letterSpacing: '0.2em',
-                color: 'var(--gray-500)',
-                display: 'block',
-                marginBottom: '1rem',
-            }}>CONNECT</span>
-                        {[
-                            { name: 'GitHub',   url: 'https://github.com/s-rious' },
-                            { name: 'X',  url: 'https://x.com/s7rious' },
-                            { name: 'YouTube',  url: 'https://youtube.com/seriousreal' },
-                        ].map(s => (
-                            <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
-                               style={{
-                                   display: 'block',
-                                   fontFamily: 'var(--font-mono)',
-                                   fontSize: '0.7rem',
-                                   letterSpacing: '0.1em',
-                                   color: 'var(--gray-400)',
-                                   textDecoration: 'none',
-                                   padding: '0.4rem 0',
-                                   transition: 'color 0.2s',
-                               }}>
-                                {s.name} →
-                            </a>
-                        ))}
-                    </div>
+                            }}
+                            onMouseEnter={e => (e.currentTarget.style.color = isActive(link.path) ? 'var(--red)' : 'var(--white)')}
+                            onMouseLeave={e => (e.currentTarget.style.color = isActive(link.path) ? 'var(--red)' : link.path === '/tour' ? 'var(--white)' : 'var(--gray-400)')}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
                 </div>
             </div>
-
-            <style>{`
-        @media (max-width: 768px) {
-          .hide-mobile { display: none !important; }
-          .hamburger-btn {
-            opacity: 1 !important;
-            pointer-events: auto !important;
-          }
-        }
-      `}</style>
         </>
     );
 }

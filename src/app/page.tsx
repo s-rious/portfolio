@@ -1,7 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import TickerSection from '@/components/TickerSection';
+
+// ─── CONSTANTS ────────────────────────────────────────────────────────────────
+const CATEGORY_COLORS: Record<string, string> = {
+    Stream:      'var(--red)',
+    Video:       'var(--white)',
+    'IRL Event': '#4ADE80',
+    Collab:      '#00E5FF',
+};
 
 // ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
 
@@ -19,10 +28,11 @@ function Label({ children }: { children: React.ReactNode }) {
 
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function Home() {
-    const [scrollY, setScrollY] = useState(0);
+    const [scrollY, setScrollY]         = useState(0);
     const [status, setStatus]           = useState<any>(null);
     const [gear, setGear]               = useState<any>(null);
     const [roadmap, setRoadmap]         = useState<any[]>([]);
+    const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
     const [email, setEmail]             = useState('');
     const [subStatus, setSubStatus]     = useState<'idle'|'loading'|'success'|'error'>('idle');
     const [heroH, setHeroH]             = useState(2000);
@@ -40,10 +50,18 @@ export default function Home() {
             import('@/data/currentStatus.json'),
             import('@/data/gear.json'),
             import('@/data/roadmap.json'),
-        ]).then(([s, g, r]) => {
+            import('@/data/events.json'),
+        ]).then(([s, g, r, e]) => {
             setStatus(s.default);
             setGear(g.default);
             setRoadmap(r.default);
+
+            const now = new Date();
+            const upcoming = (e.default as any[])
+                .filter(ev => ev.status === 'upcoming' && new Date(ev.date) >= now)
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                .slice(0, 3);
+            setUpcomingEvents(upcoming);
         });
     }, []);
 
@@ -99,13 +117,11 @@ export default function Home() {
                     transition: 'opacity 0.7s ease',
                     pointerEvents: 'none',
                 }}>
-                    {/* Top label */}
                     <div style={{ position: 'absolute', top: '5rem', left: '6vw', right: '6vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Label>Sacramento, CA — Available for Partnerships</Label>
                         <Label>camry.dev</Label>
                     </div>
 
-                    {/* Main name */}
                     <div style={{ overflow: 'hidden' }}>
                         <h1 style={{
                             fontFamily: 'var(--font-display)',
@@ -133,7 +149,6 @@ export default function Home() {
                         </h1>
                     </div>
 
-                    {/* Bottom row */}
                     <div style={{
                         position: 'absolute', bottom: '4rem', left: '6vw', right: '6vw',
                         display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
@@ -206,7 +221,6 @@ export default function Home() {
                     <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
-                            {/* Header row */}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
                                 <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
                                     WHAT'S HAPPENING
@@ -307,7 +321,6 @@ export default function Home() {
                                             {status.currentProject.description}
                                         </p>
 
-                                        {/* Progress */}
                                         <div style={{ marginBottom: '1.5rem' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
@@ -337,7 +350,6 @@ export default function Home() {
                                             borderTop: '1px solid var(--gray-800)',
                                             background: '#0F0A0A',
                                         }}>
-                                            {/* Header row */}
                                             <div style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
@@ -354,11 +366,9 @@ export default function Home() {
                                                     <Label>Next Stream</Label>
                                                 </div>
 
-                                                {/* Platform toggle */}
                                                 <div style={{ display: 'flex' }}>
                                                     {(['youtube', 'twitch'] as const).map((p, i) => {
                                                         const active = livePlatform === p;
-                                                        const label  = p === 'youtube' ? 'YOUTUBE' : 'TWITCH';
                                                         return (
                                                             <button
                                                                 key={p}
@@ -376,14 +386,13 @@ export default function Home() {
                                                                     transition: 'background 0.15s, color 0.15s',
                                                                 }}
                                                             >
-                                                                {label}
+                                                                {p === 'youtube' ? 'YOUTUBE' : 'TWITCH'}
                                                             </button>
                                                         );
                                                     })}
                                                 </div>
                                             </div>
 
-                                            {/* Stream title + date */}
                                             <div style={{ padding: '0.9rem 1.75rem 1rem' }}>
                                                 <p style={{
                                                     fontFamily: 'var(--font-display)',
@@ -408,11 +417,10 @@ export default function Home() {
                                                 </p>
                                             </div>
 
-                                            {/* Embed */}
                                             <div style={{ aspectRatio: '16/9', width: '100%' }}>
                                                 {livePlatform === 'youtube' ? (
                                                     <iframe
-                                                        src="https://www.youtube.com/embed/live_stream?channel=UCtLkQJdn-nysUBA7nNPR7QA&autoplay=0"
+                                                        src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID&autoplay=0"
                                                         style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowFullScreen
@@ -429,6 +437,144 @@ export default function Home() {
                                         </div>
                                     )}
                                 </div>
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* ── SECTION: ON TOUR PREVIEW ─────────────────────── */}
+                {upcomingEvents.length > 0 && (
+                    <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <div>
+                                    <Label>Schedule</Label>
+                                    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em', marginTop: '0.5rem' }}>
+                                        ON TOUR
+                                    </h2>
+                                </div>
+                                <Link
+                                    href="/tour"
+                                    style={{
+                                        fontFamily: 'var(--font-mono)',
+                                        fontSize: '0.62rem',
+                                        letterSpacing: '0.14em',
+                                        color: 'var(--gray-400)',
+                                        textDecoration: 'none',
+                                        border: '1px solid var(--gray-700)',
+                                        padding: '0.6rem 1.2rem',
+                                        transition: 'color 0.2s, border-color 0.2s',
+                                        alignSelf: 'flex-end',
+                                    }}
+                                    onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}
+                                >
+                                    FULL SCHEDULE ↗
+                                </Link>
+                            </div>
+
+                            {/* 3 upcoming event rows */}
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                {upcomingEvents.map((event, i) => {
+                                    const accent = CATEGORY_COLORS[event.category] ?? 'var(--white)';
+                                    const d = new Date(event.date);
+                                    const dateShort = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                                    const time = event.date.includes('T') && !event.date.endsWith('T00:00:00')
+                                        ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+                                        : null;
+
+                                    const row = (
+                                        <div
+                                            style={{
+                                                display: 'grid',
+                                                gridTemplateColumns: '80px 1fr auto',
+                                                alignItems: 'center',
+                                                gap: '2rem',
+                                                padding: '1.5rem 0',
+                                                borderBottom: i < upcomingEvents.length - 1 ? '1px solid var(--gray-800)' : 'none',
+                                                transition: 'background 0.2s',
+                                            }}
+                                            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
+                                            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                                        >
+                                            {/* Date block */}
+                                            <div style={{ textAlign: 'center' }}>
+                                                <p style={{
+                                                    fontFamily: 'var(--font-display)',
+                                                    fontSize: '1.6rem',
+                                                    letterSpacing: '0.04em',
+                                                    color: accent,
+                                                    lineHeight: 1,
+                                                }}>
+                                                    {d.getDate()}
+                                                </p>
+                                                <p style={{
+                                                    fontFamily: 'var(--font-mono)',
+                                                    fontSize: '0.55rem',
+                                                    letterSpacing: '0.14em',
+                                                    color: 'var(--gray-600)',
+                                                    marginTop: '3px',
+                                                }}>
+                                                    {d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
+                                                </p>
+                                            </div>
+
+                                            {/* Title + meta */}
+                                            <div>
+                                                <p style={{
+                                                    fontFamily: 'var(--font-display)',
+                                                    fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
+                                                    letterSpacing: '0.03em',
+                                                    color: 'var(--white)',
+                                                    lineHeight: 1.1,
+                                                    marginBottom: '0.35rem',
+                                                }}>
+                                                    {event.title}
+                                                </p>
+                                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)',
+                                                        fontSize: '0.55rem',
+                                                        letterSpacing: '0.12em',
+                                                        color: accent,
+                                                        border: `1px solid ${accent}`,
+                                                        padding: '2px 6px',
+                                                    }}>
+                                                        {event.category.toUpperCase()}
+                                                    </span>
+                                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>
+                                                        {event.platform.toUpperCase()}
+                                                        {time ? ` — ${time}` : ''}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Arrow */}
+                                            <span style={{
+                                                fontFamily: 'var(--font-mono)',
+                                                fontSize: '0.75rem',
+                                                color: 'var(--gray-700)',
+                                            }}>
+                                                →
+                                            </span>
+                                        </div>
+                                    );
+
+                                    return event.url ? (
+                                        <a
+                                            key={event.id}
+                                            href={event.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{ textDecoration: 'none', color: 'inherit' }}
+                                        >
+                                            {row}
+                                        </a>
+                                    ) : (
+                                        <div key={event.id}>{row}</div>
+                                    );
+                                })}
                             </div>
                         </div>
                     </section>
@@ -517,10 +663,7 @@ export default function Home() {
                                         : item.status === 'In Progress' ? '#4ADE80'
                                             : 'var(--gray-500)';
                                     return (
-                                        <div key={i} style={{
-                                            background: 'var(--gray-900)',
-                                            padding: '2rem',
-                                        }}>
+                                        <div key={i} style={{ background: 'var(--gray-900)', padding: '2rem' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                                 <span style={{ width: '10px', height: '10px', background: 'var(--red)', display: 'block', flexShrink: 0, marginTop: '4px' }} />
                                                 <span style={{
@@ -578,7 +721,6 @@ export default function Home() {
                             Come along for the day-to-day of a 21-year-old in Northern California who loves film, builds cars, games, lifts, and new tech.
                         </p>
 
-                        {/* Subscribe form */}
                         <form onSubmit={handleSub} style={{ display: 'flex', gap: '0', maxWidth: '480px', marginBottom: '1rem' }}>
                             <input
                                 type="email"
@@ -630,12 +772,11 @@ export default function Home() {
                             </p>
                         )}
 
-                        {/* Social row */}
                         <div style={{ display: 'flex', gap: '1.5rem', marginTop: '3rem', flexWrap: 'wrap' }}>
                             {[
                                 { name: 'YouTube', url: 'https://youtube.com/seriousreal' },
                                 { name: 'Twitch',  url: 'https://twitch.tv/s_rious' },
-                                { name: 'X', url: 'https://x.com/s7rious' },
+                                { name: 'X',       url: 'https://x.com/s7rious' },
                             ].map(s => (
                                 <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
                                    style={{

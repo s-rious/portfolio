@@ -1,0 +1,123 @@
+[
+  {
+    "id": 11,
+    "title": "FIVE NIGHTS AT FREDDYS 2 & 3 GAMEPLAY",
+    "category": "Stream",
+    "date": "2026-04-12T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=ryAKy1IJ3jE",
+    "thumbnail": "",
+    "description": "First time playing the FNAF Series + Taking turns as the night guard",
+    "status": "upcoming"
+  },
+  {
+    "id": 10,
+    "title": "VLOG - TBD",
+    "category": "Video",
+    "date": "2026-04-28T00:00:00",
+    "platform": "YouTube",
+    "url": "https://youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "TBD",
+    "status": "upcoming"
+  },
+  {
+    "id": 9,
+    "title": "COLLAB VIDEO — TBD CREATOR",
+    "category": "Collab",
+    "date": "2026-05-20T00:00:00",
+    "platform": "YouTube",
+    "url": "https://youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Details dropping soon.",
+    "status": "upcoming"
+  },
+  {
+    "id": 8,
+    "title": "POPPY PLAYTIME CHAPTER 3",
+    "category": "Stream",
+    "date": "2026-04-11T18:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=ScBMDShrT1o",
+    "thumbnail": "",
+    "description": "The most feared chapter of mine, featuring CatNap and Weeping Angels",
+    "status": "past"
+  },
+  {
+    "id": 7,
+    "title": "POPPY PLAYTIME CHAPTER 2",
+    "category": "Stream",
+    "date": "2026-04-09T18:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=AEjLM86CQko",
+    "thumbnail": "",
+    "description": "The continuation of my most requested series: Poppy Playtime",
+    "status": "past"
+  },
+  {
+    "id": 6,
+    "title": "FNAF 1 & POPPY PLAYTIME CHAPTER 1",
+    "category": "Stream",
+    "date": "2026-04-08T18:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=SQO-9NgI1V0",
+    "thumbnail": "",
+    "description": "The stream that kicked off the horror series.",
+    "status": "past"
+  },
+  {
+    "id": 5,
+    "title": "SOLO HIKING FOR THE FIRST TIME",
+    "category": "Video",
+    "date": "2026-03-30T00:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/watch?v=2Kxp6lYeIiw",
+    "thumbnail": "",
+    "description": "A beautiful venture alone. ",
+    "status": "past"
+  },
+  {
+    "id": 4,
+    "title": "Romanticizing A Vacation To Los Angeles",
+    "category": "Video",
+    "date": "2026-03-20T00:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/watch?v=7s-NN2jEx0",
+    "thumbnail": "",
+    "description": "A romanticized vacation back to my true home: Southern California, featuring my parents!",
+    "status": "past"
+  },
+  {
+    "id": 3,
+    "title": "Filming My Mundane Week | Gym, Home, and Work Life",
+    "category": "Video",
+    "date": "2026-03-07T00:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/watch?v=4aibBnE2sis",
+    "thumbnail": "",
+    "description": "A week in the life to get to know me, CAMRY.",
+    "status": "past"
+  },
+  {
+    "id": 2,
+    "title": "What's Changed In My Life One Year Later...",
+    "category": "Video",
+    "date": "2026-03-02T00:00:00",
+    "platform": "YouTube",
+    "url": "https://youtu.be/mfLJNyU7SxU?si=XX4M1tkNOCYQj3d6",
+    "thumbnail": "",
+    "description": "The continuation of my move to California, what's changed?",
+    "status": "past"
+  },
+  {
+    "id": 1,
+    "title": "MOVING 400 MILES AWAY FROM EVERYTHING",
+    "category": "Video",
+    "date": "2026-02-15T00:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/watch?v=YYt2WTFkwYM",
+    "thumbnail": "",
+    "description": "The video that started it all: my move to California",
+    "status": "past"
+  }
+]
