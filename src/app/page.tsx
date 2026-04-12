@@ -12,6 +12,28 @@ const CATEGORY_COLORS: Record<string, string> = {
     Collab:      '#00E5FF',
 };
 
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+
+function extractYouTubeId(url: string): string | null {
+    const patterns = [
+        /youtu\.be\/([^?&#/]+)/,
+        /youtube\.com\/watch\?v=([^&#]+)/,
+        /youtube\.com\/live\/([^?&#/]+)/,
+        /youtube\.com\/shorts\/([^?&#/]+)/,
+    ];
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) return match[1];
+    }
+    return null;
+}
+
+function getYouTubeThumbnail(url: string): string {
+    const id = extractYouTubeId(url);
+    if (!id) return '';
+    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+}
+
 // ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
 
 function Label({ children }: { children: React.ReactNode }) {
@@ -28,15 +50,17 @@ function Label({ children }: { children: React.ReactNode }) {
 
 // ─── MAIN PAGE ───────────────────────────────────────────────────────────────
 export default function Home() {
-    const [scrollY, setScrollY]         = useState(0);
-    const [status, setStatus]           = useState<any>(null);
-    const [gear, setGear]               = useState<any>(null);
-    const [roadmap, setRoadmap]         = useState<any[]>([]);
+    const [scrollY, setScrollY]               = useState(0);
+    const [gear, setGear]                     = useState<any>(null);
+    const [roadmap, setRoadmap]               = useState<any[]>([]);
     const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
-    const [email, setEmail]             = useState('');
-    const [subStatus, setSubStatus]     = useState<'idle'|'loading'|'success'|'error'>('idle');
-    const [heroH, setHeroH]             = useState(2000);
-    const [livePlatform, setLivePlatform] = useState<'youtube' | 'twitch'>('youtube');
+    const [derivedVideo, setDerivedVideo]     = useState<any>(null);
+    const [derivedStream, setDerivedStream]   = useState<any>(null);
+    const [derivedProject, setDerivedProject] = useState<any>(null);
+    const [email, setEmail]                   = useState('');
+    const [subStatus, setSubStatus]           = useState<'idle'|'loading'|'success'|'error'>('idle');
+    const [heroH, setHeroH]                   = useState(2000);
+    const [livePlatform, setLivePlatform]     = useState<'youtube' | 'twitch'>('youtube');
 
     useEffect(() => {
         setHeroH(window.innerHeight * 2.4);
@@ -47,17 +71,43 @@ export default function Home() {
 
     useEffect(() => {
         Promise.all([
-            import('@/data/currentStatus.json'),
             import('@/data/gear.json'),
             import('@/data/roadmap.json'),
             import('@/data/events.json'),
-        ]).then(([s, g, r, e]) => {
-            setStatus(s.default);
+        ]).then(([g, r, e]) => {
             setGear(g.default);
             setRoadmap(r.default);
 
+            const events = e.default as any[];
             const now = new Date();
-            const upcoming = (e.default as any[])
+
+            // Latest Video: most recent past Video event
+            const pastVideos = events
+                .filter(ev => ev.status === 'past' && ev.category === 'Video')
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            if (pastVideos.length > 0) {
+                const v = pastVideos[0];
+                const thumb = v.thumbnail || getYouTubeThumbnail(v.url);
+                const dateLabel = new Date(v.date).toLocaleDateString('en-US', {
+                    month: 'long', day: 'numeric', year: 'numeric',
+                });
+                setDerivedVideo({ ...v, thumbnail: thumb, uploadedAgo: dateLabel });
+            }
+
+            // Next Stream: soonest upcoming Stream event
+            const upcomingStreams = events
+                .filter(ev => ev.status === 'upcoming' && ev.category === 'Stream')
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            setDerivedStream(upcomingStreams[0] ?? null);
+
+            // Current Project: soonest upcoming non-Stream event
+            const upcomingProjects = events
+                .filter(ev => ev.status === 'upcoming' && ev.category !== 'Stream')
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            setDerivedProject(upcomingProjects[0] ?? null);
+
+            // ON TOUR section: next 3 upcoming events of any category
+            const upcoming = events
                 .filter(ev => ev.status === 'upcoming' && new Date(ev.date) >= now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                 .slice(0, 3);
@@ -217,7 +267,7 @@ export default function Home() {
                 <TickerSection />
 
                 {/* ── SECTION: WHAT'S HAPPENING ────────────────────── */}
-                {status && (
+                {(derivedVideo || derivedStream || derivedProject) && (
                     <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
 
@@ -230,30 +280,38 @@ export default function Home() {
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1px', background: 'var(--gray-800)' }}>
 
-                                {/* Latest Video */}
+                                {/* ── LATEST VIDEO ── */}
                                 <div style={{ background: 'var(--gray-900)', padding: '0' }}>
-                                    <a href={status.latestVideo.url} target="_blank" rel="noopener noreferrer"
-                                       style={{ display: 'block', textDecoration: 'none' }}>
-                                        <div style={{ aspectRatio: '16/9', overflow: 'hidden', position: 'relative' }}>
-                                            <img src={status.latestVideo.thumbnail} alt={status.latestVideo.title}
-                                                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(20%)', transition: 'filter 0.4s, transform 0.4s' }}
-                                                 className="video-thumb"
-                                            />
-                                            <div style={{
-                                                position: 'absolute', inset: 0,
-                                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                background: 'rgba(8,8,8,0.35)',
-                                                transition: 'background 0.3s',
-                                            }}
-                                                 className="video-overlay"
+                                    <a
+                                        href={derivedVideo?.url ?? '#'}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{ display: 'block', textDecoration: 'none' }}
+                                    >
+                                        <div style={{ aspectRatio: '16/9', overflow: 'hidden', position: 'relative', background: 'var(--gray-800)' }}>
+                                            {derivedVideo?.thumbnail ? (
+                                                <img
+                                                    src={derivedVideo.thumbnail}
+                                                    alt={derivedVideo.title}
+                                                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'grayscale(20%)', transition: 'filter 0.4s, transform 0.4s' }}
+                                                    className="video-thumb"
+                                                    onError={e => {
+                                                        const id = extractYouTubeId(derivedVideo.url);
+                                                        if (id) (e.currentTarget as HTMLImageElement).src = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+                                                    }}
+                                                />
+                                            ) : (
+                                                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gray-600)', letterSpacing: '0.1em' }}>NO THUMBNAIL</span>
+                                                </div>
+                                            )}
+                                            <div
+                                                style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(8,8,8,0.35)', transition: 'background 0.3s' }}
+                                                className="video-overlay"
                                             >
-                                                <div style={{
-                                                    width: '52px', height: '52px',
-                                                    border: '1.5px solid var(--white)',
-                                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                    transition: 'background 0.2s',
-                                                }}
-                                                     className="play-btn"
+                                                <div
+                                                    style={{ width: '52px', height: '52px', border: '1.5px solid var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background 0.2s' }}
+                                                    className="play-btn"
                                                 >
                                                     <svg width="16" height="18" viewBox="0 0 16 18" fill="var(--white)">
                                                         <path d="M0 0L16 9L0 18V0Z" />
@@ -271,32 +329,35 @@ export default function Home() {
                                             margin: '0.5rem 0 0.75rem',
                                             lineHeight: 1.1,
                                         }}>
-                                            {status.latestVideo.title}
+                                            {derivedVideo?.title ?? '—'}
                                         </h3>
                                         <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)', marginBottom: '1.25rem' }}>
-                                            {status.latestVideo.uploadedAgo}
+                                            {derivedVideo?.uploadedAgo ?? ''}
                                         </p>
-                                        <a href={status.latestVideo.url} target="_blank" rel="noopener noreferrer"
-                                           style={{
-                                               display: 'inline-block',
-                                               fontFamily: 'var(--font-mono)',
-                                               fontSize: '0.65rem',
-                                               letterSpacing: '0.14em',
-                                               color: 'var(--white)',
-                                               textDecoration: 'none',
-                                               border: '1px solid var(--white)',
-                                               padding: '0.6rem 1.2rem',
-                                               transition: 'background 0.2s, color 0.2s',
-                                           }}
-                                           onMouseEnter={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.color = 'var(--black)'; }}
-                                           onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--white)'; }}
+                                        <a
+                                            href={derivedVideo?.url ?? '#'}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            style={{
+                                                display: 'inline-block',
+                                                fontFamily: 'var(--font-mono)',
+                                                fontSize: '0.65rem',
+                                                letterSpacing: '0.14em',
+                                                color: 'var(--white)',
+                                                textDecoration: 'none',
+                                                border: '1px solid var(--white)',
+                                                padding: '0.6rem 1.2rem',
+                                                transition: 'background 0.2s, color 0.2s',
+                                            }}
+                                            onMouseEnter={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.color = 'var(--black)'; }}
+                                            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--white)'; }}
                                         >
                                             WATCH NOW ↗
                                         </a>
                                     </div>
                                 </div>
 
-                                {/* Current Project + Next Stream stacked */}
+                                {/* ── CURRENT PROJECT + NEXT STREAM stacked ── */}
                                 <div style={{ background: 'var(--gray-900)', display: 'flex', flexDirection: 'column' }}>
 
                                     {/* Current Project */}
@@ -309,7 +370,7 @@ export default function Home() {
                                             margin: '0.5rem 0 0.75rem',
                                             lineHeight: 1.1,
                                         }}>
-                                            {status.currentProject.name}
+                                            {derivedProject?.title ?? 'COMING SOON'}
                                         </h3>
                                         <p style={{
                                             fontFamily: 'var(--font-body)',
@@ -318,38 +379,36 @@ export default function Home() {
                                             marginBottom: '2rem',
                                             lineHeight: 1.6,
                                         }}>
-                                            {status.currentProject.description}
+                                            {derivedProject?.description ?? 'Nothing scheduled yet — check back soon.'}
                                         </p>
 
-                                        <div style={{ marginBottom: '1.5rem' }}>
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
-                                                    {status.currentProject.status}
-                                                </span>
-                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--white)' }}>
-                                                    {status.currentProject.progress}%
-                                                </span>
-                                            </div>
-                                            <div style={{ height: '1px', background: 'var(--gray-700)', position: 'relative' }}>
-                                                <div style={{
-                                                    position: 'absolute', top: 0, left: 0, bottom: 0,
-                                                    width: `${status.currentProject.progress}%`,
-                                                    background: 'var(--red)',
-                                                }} />
-                                            </div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                                            <span style={{
+                                                fontFamily: 'var(--font-mono)',
+                                                fontSize: '0.55rem',
+                                                letterSpacing: '0.12em',
+                                                color: CATEGORY_COLORS[derivedProject?.category] ?? 'var(--gray-500)',
+                                                border: `1px solid ${CATEGORY_COLORS[derivedProject?.category] ?? 'var(--gray-700)'}`,
+                                                padding: '3px 8px',
+                                            }}>
+                                                {derivedProject?.category?.toUpperCase() ?? 'UPCOMING'}
+                                            </span>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>
+                                                {derivedProject?.platform ?? ''}
+                                            </span>
                                         </div>
 
                                         <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
-                                            ETA — {status.currentProject.eta}
+                                            ETA —{' '}
+                                            {derivedProject
+                                                ? new Date(derivedProject.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                                                : 'TBD'}
                                         </p>
                                     </div>
 
-                                    {/* Next Stream — platform toggle + embed */}
-                                    {status.nextStream && (
-                                        <div style={{
-                                            borderTop: '1px solid var(--gray-800)',
-                                            background: '#0F0A0A',
-                                        }}>
+                                    {/* Next Stream */}
+                                    {derivedStream ? (
+                                        <div style={{ borderTop: '1px solid var(--gray-800)', background: '#0F0A0A' }}>
                                             <div style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
@@ -359,13 +418,9 @@ export default function Home() {
                                                 gap: '0.75rem',
                                             }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                    <span style={{
-                                                        display: 'block', width: '7px', height: '7px',
-                                                        background: 'var(--red)', borderRadius: '50%',
-                                                    }} />
+                                                    <span style={{ display: 'block', width: '7px', height: '7px', background: 'var(--red)', borderRadius: '50%' }} />
                                                     <Label>Next Stream</Label>
                                                 </div>
-
                                                 <div style={{ display: 'flex' }}>
                                                     {(['youtube', 'twitch'] as const).map((p, i) => {
                                                         const active = livePlatform === p;
@@ -402,15 +457,10 @@ export default function Home() {
                                                     lineHeight: 1.1,
                                                     marginBottom: '0.4rem',
                                                 }}>
-                                                    {status.nextStream.title}
+                                                    {derivedStream.title}
                                                 </p>
-                                                <p style={{
-                                                    fontFamily: 'var(--font-mono)',
-                                                    fontSize: '0.62rem',
-                                                    letterSpacing: '0.1em',
-                                                    color: 'var(--gray-500)',
-                                                }}>
-                                                    {new Date(status.nextStream.date).toLocaleDateString('en-US', {
+                                                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                                                    {new Date(derivedStream.date).toLocaleDateString('en-US', {
                                                         weekday: 'long', month: 'short', day: 'numeric',
                                                         hour: 'numeric', minute: '2-digit',
                                                     })}
@@ -420,7 +470,7 @@ export default function Home() {
                                             <div style={{ aspectRatio: '16/9', width: '100%' }}>
                                                 {livePlatform === 'youtube' ? (
                                                     <iframe
-                                                        src="https://www.youtube.com/embed/live_stream?channel=YOUR_CHANNEL_ID&autoplay=0"
+                                                        src="https://www.youtube.com/embed/live_stream?channel=UCtLkQJdn-nysUBA7nNPR7QA&autoplay=0"
                                                         style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                         allowFullScreen
@@ -433,6 +483,49 @@ export default function Home() {
                                                         allowFullScreen
                                                     />
                                                 )}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        /* No upcoming stream — fallback links */
+                                        <div style={{ borderTop: '1px solid var(--gray-800)', background: '#0F0A0A', padding: '1.75rem' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                                                <span style={{ display: 'block', width: '7px', height: '7px', background: 'var(--gray-700)', borderRadius: '50%' }} />
+                                                <Label>Next Stream</Label>
+                                            </div>
+                                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--gray-500)', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                                                No stream scheduled yet — check back soon.
+                                            </p>
+                                            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                                                <a
+                                                    href="https://youtube.com/seriousreal/live"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em',
+                                                        color: 'var(--white)', textDecoration: 'none',
+                                                        border: '1px solid var(--gray-700)', padding: '0.5rem 1rem',
+                                                        transition: 'border-color 0.2s',
+                                                    }}
+                                                    onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')}
+                                                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}
+                                                >
+                                                    YOUTUBE LIVE ↗
+                                                </a>
+                                                <a
+                                                    href="https://twitch.tv/s_rious"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    style={{
+                                                        fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em',
+                                                        color: 'var(--white)', textDecoration: 'none',
+                                                        border: '1px solid var(--gray-700)', padding: '0.5rem 1rem',
+                                                        transition: 'border-color 0.2s',
+                                                    }}
+                                                    onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')}
+                                                    onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}
+                                                >
+                                                    TWITCH ↗
+                                                </a>
                                             </div>
                                         </div>
                                     )}
@@ -474,12 +567,10 @@ export default function Home() {
                                 </Link>
                             </div>
 
-                            {/* 3 upcoming event rows */}
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 {upcomingEvents.map((event, i) => {
                                     const accent = CATEGORY_COLORS[event.category] ?? 'var(--white)';
                                     const d = new Date(event.date);
-                                    const dateShort = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                                     const time = event.date.includes('T') && !event.date.endsWith('T00:00:00')
                                         ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
                                         : null;
@@ -498,77 +589,35 @@ export default function Home() {
                                             onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
                                             onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                                         >
-                                            {/* Date block */}
                                             <div style={{ textAlign: 'center' }}>
-                                                <p style={{
-                                                    fontFamily: 'var(--font-display)',
-                                                    fontSize: '1.6rem',
-                                                    letterSpacing: '0.04em',
-                                                    color: accent,
-                                                    lineHeight: 1,
-                                                }}>
+                                                <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', letterSpacing: '0.04em', color: accent, lineHeight: 1 }}>
                                                     {d.getDate()}
                                                 </p>
-                                                <p style={{
-                                                    fontFamily: 'var(--font-mono)',
-                                                    fontSize: '0.55rem',
-                                                    letterSpacing: '0.14em',
-                                                    color: 'var(--gray-600)',
-                                                    marginTop: '3px',
-                                                }}>
+                                                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-600)', marginTop: '3px' }}>
                                                     {d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}
                                                 </p>
                                             </div>
 
-                                            {/* Title + meta */}
                                             <div>
-                                                <p style={{
-                                                    fontFamily: 'var(--font-display)',
-                                                    fontSize: 'clamp(1rem, 2.5vw, 1.4rem)',
-                                                    letterSpacing: '0.03em',
-                                                    color: 'var(--white)',
-                                                    lineHeight: 1.1,
-                                                    marginBottom: '0.35rem',
-                                                }}>
+                                                <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1rem, 2.5vw, 1.4rem)', letterSpacing: '0.03em', color: 'var(--white)', lineHeight: 1.1, marginBottom: '0.35rem' }}>
                                                     {event.title}
                                                 </p>
                                                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                                                    <span style={{
-                                                        fontFamily: 'var(--font-mono)',
-                                                        fontSize: '0.55rem',
-                                                        letterSpacing: '0.12em',
-                                                        color: accent,
-                                                        border: `1px solid ${accent}`,
-                                                        padding: '2px 6px',
-                                                    }}>
+                                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.12em', color: accent, border: `1px solid ${accent}`, padding: '2px 6px' }}>
                                                         {event.category.toUpperCase()}
                                                     </span>
                                                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>
-                                                        {event.platform.toUpperCase()}
-                                                        {time ? ` — ${time}` : ''}
+                                                        {event.platform.toUpperCase()}{time ? ` — ${time}` : ''}
                                                     </span>
                                                 </div>
                                             </div>
 
-                                            {/* Arrow */}
-                                            <span style={{
-                                                fontFamily: 'var(--font-mono)',
-                                                fontSize: '0.75rem',
-                                                color: 'var(--gray-700)',
-                                            }}>
-                                                →
-                                            </span>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--gray-700)' }}>→</span>
                                         </div>
                                     );
 
                                     return event.url ? (
-                                        <a
-                                            key={event.id}
-                                            href={event.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            style={{ textDecoration: 'none', color: 'inherit' }}
-                                        >
+                                        <a key={event.id} href={event.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
                                             {row}
                                         </a>
                                     ) : (
@@ -594,24 +643,17 @@ export default function Home() {
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0', borderTop: '1px solid var(--gray-800)', borderLeft: '1px solid var(--gray-800)' }}>
                                 {[
-                                    { label: 'Coding',          items: gear.coding,   accent: 'var(--red)'     },
-                                    { label: 'Content',         items: gear.content,  accent: 'var(--white)'   },
+                                    { label: 'Coding',          items: gear.coding,   accent: 'var(--red)'      },
+                                    { label: 'Content',         items: gear.content,  accent: 'var(--white)'    },
                                     { label: 'Gaming / Stream', items: gear.gaming,   accent: 'var(--gray-400)' },
                                 ].map(col => (
-                                    <div key={col.label} style={{
-                                        borderRight: '1px solid var(--gray-800)',
-                                        borderBottom: '1px solid var(--gray-800)',
-                                        padding: '2rem',
-                                    }}>
+                                    <div key={col.label} style={{ borderRight: '1px solid var(--gray-800)', borderBottom: '1px solid var(--gray-800)', padding: '2rem' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem' }}>
                                             <span style={{ width: '8px', height: '8px', background: col.accent, display: 'block' }} />
                                             <Label>{col.label}</Label>
                                         </div>
                                         {col.items?.map((item: any) => (
-                                            <div key={item.name} style={{
-                                                padding: '0.75rem 0',
-                                                borderBottom: '1px solid var(--gray-800)',
-                                            }}>
+                                            <div key={item.name} style={{ padding: '0.75rem 0', borderBottom: '1px solid var(--gray-800)' }}>
                                                 <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--gray-500)', marginBottom: '3px' }}>
                                                     {item.category}
                                                 </p>
@@ -626,11 +668,7 @@ export default function Home() {
                                                 {item.subspecs && (
                                                     <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
                                                         {item.subspecs.map((sub: string, si: number) => (
-                                                            <p key={si} style={{
-                                                                fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
-                                                                color: 'var(--gray-600)', paddingLeft: '0.75rem',
-                                                                borderLeft: '1px solid var(--gray-700)',
-                                                            }}>
+                                                            <p key={si} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: 'var(--gray-600)', paddingLeft: '0.75rem', borderLeft: '1px solid var(--gray-700)' }}>
                                                                 {sub}
                                                             </p>
                                                         ))}
@@ -666,14 +704,7 @@ export default function Home() {
                                         <div key={i} style={{ background: 'var(--gray-900)', padding: '2rem' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                                 <span style={{ width: '10px', height: '10px', background: 'var(--red)', display: 'block', flexShrink: 0, marginTop: '4px' }} />
-                                                <span style={{
-                                                    fontFamily: 'var(--font-mono)',
-                                                    fontSize: '0.58rem',
-                                                    letterSpacing: '0.12em',
-                                                    color: statusColor,
-                                                    border: `1px solid ${statusColor}`,
-                                                    padding: '3px 8px',
-                                                }}>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.12em', color: statusColor, border: `1px solid ${statusColor}`, padding: '3px 8px' }}>
                                                     {item.status?.toUpperCase()}
                                                 </span>
                                             </div>
@@ -741,21 +772,23 @@ export default function Home() {
                                     outline: 'none',
                                 }}
                             />
-                            <button type="submit" disabled={subStatus === 'loading'}
-                                    style={{
-                                        background: 'var(--red)',
-                                        border: '1px solid var(--red)',
-                                        padding: '0.9rem 1.5rem',
-                                        fontFamily: 'var(--font-mono)',
-                                        fontSize: '0.65rem',
-                                        letterSpacing: '0.14em',
-                                        color: 'var(--white)',
-                                        cursor: 'pointer',
-                                        whiteSpace: 'nowrap',
-                                        transition: 'background 0.2s',
-                                    }}
-                                    onMouseEnter={e => (e.currentTarget.style.background = '#BF0015')}
-                                    onMouseLeave={e => (e.currentTarget.style.background = 'var(--red)')}
+                            <button
+                                type="submit"
+                                disabled={subStatus === 'loading'}
+                                style={{
+                                    background: 'var(--red)',
+                                    border: '1px solid var(--red)',
+                                    padding: '0.9rem 1.5rem',
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.65rem',
+                                    letterSpacing: '0.14em',
+                                    color: 'var(--white)',
+                                    cursor: 'pointer',
+                                    whiteSpace: 'nowrap',
+                                    transition: 'background 0.2s',
+                                }}
+                                onMouseEnter={e => (e.currentTarget.style.background = '#BF0015')}
+                                onMouseLeave={e => (e.currentTarget.style.background = 'var(--red)')}
                             >
                                 {subStatus === 'loading' ? '...' : 'SUBSCRIBE'}
                             </button>
@@ -778,15 +811,19 @@ export default function Home() {
                                 { name: 'Twitch',  url: 'https://twitch.tv/s_rious' },
                                 { name: 'X',       url: 'https://x.com/s7rious' },
                             ].map(s => (
-                                <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer"
-                                   style={{
-                                       fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em',
-                                       color: 'var(--gray-400)', textDecoration: 'none',
-                                       borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px',
-                                       transition: 'color 0.2s, border-color 0.2s',
-                                   }}
-                                   onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }}
-                                   onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}
+                                <a
+                                    key={s.name}
+                                    href={s.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em',
+                                        color: 'var(--gray-400)', textDecoration: 'none',
+                                        borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px',
+                                        transition: 'color 0.2s, border-color 0.2s',
+                                    }}
+                                    onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}
                                 >
                                     {s.name} ↗
                                 </a>
