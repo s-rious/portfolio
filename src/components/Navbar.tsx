@@ -12,7 +12,7 @@ export default function Navbar() {
 
     const navLinks = [
         { name: 'ON TOUR', path: '/tour' },
-        /* { name: 'PROJECTS', path: '/projects' }, */
+        { name: 'PROJECTS', path: '/projects' },
         { name: 'BLOG', path: '/blog' },
         { name: 'ABOUT', path: '/about' },
         { name: 'CONTACT', path: '/contact' },

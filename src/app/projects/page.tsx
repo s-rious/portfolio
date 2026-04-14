@@ -1,6 +1,4 @@
 'use client';
-{/*
-
 
 import projects from '@/data/projects.json';
 import { useState, useMemo } from 'react';
@@ -40,6 +38,7 @@ function ProjectCard({ project, selected }: { project: any; selected: boolean })
                 background: 'var(--gray-900)',
             }}
         >
+            {/* Image */}
             <div style={{ aspectRatio: '16/9', overflow: 'hidden', position: 'relative', background: 'var(--gray-800)' }}>
                 {project.image ? (
                     <img src={project.image} alt={project.title} style={{
@@ -66,6 +65,7 @@ function ProjectCard({ project, selected }: { project: any; selected: boolean })
                 )}
             </div>
 
+            {/* Content */}
             <div style={{ padding: '1.5rem' }}>
                 <h3 style={{
                     fontFamily: 'var(--font-display)',
@@ -136,6 +136,7 @@ export default function Projects() {
         <div style={{ minHeight: '100vh', background: 'var(--black)', color: 'var(--white)', paddingTop: '8rem', paddingBottom: '6rem' }}>
             <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 6vw' }}>
 
+                {/* Header */}
                 <div style={{ marginBottom: '5rem' }}>
           <span style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
@@ -157,6 +158,7 @@ export default function Projects() {
                     </p>
                 </div>
 
+                {/* Filter */}
                 <div style={{
                     borderTop: '1px solid var(--gray-800)',
                     borderBottom: '1px solid var(--gray-800)',
@@ -197,6 +199,7 @@ export default function Projects() {
                     )}
                 </div>
 
+                {/* Grid */}
                 {filtered.length === 0 ? (
                     <div style={{
                         border: '1px solid var(--gray-800)', padding: '4rem',
@@ -225,4 +228,3 @@ export default function Projects() {
         </div>
     );
 }
-*/}
