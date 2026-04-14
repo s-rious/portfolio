@@ -13,7 +13,7 @@
   {
     "id": 12,
     "title": "LETTING STRANGERS DECIDE MY DAY | Exploring a New City",
-    "category": "Stream",
+    "category": "Video",
     "date": "2026-04-22T09:00:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/seriousreal",
@@ -23,17 +23,6 @@
   },
   {
     "id": 11,
-    "title": "FIVE NIGHTS AT FREDDYS 2 & 3 GAMEPLAY",
-    "category": "Stream",
-    "date": "2026-04-12T16:30:00",
-    "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/watch?v=ryAKy1IJ3jE",
-    "thumbnail": "",
-    "description": "First time playing the FNAF Series + Taking turns as the night guard",
-    "status": "upcoming"
-  },
-  {
-    "id": 10,
     "title": "FNAF 1 - First Gaming Video",
     "category": "Video",
     "date": "2026-04-19T09:00:00",
@@ -42,6 +31,17 @@
     "thumbnail": "",
     "description": "My first gaming video since the rebrand. Hiccups for sure, but a start nonetheless!",
     "status": "upcoming"
+  },
+  {
+    "id": 10,
+    "title": "FIVE NIGHTS AT FREDDYS 2 & 3 GAMEPLAY",
+    "category": "Stream",
+    "date": "2026-04-12T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=ryAKy1IJ3jE",
+    "thumbnail": "",
+    "description": "First time playing the FNAF Series + Taking turns as the night guard",
+    "status": "past"
   },
   {
     "id": 9,
