@@ -1,5 +1,27 @@
 [
   {
+    "id": 13,
+    "title": "EX-SEMI PRO VALORANT PLAYER RETURNS",
+    "category": "Stream",
+    "date": "2026-04-14T17:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=Tlpyuc7BbYY",
+    "thumbnail": "",
+    "description": "Returning to my roots of VALORANT that I once called my job",
+    "status": "upcoming"
+  },
+  {
+    "id": 12,
+    "title": "LETTING STRANGERS DECIDE MY DAY | Exploring a New City",
+    "category": "Stream",
+    "date": "2026-04-22T09:00:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Visiting a new undisclosed city and asking strangers for food and event recommendations for the day.",
+    "status": "upcoming"
+  },
+  {
     "id": 11,
     "title": "FIVE NIGHTS AT FREDDYS 2 & 3 GAMEPLAY",
     "category": "Stream",
@@ -12,13 +34,13 @@
   },
   {
     "id": 10,
-    "title": "VLOG - TBD",
+    "title": "FNAF 1 - First Gaming Video",
     "category": "Video",
-    "date": "2026-04-28T00:00:00",
+    "date": "2026-04-19T09:00:00",
     "platform": "YouTube",
     "url": "https://youtube.com/seriousreal",
     "thumbnail": "",
-    "description": "TBD",
+    "description": "My first gaming video since the rebrand. Hiccups for sure, but a start nonetheless!",
     "status": "upcoming"
   },
   {
