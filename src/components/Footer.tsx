@@ -58,7 +58,7 @@ export default function Footer() {
                 marginBottom: '1rem',
             }}>NAVIGATE</span>
                         {[
-                            { name: 'Projects', href: '/projects' },
+                            /* { name: 'Projects', href: '/projects' }, */
                             { name: 'Blog',     href: '/blog'     },
                             { name: 'About',    href: '/about'    },
                             { name: 'Contact',  href: '/contact'  },
