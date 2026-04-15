@@ -5,45 +5,65 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
+    const [isMenuOpen, setIsMenuOpen]   = useState(false);
+    const [isScrolled, setIsScrolled]   = useState(false);
+    const [isMobile, setIsMobile]       = useState(false);
     const pathname = usePathname();
 
     const navLinks = [
-        { name: 'ON TOUR', path: '/tour' },
-        { name: 'PROJECTS', path: '/projects' },
-        { name: 'BLOG', path: '/blog' },
-        { name: 'ABOUT', path: '/about' },
-        { name: 'CONTACT', path: '/contact' },
+        { name: 'ON TOUR',   path: '/tour' },
+        { name: 'PROJECTS',  path: '/projects' },
+        { name: 'BLOG',      path: '/blog' },
+        { name: 'ABOUT',     path: '/about' },
+        { name: 'CONTACT',   path: '/contact' },
     ];
 
     const isActive = (path: string) => pathname === path;
 
+    // Detect mobile breakpoint
     useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            setIsScrolled(currentScrollY > 100);
-            setLastScrollY(currentScrollY);
-        };
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
 
+    // Scroll tracking
+    useEffect(() => {
+        const handleScroll = () => setIsScrolled(window.scrollY > 100);
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
+    }, []);
+
+    // Close menu on route change
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [pathname]);
+
+    // ── Link color logic ─────────────────────────────────────────────────────
+    // Active page   → white
+    // ON TOUR when not on /tour → red (draw attention)
+    // All other inactive        → gray-400
+    const getLinkColor = (path: string) => {
+        if (isActive(path)) return 'var(--white)';
+        if (path === '/tour') return 'var(--red)';
+        return 'var(--gray-400)';
+    };
+
+    // Hamburger shows: always on mobile, or on desktop when scrolled
+    const showHamburger = isMobile || isScrolled;
 
     return (
         <>
-            <nav
-                style={{
-                    position: 'fixed',
-                    top: 0, left: 0, right: 0,
-                    zIndex: 50,
-                    transition: 'background 0.3s, border-color 0.3s',
-                    background: isScrolled ? 'rgba(8,8,8,0.95)' : 'transparent',
-                    backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-                    borderBottom: isScrolled ? '1px solid var(--gray-800)' : '1px solid transparent',
-                }}
-            >
+            <nav style={{
+                position: 'fixed',
+                top: 0, left: 0, right: 0,
+                zIndex: 50,
+                transition: 'background 0.3s, border-color 0.3s',
+                background: isScrolled ? 'rgba(8,8,8,0.95)' : 'transparent',
+                backdropFilter: isScrolled ? 'blur(16px)' : 'none',
+                borderBottom: isScrolled ? '1px solid var(--gray-800)' : '1px solid transparent',
+            }}>
                 <div style={{
                     maxWidth: '1400px',
                     margin: '0 auto',
@@ -64,51 +84,46 @@ export default function Navbar() {
                         </span>
                     </Link>
 
-                    {/* Desktop nav — hidden when scrolled */}
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '2.5rem',
-                        opacity: isScrolled ? 0 : 1,
-                        pointerEvents: isScrolled ? 'none' : 'auto',
-                        transition: 'opacity 0.3s',
-                    }}>
-                        {navLinks.map(link => (
-                            <Link
-                                key={link.path}
-                                href={link.path}
-                                style={{
-                                    fontFamily: 'var(--font-mono)',
-                                    fontSize: '0.62rem',
-                                    letterSpacing: '0.16em',
-                                    textDecoration: 'none',
-                                    color: isActive(link.path) ? 'var(--red)' : 'var(--gray-400)',
-                                    borderBottom: isActive(link.path) ? '1px solid var(--red)' : '1px solid transparent',
-                                    paddingBottom: '2px',
-                                    transition: 'color 0.2s, border-color 0.2s',
-                                    // ON TOUR gets a subtle accent
-                                    ...(link.path === '/tour' && !isActive(link.path) ? {
-                                        color: 'var(--white)',
-                                    } : {}),
-                                }}
-                                onMouseEnter={e => {
-                                    if (!isActive(link.path)) {
-                                        (e.currentTarget as HTMLElement).style.color = 'var(--white)';
-                                    }
-                                }}
-                                onMouseLeave={e => {
-                                    if (!isActive(link.path)) {
-                                        (e.currentTarget as HTMLElement).style.color =
-                                            link.path === '/tour' ? 'var(--white)' : 'var(--gray-400)';
-                                    }
-                                }}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
-                    </div>
+                    {/* Desktop links — hidden on mobile, fades out when scrolled */}
+                    {!isMobile && (
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '2.5rem',
+                            opacity: isScrolled ? 0 : 1,
+                            pointerEvents: isScrolled ? 'none' : 'auto',
+                            transition: 'opacity 0.3s',
+                        }}>
+                            {navLinks.map(link => (
+                                <Link
+                                    key={link.path}
+                                    href={link.path}
+                                    style={{
+                                        fontFamily: 'var(--font-mono)',
+                                        fontSize: '0.62rem',
+                                        letterSpacing: '0.16em',
+                                        textDecoration: 'none',
+                                        color: getLinkColor(link.path),
+                                        borderBottom: isActive(link.path) ? '1px solid var(--white)' : '1px solid transparent',
+                                        paddingBottom: '2px',
+                                        transition: 'color 0.2s, border-color 0.2s',
+                                    }}
+                                    onMouseEnter={e => {
+                                        if (!isActive(link.path))
+                                            (e.currentTarget as HTMLElement).style.color = 'var(--white)';
+                                    }}
+                                    onMouseLeave={e => {
+                                        if (!isActive(link.path))
+                                            (e.currentTarget as HTMLElement).style.color = getLinkColor(link.path);
+                                    }}
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                        </div>
+                    )}
 
-                    {/* Hamburger — shows when scrolled */}
+                    {/* Hamburger — always visible on mobile, appears on desktop when scrolled */}
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         style={{
@@ -118,8 +133,8 @@ export default function Navbar() {
                             border: 'none',
                             cursor: 'pointer',
                             padding: '0.5rem',
-                            opacity: isScrolled ? 1 : 0,
-                            pointerEvents: isScrolled ? 'auto' : 'none',
+                            opacity: showHamburger ? 1 : 0,
+                            pointerEvents: showHamburger ? 'auto' : 'none',
                             transition: 'opacity 0.3s',
                         }}
                         aria-label="Toggle menu"
@@ -150,7 +165,7 @@ export default function Navbar() {
                 position: 'fixed', inset: 0, zIndex: 40,
                 pointerEvents: isMenuOpen ? 'auto' : 'none',
             }}>
-                {/* Overlay */}
+                {/* Backdrop */}
                 <div
                     onClick={() => setIsMenuOpen(false)}
                     style={{
@@ -173,7 +188,7 @@ export default function Navbar() {
                     flexDirection: 'column',
                     padding: '6rem 2.5rem 2.5rem',
                 }}>
-                    {navLinks.map((link, i) => (
+                    {navLinks.map(link => (
                         <Link
                             key={link.path}
                             href={link.path}
@@ -183,13 +198,13 @@ export default function Navbar() {
                                 fontSize: '2rem',
                                 letterSpacing: '0.04em',
                                 textDecoration: 'none',
-                                color: isActive(link.path) ? 'var(--red)' : link.path === '/tour' ? 'var(--white)' : 'var(--gray-400)',
+                                color: getLinkColor(link.path),
                                 padding: '1rem 0',
                                 borderBottom: '1px solid var(--gray-800)',
                                 transition: 'color 0.2s',
                             }}
-                            onMouseEnter={e => (e.currentTarget.style.color = isActive(link.path) ? 'var(--red)' : 'var(--white)')}
-                            onMouseLeave={e => (e.currentTarget.style.color = isActive(link.path) ? 'var(--red)' : link.path === '/tour' ? 'var(--white)' : 'var(--gray-400)')}
+                            onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+                            onMouseLeave={e => (e.currentTarget.style.color = getLinkColor(link.path))}
                         >
                             {link.name}
                         </Link>

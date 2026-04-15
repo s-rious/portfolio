@@ -87,7 +87,7 @@ function buildWeekSlots(offsetWeeks: number): DaySlot[] {
         let state: DayState;
         let event: Event | null = null;
 
-        if (noStreamSet.has(dayName)) {
+        if (noStreamSet.has(key)) {
             state = 'no-stream';
         } else if (streamByDate[key]) {
             state = 'scheduled';
@@ -620,19 +620,22 @@ export default function Tour() {
                         </div>
                     </div>
 
-                    {/* 7-day grid */}
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(7, 1fr)',
-                        gap: '1px',
-                        background: 'var(--gray-800)',
-                    }}>
-                        {weekSlots.map((slot, i) => {
-                            const isToday = weekOffset === 0 && toDateKey(slot.date) === todayKey;
-                            return (
-                                <ScheduleSlot key={i} slot={slot} isToday={isToday} />
-                            );
-                        })}
+                    {/* 7-day grid — horizontal scroll on mobile */}
+                    <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' as any, marginLeft: '-6vw', marginRight: '-6vw', paddingLeft: '6vw', paddingRight: '6vw' }}>
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(7, minmax(120px, 1fr))',
+                            gap: '1px',
+                            background: 'var(--gray-800)',
+                            minWidth: '700px',
+                        }}>
+                            {weekSlots.map((slot, i) => {
+                                const isToday = weekOffset === 0 && toDateKey(slot.date) === todayKey;
+                                return (
+                                    <ScheduleSlot key={i} slot={slot} isToday={isToday} />
+                                );
+                            })}
+                        </div>
                     </div>
 
                     {/* Legend */}
