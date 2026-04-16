@@ -148,21 +148,47 @@ export default function MDXContent({ content }: MDXContentProps) {
 
                 // ── Lists ─────────────────────────────────────────────────────
                 ul: ({ children }) => (
-                    <ul className="mb-4 space-y-2 text-gray-300">{children}</ul>
+                    <ul className="mb-4 space-y-2 text-gray-300"
+                        style={{ listStyle: 'none', padding: 0, margin: '0 0 1rem 0' }}>
+                        {children}
+                    </ul>
                 ),
                 ol: ({ children }) => (
-                    <ol className="mb-4 space-y-2 text-gray-300 list-none"
-                        style={{ counterReset: 'li' }}>
+                    <ol className="mb-4 space-y-2 text-gray-300"
+                        style={{ listStyle: 'none', padding: 0, margin: '0 0 1rem 0' }}>
                         {children}
                     </ol>
                 ),
-                li: ({ children, className }) => {
-                    const isTask = className?.includes('task-list-item');
-                    if (isTask) {
-                        return <li className="flex items-start gap-2 text-gray-300">{children}</li>;
+                li: ({ children, ordered, index, checked }: any) => {
+                    // Task list item — use checked prop (reliable across react-markdown versions)
+                    if (checked !== null && checked !== undefined) {
+                        return (
+                            <li style={{ listStyle: 'none' }} className="flex items-start gap-2 text-gray-300">
+                                <span className={`inline-flex items-center justify-center w-4 h-4 rounded border mt-0.5 shrink-0 ${
+                                    checked
+                                        ? 'bg-[#FF2E63] border-[#FF2E63]'
+                                        : 'border-white/25 bg-transparent'
+                                }`}>
+                                    {checked && <span className="text-white text-[9px] font-bold">✓</span>}
+                                </span>
+                                <span>{children}</span>
+                            </li>
+                        );
                     }
+                    // Ordered list item — show red number
+                    if (ordered) {
+                        return (
+                            <li style={{ listStyle: 'none' }} className="flex items-start gap-3 text-gray-300">
+                                <span className="mt-0.5 min-w-[1.25rem] text-right text-[#FF2E63] font-mono text-sm shrink-0 select-none tabular-nums">
+                                    {typeof index === 'number' ? index + 1 : ''}.
+                                </span>
+                                <span>{children}</span>
+                            </li>
+                        );
+                    }
+                    // Regular unordered list item — red dot
                     return (
-                        <li className="flex items-start gap-3 text-gray-300">
+                        <li style={{ listStyle: 'none' }} className="flex items-start gap-3 text-gray-300">
                             <span className="mt-2 w-1.5 h-1.5 min-w-[6px] rounded-full bg-[#FF2E63] shrink-0" />
                             <span>{children}</span>
                         </li>
@@ -170,18 +196,10 @@ export default function MDXContent({ content }: MDXContentProps) {
                 },
 
                 // ── Task list checkbox ────────────────────────────────────────
-                input: ({ type, checked }) => {
-                    if (type === 'checkbox') {
-                        return (
-                            <span className={`inline-flex items-center justify-center w-4 h-4 rounded border mt-0.5 shrink-0 ${
-                                checked
-                                    ? 'bg-[#FF2E63] border-[#FF2E63]'
-                                    : 'border-white/25 bg-transparent'
-                            }`}>
-                                {checked && <span className="text-white text-[9px] font-bold">✓</span>}
-                            </span>
-                        );
-                    }
+                // Return null — the li renderer above handles the visual checkbox
+                // via the `checked` prop so we don't double-render it
+                input: ({ type }: any) => {
+                    if (type === 'checkbox') return null;
                     return <input type={type} />;
                 },
 
