@@ -23,6 +23,7 @@ interface DaySlot {
     date: Date;
     state: DayState;
     event: Event | null;
+    pastEvent: boolean;
 }
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
@@ -68,10 +69,11 @@ function buildWeekSlots(offsetWeeks: number): DaySlot[] {
     const noStreamSet = new Set<string>(streamSchedule.noStream ?? []);
     const typicalSet  = new Set<string>(streamSchedule.typicalDays ?? []);
 
-    // Build a map of event date keys → stream events
+    // Build a map of event date keys → stream events (upcoming AND past, so marking a
+    // stream as past doesn't wipe it from the weekly view)
     const streamByDate: Record<string, Event> = {};
     for (const ev of events as Event[]) {
-        if (ev.category === 'Stream' && ev.status === 'upcoming') {
+        if (ev.category === 'Stream') {
             const d = new Date(ev.date);
             const key = toDateKey(d);
             streamByDate[key] = ev;
@@ -86,19 +88,21 @@ function buildWeekSlots(offsetWeeks: number): DaySlot[] {
 
         let state: DayState;
         let event: Event | null = null;
+        let pastEvent = false;
 
-        if (noStreamSet.has(dayName)) {
+        if (noStreamSet.has(key)) {
             state = 'no-stream';
         } else if (streamByDate[key]) {
             state = 'scheduled';
             event = streamByDate[key];
+            pastEvent = event.status === 'past';
         } else if (typicalSet.has(dayName)) {
             state = 'tbd';
         } else {
             state = 'off';
         }
 
-        slots.push({ date: day, state, event });
+        slots.push({ date: day, state, event, pastEvent });
     }
 
     return slots;
@@ -173,10 +177,9 @@ function ThumbnailPlaceholder({ accent }: { accent: string }) {
 // ─── STREAM SCHEDULE SLOT ────────────────────────────────────────────────────
 
 function ScheduleSlot({ slot, isToday }: { slot: DaySlot; isToday: boolean }) {
-    const { date, state, event } = slot;
+    const { date, state, event, pastEvent } = slot;
     const dayShort = DAY_SHORT[date.getDay()];
     const dayNum   = date.getDate();
-    const month    = date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
 
     const timeStr = event?.date && event.date.includes('T') && !event.date.endsWith('T00:00:00')
         ? new Date(event.date).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
@@ -289,70 +292,112 @@ function ScheduleSlot({ slot, isToday }: { slot: DaySlot; isToday: boolean }) {
     }
 
     // ── SCHEDULED ──
+    // ── SCHEDULED (upcoming) ──
+    if (!pastEvent) {
+        return (
+            <a
+                href={event?.url ?? '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                    border: `1px solid ${isToday ? 'var(--red)' : 'var(--gray-800)'}`,
+                    padding: '1.25rem 1rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.6rem',
+                    minHeight: '130px',
+                    background: isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    transition: 'border-color 0.2s, background 0.2s',
+                    cursor: 'pointer',
+                }}
+                onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = 'var(--red)';
+                    e.currentTarget.style.background = 'rgba(232,0,29,0.06)';
+                }}
+                onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = isToday ? 'var(--red)' : 'var(--gray-800)';
+                    e.currentTarget.style.background = isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)';
+                }}
+            >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-400)' }}>
+                        {dayShort}
+                        {isToday && <span style={{ marginLeft: '6px', color: 'var(--red)' }}>●</span>}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--white)', lineHeight: 1 }}>
+                        {dayNum}
+                    </span>
+                </div>
+                <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    <span style={{
+                        fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.14em',
+                        color: 'var(--red)', border: '1px solid var(--red)', padding: '3px 7px', alignSelf: 'flex-start',
+                    }}>
+                        STREAM
+                    </span>
+                    <p style={{
+                        fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.02em',
+                        color: 'var(--white)', lineHeight: 1.15, overflow: 'hidden',
+                        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any,
+                    }}>
+                        {event?.title}
+                    </p>
+                    {timeStr && (
+                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                            {timeStr}
+                        </p>
+                    )}
+                </div>
+            </a>
+        );
+    }
+
+    // ── SCHEDULED (past — already happened, show dimmed with DONE badge) ──
     return (
         <a
             href={event?.url ?? '#'}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-                border: `1px solid ${isToday ? 'var(--red)' : 'var(--gray-800)'}`,
+                border: '1px solid var(--gray-800)',
                 padding: '1.25rem 1rem',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.6rem',
                 minHeight: '130px',
-                background: isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)',
+                background: 'transparent',
                 textDecoration: 'none',
                 color: 'inherit',
-                transition: 'border-color 0.2s, background 0.2s',
+                opacity: 0.5,
                 cursor: 'pointer',
-            }}
-            onMouseEnter={e => {
-                e.currentTarget.style.borderColor = 'var(--red)';
-                e.currentTarget.style.background = 'rgba(232,0,29,0.06)';
-            }}
-            onMouseLeave={e => {
-                e.currentTarget.style.borderColor = isToday ? 'var(--red)' : 'var(--gray-800)';
-                e.currentTarget.style.background = isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)';
             }}
         >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-400)' }}>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-600)' }}>
                     {dayShort}
-                    {isToday && <span style={{ marginLeft: '6px', color: 'var(--red)' }}>●</span>}
                 </span>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--white)', lineHeight: 1 }}>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--gray-600)', lineHeight: 1 }}>
                     {dayNum}
                 </span>
             </div>
-
             <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                 <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.52rem',
-                    letterSpacing: '0.14em',
-                    color: 'var(--red)',
-                    border: '1px solid var(--red)',
-                    padding: '3px 7px',
-                    alignSelf: 'flex-start',
+                    fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.14em',
+                    color: 'var(--gray-600)', border: '1px solid var(--gray-800)', padding: '3px 7px', alignSelf: 'flex-start',
                 }}>
-                    STREAM
+                    DONE
                 </span>
                 <p style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '0.9rem',
-                    letterSpacing: '0.02em',
-                    color: 'var(--white)',
-                    lineHeight: 1.15,
-                    overflow: 'hidden',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical' as any,
+                    fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.02em',
+                    color: 'var(--gray-600)', lineHeight: 1.15, overflow: 'hidden',
+                    display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any,
                 }}>
                     {event?.title}
                 </p>
                 {timeStr && (
-                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                    <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-700)' }}>
                         {timeStr}
                     </p>
                 )}
