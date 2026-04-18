@@ -1,6 +1,6 @@
 [
   {
-    "id": 14,
+    "id": 15,
     "title": "LETTING STRANGERS DECIDE MY DAY | Exploring a New City",
     "category": "Video",
     "date": "2026-04-22T09:00:00",
@@ -11,7 +11,7 @@
     "status": "upcoming"
   },
   {
-    "id": 13,
+    "id": 14,
     "title": "FNAF 1 - First Gaming Video",
     "category": "Video",
     "date": "2026-04-19T09:00:00",
@@ -19,6 +19,17 @@
     "url": "https://youtube.com/seriousreal",
     "thumbnail": "",
     "description": "My first gaming video since the rebrand. Hiccups for sure, but a start nonetheless!",
+    "status": "upcoming"
+  },
+  {
+    "id": 13,
+    "title": "SHORT ROBLOX HORROR GAMES PLAYTHROUGH",
+    "category": "Stream",
+    "date": "2026-04-18T13:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=vIYPtTgt1xo",
+    "thumbnail": "",
+    "description": "Playing Viewer Suggested Roblox Horror Games",
     "status": "upcoming"
   },
   {
@@ -30,7 +41,7 @@
     "url": "https://www.youtube.com/watch?v=c5Xc1CR_97o",
     "thumbnail": "",
     "description": "Continuation of our Poppy Playtime series",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 11,
