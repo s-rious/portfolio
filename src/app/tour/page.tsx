@@ -90,7 +90,7 @@ function buildWeekSlots(offsetWeeks: number): DaySlot[] {
         let event: Event | null = null;
         let pastEvent = false;
 
-        if (noStreamSet.has(key)) {
+        if (noStreamSet.has(dayName)) {
             state = 'no-stream';
         } else if (streamByDate[key]) {
             state = 'scheduled';
