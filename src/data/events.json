@@ -1,14 +1,58 @@
 [
   {
-    "id": 15,
+    "id": 19,
+    "title": "Poppy Playtime Chapter 1",
+    "category": "video",
+    "date": "2026-04-27T09:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Edited Poppy Playtime Chapter 1 video!",
+    "status": "upcoming"
+  },
+  {
+    "id": 18,
+    "title": "Minecraft Hardcore Till I Beat It",
+    "category": "stream",
+    "date": "2026-04-25T17:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "Our first attempt at Minecraft Hardcore!",
+    "status": "upcoming"
+  },
+  {
+    "id": 17,
+    "title": "POPPY PLAYTIME CHAPTER 5 PLAYTHROUGH",
+    "category": "stream",
+    "date": "2026-04-23T17:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "Finishing our Poppy Playtime series!",
+    "status": "upcoming"
+  },
+  {
+    "id": 16,
     "title": "LETTING STRANGERS DECIDE MY DAY | Exploring a New City",
     "category": "Video",
-    "date": "2026-04-22T09:00:00",
+    "date": "2026-04-23T09:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
     "description": "Visiting a new undisclosed city and asking strangers for food and event recommendations for the day.",
     "status": "upcoming"
+  },
+  {
+    "id": 15,
+    "title": "STREAM GOALS AND WHAT IT MEANS TO ME TO BE A CREATOR",
+    "category": "Stream",
+    "date": "2026-04-21T09:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/live/nHDNfSkanvA",
+    "thumbnail": "",
+    "description": "Going over my goals and ambitions as a streamer and creator, and what viewers should look forward to! Raw, unfiltered, unscripted.",
+    "status": "past"
   },
   {
     "id": 14,
