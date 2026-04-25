@@ -1,6 +1,6 @@
 [
   {
-    "id": 19,
+    "id": 20,
     "title": "Poppy Playtime Chapter 1",
     "category": "Video",
     "date": "2026-04-27T09:00:00",
@@ -11,26 +11,37 @@
     "status": "upcoming"
   },
   {
-    "id": 18,
+    "id": 19,
     "title": "Minecraft Hardcore Till I Beat It",
     "category": "Stream",
-    "date": "2026-04-24T17:30:00",
+    "date": "2026-04-25T17:30:00",
     "platform": "YouTube  & Twitch",
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
-    "description": "Our first attempt at Minecraft Hardcore!",
+    "description": "Our first attempt at Minecraft Hardcore! Spinning the wheel every time I die!",
     "status": "upcoming"
   },
   {
+    "id": 18,
+    "title": "POPPY PLAYTIME CHAPTER 5 PLAYTHROUGH Part 2",
+    "category": "Stream",
+    "date": "2026-04-24T17:30:00",
+    "platform": "YouTube  & Twitch",
+    "url": "https://www.youtube.com/watch?v=qnOgwQc76Dk",
+    "thumbnail": "",
+    "description": "Finishing Chapter 5 of Poppy Playtime!",
+    "status": "past"
+  },
+  {
     "id": 17,
-    "title": "POPPY PLAYTIME CHAPTER 5 PLAYTHROUGH",
+    "title": "POPPY PLAYTIME CHAPTER 5 PLAYTHROUGH Part 1",
     "category": "Stream",
     "date": "2026-04-23T17:30:00",
     "platform": "YouTube  & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=RGR_eRuDp6Q&t=2150s",
     "thumbnail": "",
     "description": "Finishing our Poppy Playtime series!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 16,
@@ -38,10 +49,10 @@
     "category": "Video",
     "date": "2026-04-23T09:00:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
+    "url": "https://www.youtube.com/watch?v=1jsvCuPoh_s",
     "thumbnail": "",
     "description": "Visiting a new undisclosed city and asking strangers for food and event recommendations for the day.",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 15,
