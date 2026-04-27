@@ -1,13 +1,24 @@
 [
   {
-    "id": 20,
+    "id": 21,
     "title": "Poppy Playtime Chapter 1",
     "category": "Video",
-    "date": "2026-04-27T09:00:00",
+    "date": "2026-04-29T09:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
     "description": "Edited Poppy Playtime Chapter 1 video!",
+    "status": "upcoming"
+  },
+  {
+    "id": 20,
+    "title": "Garten of BanBan 1 Playthrough!",
+    "category": "Stream",
+    "date": "2026-04-28T16:45:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "Our first playthrough of Garten of BanBan!",
     "status": "upcoming"
   },
   {
@@ -16,10 +27,10 @@
     "category": "Stream",
     "date": "2026-04-25T17:30:00",
     "platform": "YouTube  & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=HnwSdO4GMKQ",
     "thumbnail": "",
     "description": "Our first attempt at Minecraft Hardcore! Spinning the wheel every time I die!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 18,
