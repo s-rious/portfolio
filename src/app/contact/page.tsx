@@ -63,15 +63,13 @@ export default function Contact() {
                 {/* Header */}
                 <div style={{ marginBottom: '5rem' }}>
                     <Label>Contact</Label>
-                    <h1 style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: 'clamp(4rem, 12vw, 10rem)',
-                        letterSpacing: '-0.01em',
-                        lineHeight: 0.9,
-                        marginBottom: '1.5rem',
-                    }}>
-                        GET IN<br />TOUCH
+                    <h1
+                        className="text-6xl md:text-9xl font-black mb-4"
+                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    >
+                        GET IN TOUCH
                     </h1>
+                    <div className="w-32 h-1 bg-white mb-6" />
                     <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.15rem', color: 'var(--gray-400)', maxWidth: '480px', lineHeight: 1.65 }}>
                         Partnerships, collaborations, brand deals, or just want to say something. I read everything.
                     </p>

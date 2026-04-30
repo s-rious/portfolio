@@ -564,15 +564,13 @@ export default function Tour() {
             <div style={{ padding: '10rem 6vw 5rem', borderBottom: '1px solid var(--gray-800)' }}>
                 <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
                     <Label>Live calendar</Label>
-                    <h1 style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: 'clamp(5rem, 16vw, 13rem)',
-                        lineHeight: 0.88,
-                        letterSpacing: '-0.01em',
-                        margin: '1rem 0 0',
-                    }}>
+                    <h1
+                        className="text-6xl md:text-9xl font-black mb-4"
+                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                    >
                         ON TOUR
                     </h1>
+                    <div className="w-32 h-1 bg-white mb-6" />
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginTop: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                         <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.1rem', color: 'var(--gray-400)', maxWidth: '520px', lineHeight: 1.7 }}>
                             Streams. Videos. Events. Everything SERIOUS and CAMRY —
