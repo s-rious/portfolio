@@ -1,16 +1,19 @@
 {
   "featuredVideoId": 16,
-  "videoAnalytics": {
+  "weeklyAnalytics": {
+    "weekLabel": "Apr 28 – May 2, 2026",
     "stats": {
-      "views": "62",
-      "watchTime": "8.0 hrs",
-      "likeRatio": "56%",
-      "subsGained": "+2",
-      "avgViewDuration": "0:39",
-      "ctr": "4.6%",
-      "impressions": "550"
+      "totalViews": "3,944",
+      "subsGained": "+19",
+      "totalWatchTime": "152.8 hrs",
+      "avgCTR": "9.7%",
+      "impressions": "17K"
     },
-    "retentionCurve": [100, 96, 91, 87, 84, 82, 79, 77, 76, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 57],
+    "contentMix": [
+      { "label": "Streams", "value": 8, "views": 2100, "color": "#FF2E63" },
+      { "label": "Videos", "value": 1, "views": 1000, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 3, "views": 400, "color": "#CCFF00" }
+    ],
     "trafficSources": [
       { "label": "Browse Features", "value": 30.2, "color": "#FF2E63" },
       { "label": "Channel Pages", "value": 27.0, "color": "#00E5FF" },
@@ -18,7 +21,7 @@
       { "label": "Other", "value": 26.9, "color": "#555555" }
     ],
     "ctrBenchmarks": [
-      { "label": "This Video", "value": 14, "color": "#FF2E63" },
+      { "label": "This Week Avg", "value": 7.2, "color": "#FF2E63" },
       { "label": "Channel Avg", "value": 6.1, "color": "#00E5FF" },
       { "label": "YouTube Avg", "value": 4.0, "color": "#444444" }
     ],
@@ -77,148 +80,52 @@
       "platforms": ["YouTube", "Twitch"],
       "format": "45-90 min",
       "cadence": "Weekly",
-      "episodeCount": 0,
+      "episodeCount": 5,
       "description": "My chat is always open to suggestions. All comments, chats, and messages are read and added to a list, and played for your entertainment!",
       "why": "A small, personal, intimate style channel is what I intend to harbor. Allowing viewers to steer the wheel as I drive allows for an engaging and dynamic content space."
     }
   ],
   "obsessions": [
-    {
-      "id": 0,
-      "type": "photo",
-      "label": "CARS",
-      "sub": "2 years building my own stance car",
-      "color": "#FF2E63",
-      "rotate": -4,
-      "photo": "/imgs/general/carPhoto.jpg"
-    },
-    {
-      "id": 1,
-      "type": "photo",
-      "label": "CONTENT CREATION",
-      "sub": "Filming every part of my life.",
-      "color": "#00E5FF",
-      "rotate": 2,
-      "photo": "/imgs/general/setupPhoto.jpeg"
-    },
-    {
-      "id": 2,
-      "type": "quote",
-      "label": "MENTAL HEALTH",
-      "sub": "Advocate. Always.",
-      "color": "#CCFF00",
-      "rotate": -2,
-      "quote": "You'll have bad times, but it'll always wake you up to the good stuff you weren't paying attention to.",
-      "attribution": "Sean Maguire, Good Will Hunting"
-    },
-    {
-      "id": 3,
-      "type": "plain",
-      "label": "LIVE YOUR LIFE",
-      "sub": "We only got one. Don't regret not spending it wisely.",
-      "color": "#FF2E63",
-      "rotate": 4
-    },
-    {
-      "id": 4,
-      "type": "photo",
-      "label": "CAMERAS & FILM",
-      "sub": "My second pair of eyes, featuring customized edits.",
-      "color": "#00E5FF",
-      "rotate": -3
-    },
-    {
-      "id": 5,
-      "type": "plain",
-      "label": "TECHNOLOGY",
-      "sub": "Hardware to software, reviewing and analyzing tech is in my blood.",
-      "color": "#CCFF00",
-      "rotate": 3
-    },
-    {
-      "id": 6,
-      "type": "photo",
-      "label": "FITNESS",
-      "sub": "Take care of every part of yourself. To feel good, to be good, to be healthy.",
-      "color": "#F0EDE8",
-      "rotate": -1
-    },
-    {
-      "id": 7,
-      "type": "quote",
-      "label": "MOTTO",
-      "color": "#FF2E63",
-      "rotate": 4,
-      "quote": "If you ain't first, you're last",
-      "attribution": "Ricky Bobby, Talladega Nights: The Ballad of Ricky Bobby"
-    },
-    {
-      "id": 8,
-      "type": "plain",
-      "label": "NEVER BE THE BOTTLENECK",
-      "sub": "Be dynamic. Be fluid. Be willing to try and never give up. Be willing to change and never look back.",
-      "color": "#00E5FF",
-      "rotate": -2
-    },
-    {
-      "id": 9,
-      "type": "quote",
-      "label": "PUSH THROUGH",
-      "sub": "Hardest mud. Keep going.",
-      "color": "#CCFF00",
-      "rotate": 1,
-      "quote": "You aren’t where you want to be because you aren’t the person who would be there",
-      "attribution": "Dan Koe, How To Fix Your Entire Life in 1 Day"
-    }
+    { "id": 0, "type": "photo", "label": "CARS", "sub": "2 years building my own stance car", "color": "#FF2E63", "rotate": -4, "photo": "/imgs/general/carPhoto.jpg" },
+    { "id": 1, "type": "photo", "label": "CONTENT CREATION", "sub": "Filming every part of my life.", "color": "#00E5FF", "rotate": 2, "photo": "/imgs/general/setupPhoto.jpeg" },
+    { "id": 2, "type": "quote", "label": "MENTAL HEALTH", "sub": "Advocate. Always.", "color": "#CCFF00", "rotate": -2, "quote": "You'll have bad times, but it'll always wake you up to the good stuff you weren't paying attention to.", "attribution": "Sean Maguire, Good Will Hunting" },
+    { "id": 3, "type": "plain", "label": "LIVE YOUR LIFE", "sub": "We only got one. Don't regret not spending it wisely.", "color": "#FF2E63", "rotate": 4 },
+    { "id": 4, "type": "photo", "label": "CAMERAS & FILM", "sub": "My second pair of eyes, featuring customized edits.", "color": "#00E5FF", "rotate": -3, "photo": "/imgs/general/filmPhoto.JPEG" },
+    { "id": 5, "type": "plain", "label": "TECHNOLOGY", "sub": "Hardware to software, reviewing and analyzing tech is in my blood.", "color": "#CCFF00", "rotate": 3 },
+    { "id": 6, "type": "photo", "label": "FITNESS", "sub": "Take care of every part of yourself. To feel good, to be good, to be healthy.", "color": "#F0EDE8", "rotate": -1, "photo": "/imgs/general/gymPhoto.jpeg" },
+    { "id": 7, "type": "quote", "label": "MOTTO", "sub": "", "color": "#FF2E63", "rotate": 4, "quote": "If you ain't first, you're last", "attribution": "Ricky Bobby, Talladega Nights: The Ballad of Ricky Bobby" },
+    { "id": 8, "type": "plain", "label": "NEVER BE THE BOTTLENECK", "sub": "Be dynamic. Be fluid. Be willing to try and never give up. Be willing to change and never look back.", "color": "#00E5FF", "rotate": -2 },
+    { "id": 9, "type": "quote", "label": "PUSH THROUGH", "sub": "Hardest mud. Keep going.", "color": "#CCFF00", "rotate": 1, "quote": "You aren't where you want to be because you aren't the person who would be there", "attribution": "Dan Koe, How To Fix Your Entire Life in 1 Day" }
   ],
   "programming": [
     {
-      "id": 1,
-      "number": "01",
-      "title": "WORD ESCAPE",
+      "id": 1, "number": "01", "title": "WORD ESCAPE",
       "description": "My first installation of game development: a story-based puzzle game.",
-      "date": "2023-04-04",
-      "tags": ["C#", "Unreal Engine 5"],
-      "image": "/imgs/projectsImgs/wordescape.png",
-      "link": "https://github.com/s-rious/Word-Escape",
-      "featured": true,
-      "locked": false,
+      "date": "2023-04-04", "tags": ["C#", "Unreal Engine 5"],
+      "image": "/imgs/projectsImgs/wordescape.png", "link": "https://github.com/s-rious/Word-Escape",
+      "featured": true, "locked": false,
       "concept": "Word Escape is an escape room based game inspired by WORDLE that focuses on word input fields in order to manuever through each level to escape.",
       "build": "Developed by Trevor Toland (Graphics) and Cameron Rydwell (Backend and Development) for the 'Computer Game & Simulation Programming' 2023 NLC Topic for Future Business Leaders of America",
       "proves": "Games are the way of the future. Expanding off of new and existing ideas and spinning them into my own topic is crucial. Providing a unique concept, graphics, and level design, the player is able to immerse themself in an escape room-esque world.",
-      "awards": [
-        "FBLA REGIONAL 1st Place - Computer Game & Programming Simulation",
-        "FBLA STATE 1st Place - Computer Game & Programming Simulation",
-        "Advanced to FBLA Nationals - Atlanta, GA"
-      ]
+      "awards": ["FBLA REGIONAL 1st Place - Computer Game & Programming Simulation", "FBLA STATE 1st Place - Computer Game & Programming Simulation", "Advanced to FBLA Nationals - Atlanta, GA"]
     },
     {
-      "id": 2,
-      "number": "02",
-      "title": "STITCHED UP",
+      "id": 2, "number": "02", "title": "STITCHED UP",
       "description": "A dark narrative revolving around the concept of self-identity and depression.",
-      "date": "2025-01-01",
-      "tags": ["C#", "Unreal Engine 5"],
-      "image": "/imgs/projectsImgs/stitchedup.png",
-      "link": "https://github.com/s-rious/stitched-up",
-      "featured": true,
-      "locked": false,
+      "date": "2025-01-01", "tags": ["C#", "Unreal Engine 5"],
+      "image": "/imgs/projectsImgs/stitchedup.png", "link": "https://github.com/s-rious/stitched-up",
+      "featured": true, "locked": false,
       "concept": "Stitched Up is a narrative-driven psychological game centered around Silis, a 16-year-old boy caught in the quiet chaos of his own mind. At its core, the game is about identity, avoidance, and emotional deterioration, told through surreal, dreamlike sequences and emotionally driven choices.",
       "build": "A Life Project surrounding the heavy topic of mental health and its expansive and no-punches-pulled nature. Featuring in house music, graphics, and a fully options-based storyline that changes at every fork in the road.",
       "proves": "The story of many lives that is put into a playable world. I advocate for mental health wellness and have always struggled to tell my story and allow those interested in on the true world behind the affected. This game intends to do so.",
       "awards": []
     },
     {
-      "id": 3,
-      "number": "03",
-      "title": "CAMRY.DEV",
+      "id": 3, "number": "03", "title": "CAMRY.DEV",
       "description": "Everything around who I am, what I can do, and where we can go.",
-      "date": "2025-11-01",
-      "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Cloudflare"],
-      "image": null,
-      "link": "https://camry.dev",
-      "featured": true,
-      "locked": false,
+      "date": "2025-11-01", "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Cloudflare"],
+      "image": null, "link": "https://camry.dev",
+      "featured": true, "locked": false,
       "concept": "A personalized and interactive portfolio that draws in those interested in all there is to do with me, and displays everything at their fingertips.",
       "build": "A fully dynamic and easy to navigate website that separates every part of me. From personal, to professional, on screen, behind the screen. It's all on display at my will.",
       "proves": "My creative visions and ambitions, taking one concept, such as a portfolio or resume, and combining it with my engineering skills and artistic touches to create a product of its own that's constantly developing and expanding. Features releasing regularly.",

@@ -33,44 +33,37 @@ function getYouTubeId(url: string): string | null {
     return match ? match[1] : null;
 }
 
-// ─── CHART: RETENTION ────────────────────────────────────────────────────────
+// ─── CHART: CONTENT MIX ──────────────────────────────────────────────────────
 
-function RetentionChart({ data }: { data: number[] }) {
-    const W = 400, H = 140, PAD = 24;
-    const innerW = W - PAD * 2;
-    const innerH = H - PAD * 2;
-
-    const points = data.map((v, i) => ({
-        x: PAD + (i / (data.length - 1)) * innerW,
-        y: PAD + ((100 - v) / 100) * innerH,
-    }));
-
-    const polyline = points.map(p => `${p.x},${p.y}`).join(' ');
-    const fillPoly = `${PAD},${H - PAD} ${polyline} ${W - PAD},${H - PAD}`;
-
+function ContentMixChart({ data }: { data: { label: string; value: number; views: number; color: string }[] }) {
+    const maxViews = Math.max(...data.map(d => d.views), 1);
     return (
         <div>
-            <div className="text-xs text-gray-600 tracking-widest font-mono mb-3">AUDIENCE RETENTION</div>
-            <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 130 }}>
-                {[0, 50, 100].map(v => {
-                    const y = PAD + ((100 - v) / 100) * innerH;
-                    return (
-                        <g key={v}>
-                            <line x1={PAD} y1={y} x2={W - PAD} y2={y} stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
-                            <text x={PAD - 4} y={y + 4} fill="#444" fontSize="8" textAnchor="end">{v}%</text>
-                        </g>
-                    );
-                })}
-                <polygon points={fillPoly} fill="rgba(255,46,99,0.07)" />
-                <polyline points={polyline} fill="none" stroke="#FF2E63" strokeWidth="1.5" strokeLinejoin="round" />
-                <circle cx={points[0].x} cy={points[0].y} r="3" fill="#FF2E63" />
-                <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r="3" fill="#FF2E63" />
-                <text x={points[points.length - 1].x + 5} y={points[points.length - 1].y + 4} fill="#FF2E63" fontSize="8">
-                    {data[data.length - 1]}%
-                </text>
-                <text x={PAD} y={H} fill="#444" fontSize="8">0:00</text>
-                <text x={W - PAD} y={H} fill="#444" fontSize="8" textAnchor="end">END</text>
-            </svg>
+            <div className="text-xs text-gray-600 tracking-widest font-mono mb-4">VIEWS BY FORMAT</div>
+            <div className="space-y-5">
+                {data.map(item => (
+                    <div key={item.label}>
+                        <div className="flex justify-between mb-1.5">
+                            <span className="text-xs text-gray-500">
+                                {item.label}
+                                <span className="text-gray-700 ml-2">({item.value} published)</span>
+                            </span>
+                            <span className="text-xs font-mono" style={{ color: item.views === 0 ? '#444' : item.color }}>
+                                {item.views.toLocaleString()} views
+                            </span>
+                        </div>
+                        <div className="h-1.5 bg-white/5 overflow-hidden">
+                            <div
+                                className="h-full"
+                                style={{
+                                    width: `${(item.views / maxViews) * 100}%`,
+                                    backgroundColor: item.views === 0 ? 'transparent' : item.color,
+                                }}
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
@@ -154,18 +147,12 @@ function ObsessionCard({ obs }: { obs: ObsessionItem }) {
                 borderTop: `2px solid ${obs.color}`,
             }}
         >
-            {/* ── PHOTO CARD ── */}
             {type === 'photo' && photo && (
                 <div className="w-full aspect-video overflow-hidden">
-                    <img
-                        src={photo}
-                        alt={obs.label}
-                        className="w-full h-full object-cover"
-                    />
+                    <img src={photo} alt={obs.label} className="w-full h-full object-cover" />
                 </div>
             )}
 
-            {/* ── QUOTE CARD body (image-less top, quote content) ── */}
             {type === 'quote' && (
                 <div className="p-4 pt-5">
                     <div
@@ -174,16 +161,11 @@ function ObsessionCard({ obs }: { obs: ObsessionItem }) {
                     >
                         "
                     </div>
-                    <p className="text-xs text-gray-400 leading-relaxed italic mb-3">
-                        {quote}
-                    </p>
-                    <div className="text-xs font-mono tracking-wider" style={{ color: obs.color }}>
-                        — {attribution}
-                    </div>
+                    <p className="text-xs text-gray-400 leading-relaxed italic mb-3">{quote}</p>
+                    <div className="text-xs font-mono tracking-wider" style={{ color: obs.color }}>— {attribution}</div>
                 </div>
             )}
 
-            {/* ── LABEL + SUB (all card types get this footer) ── */}
             {type !== 'quote' && (
                 <div className="p-4">
                     <div
@@ -192,11 +174,10 @@ function ObsessionCard({ obs }: { obs: ObsessionItem }) {
                     >
                         {obs.label}
                     </div>
-                    <div className="text-xs text-gray-600 leading-snug">{obs.sub}</div>
+                    <div className="text-xs text-gray-600 leading-snug">{(obs as any).sub}</div>
                 </div>
             )}
 
-            {/* Quote cards also get a small label strip at the bottom */}
             {type === 'quote' && (
                 <div className="px-4 pb-4 border-t border-white/5 pt-3 mt-1">
                     <div
@@ -223,7 +204,6 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
             if (!containerRef.current) return;
             const containerRect = containerRef.current.getBoundingClientRect();
             const coords: StringCoord[] = [];
-
             STRING_CONNECTIONS.forEach(([a, b]) => {
                 const aEl = cardRefs.current[a];
                 const bEl = cardRefs.current[b];
@@ -237,16 +217,11 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
                     y2: bRect.top + bRect.height / 2 - containerRect.top,
                 });
             });
-
             setStrings(coords);
         };
-
         const raf = requestAnimationFrame(() => setTimeout(measure, 80));
         window.addEventListener('resize', measure);
-        return () => {
-            cancelAnimationFrame(raf);
-            window.removeEventListener('resize', measure);
-        };
+        return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', measure); };
     }, []);
 
     const buildPath = (s: StringCoord) => {
@@ -259,13 +234,7 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
 
     return (
         <div ref={containerRef} className="relative">
-            {/* SVG string layer */}
-            <svg
-                className="absolute inset-0 pointer-events-none"
-                width="100%"
-                height="100%"
-                style={{ zIndex: 1 }}
-            >
+            <svg className="absolute inset-0 pointer-events-none" width="100%" height="100%" style={{ zIndex: 1 }}>
                 {strings.map((s, i) => {
                     const d = buildPath(s);
                     return (
@@ -278,12 +247,7 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
                     );
                 })}
             </svg>
-
-            {/* Cards grid */}
-            <div
-                className="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6"
-                style={{ zIndex: 2 }}
-            >
+            <div className="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 p-6" style={{ zIndex: 2 }}>
                 {obsessions.map((obs, i) => (
                     <div
                         key={obs.id}
@@ -291,7 +255,6 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
                         className="relative"
                         style={{ transform: `rotate(${obs.rotate}deg)` }}
                     >
-                        {/* Thumbtack */}
                         <div
                             className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full z-10 border border-black/40"
                             style={{ backgroundColor: obs.color, boxShadow: '0 2px 6px rgba(0,0,0,0.6)' }}
@@ -300,12 +263,10 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
                             className="absolute z-10 w-1.5 h-1.5 rounded-full"
                             style={{ background: 'rgba(255,255,255,0.35)', top: -8, left: 'calc(50% - 10px)' }}
                         />
-
                         <ObsessionCard obs={obs} />
                     </div>
                 ))}
             </div>
-
             <div className="text-center mt-10 pb-6 text-gray-700 text-xs tracking-widest font-mono">
                 — THESE ARE NOT HOBBIES. THESE ARE THE SOURCE CODE. —
             </div>
@@ -315,13 +276,8 @@ function ObsessionsBoard({ obsessions }: { obsessions: typeof workData.obsession
 
 // ─── RIGHT PANEL ─────────────────────────────────────────────────────────────
 
-function RightPanel({
-                        mode, seriesId, projectId, onClose,
-                    }: {
-    mode: PanelMode;
-    seriesId: string | null;
-    projectId: number | null;
-    onClose: () => void;
+function RightPanel({ mode, seriesId, projectId, onClose }: {
+    mode: PanelMode; seriesId: string | null; projectId: number | null; onClose: () => void;
 }) {
     const isOpen = !!mode;
     const series = seriesId ? workData.series.find(s => s.id === seriesId) ?? null : null;
@@ -342,7 +298,6 @@ function RightPanel({
                 }}
                 onClick={onClose}
             />
-
             <div
                 className="fixed top-0 right-0 bottom-0 z-50 overflow-y-auto bg-black border-l border-white/10"
                 style={{
@@ -396,7 +351,7 @@ function RightPanel({
 
                 {mode === 'project' && project && (
                     <div className="p-10 pt-20">
-                        {project.locked ? (
+                        {(project as any).locked ? (
                             <div className="flex flex-col items-center justify-center h-80 gap-4 text-center">
                                 <div className="text-6xl font-black text-white/5 mb-4" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
                                     {project.number}
@@ -497,7 +452,7 @@ export default function Projects() {
 
     const featuredEvent = eventsData.find(e => e.id === workData.featuredVideoId) ?? null;
     const embedId = featuredEvent ? getYouTubeId(featuredEvent.url) : null;
-    const analytics = workData.videoAnalytics;
+    const analytics = (workData as any).weeklyAnalytics;
 
     const TABS: { id: Tab; label: string }[] = [
         { id: 'CONTENT', label: 'CONTENT' },
@@ -505,11 +460,17 @@ export default function Projects() {
         { id: 'OBSESSIONS', label: 'OBSESSIONS' },
     ];
 
-    const statLabels: Record<string, string> = {
-        views: 'VIEWS', watchTime: 'WATCH TIME', likeRatio: 'LIKE RATIO',
-        subsGained: 'SUBS GAINED', avgViewDuration: 'AVG VIEW DUR.', ctr: 'CTR', impressions: 'IMPRESSIONS',
+    const weekStatLabels: Record<string, string> = {
+        totalViews: 'TOTAL VIEWS',
+        subsGained: 'SUBS GAINED',
+        totalWatchTime: 'WATCH TIME',
+        avgCTR: 'AVG CTR',
+        streamsPublished: 'STREAMS',
+        shortsPublished: 'SHORTS',
+        videosPublished: 'VIDEOS',
+        impressions: 'IMPRESSIONS',
     };
-    const statColors = ['#FF2E63', '#00E5FF', '#CCFF00', '#FF2E63', '#00E5FF', '#CCFF00', '#888888'];
+    const statColors = ['#FF2E63', '#00E5FF', '#CCFF00', '#FF2E63', '#00E5FF', '#CCFF00', '#888888', '#555555'];
 
     return (
         <div className="min-h-screen bg-black text-white pt-32 pb-20">
@@ -553,51 +514,66 @@ export default function Projects() {
                 {activeTab === 'CONTENT' && (
                     <div>
                         <section className="mb-20">
-                            <div className="text-xs text-gray-600 tracking-widest font-mono mb-8">LATEST DROP</div>
+
+                            {/* Featured video embed */}
                             {featuredEvent && (
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                                    <div>
-                                        <div className="aspect-video bg-white/5 border border-white/20 overflow-hidden mb-4">
-                                            {embedId ? (
-                                                <iframe
-                                                    src={`https://www.youtube.com/embed/${embedId}`}
-                                                    className="w-full h-full"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowFullScreen
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center">
-                                                    <a href={featuredEvent.url} target="_blank" rel="noopener noreferrer"
-                                                       className="text-sm text-gray-500 hover:text-white transition-colors tracking-widest font-mono">
-                                                        WATCH ON {featuredEvent.platform.toUpperCase()} ↗
-                                                    </a>
-                                                </div>
-                                            )}
+                                <div className="mb-10">
+                                    <div className="text-xs text-gray-600 tracking-widest font-mono mb-6">FEATURED VIDEO</div>
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                        <div>
+                                            <div className="aspect-video bg-white/5 border border-white/20 overflow-hidden mb-4">
+                                                {embedId ? (
+                                                    <iframe
+                                                        src={`https://www.youtube.com/embed/${embedId}`}
+                                                        className="w-full h-full"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowFullScreen
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center">
+                                                        <a href={featuredEvent.url} target="_blank" rel="noopener noreferrer"
+                                                           className="text-sm text-gray-500 hover:text-white transition-colors tracking-widest font-mono">
+                                                            WATCH ON {featuredEvent.platform.toUpperCase()} ↗
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="text-xs text-gray-600 font-mono mb-1">{featuredEvent.category.toUpperCase()} · {featuredEvent.platform.toUpperCase()}</div>
+                                            <h2 className="text-3xl font-black mb-1" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>{featuredEvent.title}</h2>
+                                            <div className="text-xs text-gray-600 font-mono">
+                                                {new Date(featuredEvent.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                                            </div>
                                         </div>
-                                        <div className="text-xs text-gray-600 font-mono mb-1">{featuredEvent.category.toUpperCase()} · {featuredEvent.platform.toUpperCase()}</div>
-                                        <h2 className="text-3xl font-black mb-1" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>{featuredEvent.title}</h2>
-                                        <div className="text-xs text-gray-600 font-mono">
-                                            {new Date(featuredEvent.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="text-xs text-gray-600 tracking-widest font-mono mb-4">PERFORMANCE</div>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {Object.entries(analytics.stats).map(([key, val], idx) => (
-                                                <div key={key} className="border border-white/20 p-4 hover:border-white/30 transition-colors duration-300">
-                                                    <div className="text-xs text-gray-600 font-mono mb-1">{statLabels[key] ?? key.toUpperCase()}</div>
-                                                    <div className="text-2xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif", color: statColors[idx] }}>{val}</div>
-                                                </div>
-                                            ))}
+
+                                        {/* Weekly stats */}
+                                        <div>
+                                            <div className="flex items-center justify-between mb-4">
+                                                <div className="text-xs text-gray-600 tracking-widest font-mono">WEEKLY PERFORMANCE</div>
+                                                <div className="text-xs text-gray-700 font-mono">{analytics.weekLabel}</div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                {Object.entries(analytics.stats as Record<string, string | number>).map(([key, val], idx) => (
+                                                    <div key={key} className="border border-white/20 p-4 hover:border-white/30 transition-colors duration-300">
+                                                        <div className="text-xs text-gray-600 font-mono mb-1">{weekStatLabels[key] ?? key.toUpperCase()}</div>
+                                                        <div className="text-2xl font-black" style={{ fontFamily: "'Bebas Neue', sans-serif", color: statColors[idx] }}>
+                                                            {String(val)}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             )}
+
+                            {/* Charts */}
                             <div className="border border-white/20 p-8 grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
-                                <RetentionChart data={analytics.retentionCurve} />
+                                <ContentMixChart data={analytics.contentMix} />
                                 <CTRChart data={analytics.ctrBenchmarks} />
                                 <TrafficDonut data={analytics.trafficSources} />
                             </div>
+
+                            {/* Creator notes */}
                             <div className="border border-white/20 p-8">
                                 <div className="text-xs text-gray-600 tracking-widest font-mono mb-8">CREATOR BREAKDOWN</div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -615,6 +591,7 @@ export default function Projects() {
                             </div>
                         </section>
 
+                        {/* Series */}
                         <section>
                             <div className="text-xs text-gray-600 tracking-widest font-mono mb-8">ACTIVE SERIES</div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -650,27 +627,28 @@ export default function Projects() {
                         {workData.programming.map((project, i) => {
                             const color = ['#FF2E63', '#00E5FF', '#CCFF00', '#2A2A2A'][i] ?? '#FF2E63';
                             const isActive = panelProjectId === project.id && panelMode === 'project';
+                            const isLocked = (project as any).locked;
                             return (
                                 <button key={project.id} onClick={() => openProject(project.id)}
                                         className="group w-full text-left py-10 flex items-center gap-8 hover:bg-white/2 transition-all duration-300"
                                 >
                                     <div className="text-7xl md:text-9xl font-black flex-shrink-0 leading-none transition-colors duration-300"
-                                         style={{ fontFamily: "'Bebas Neue', sans-serif", color: isActive ? color : project.locked ? '#1A1A1A' : 'rgba(255,255,255,0.06)' }}>
+                                         style={{ fontFamily: "'Bebas Neue', sans-serif", color: isActive ? color : isLocked ? '#1A1A1A' : 'rgba(255,255,255,0.06)' }}>
                                         {project.number}
                                     </div>
                                     <div className="w-28 flex-shrink-0 overflow-hidden border border-white/10 group-hover:border-white/20 transition-colors duration-300" style={{ height: 72 }}>
                                         {project.image ? (
                                             <img src={project.image} alt={project.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                         ) : (
-                                            <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: project.locked ? '#080808' : `${color}12` }}>
-                                                <span className="text-xs text-gray-800 font-mono tracking-widest">{project.locked ? '???' : 'camry.dev'}</span>
+                                            <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: isLocked ? '#080808' : `${color}12` }}>
+                                                <span className="text-xs text-gray-800 font-mono tracking-widest">{isLocked ? '???' : 'camry.dev'}</span>
                                             </div>
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="text-xs text-gray-600 font-mono mb-2">{project.locked ? '???' : project.tags.slice(0, 3).join(' · ')}</div>
+                                        <div className="text-xs text-gray-600 font-mono mb-2">{isLocked ? '???' : project.tags.slice(0, 3).join(' · ')}</div>
                                         <h2 className="text-3xl md:text-4xl font-black mb-2 transition-colors duration-300"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif", color: isActive ? color : project.locked ? '#333333' : '#FFFFFF' }}>
+                                            style={{ fontFamily: "'Bebas Neue', sans-serif", color: isActive ? color : isLocked ? '#333333' : '#FFFFFF' }}>
                                             {project.title}
                                         </h2>
                                         <p className="text-sm text-gray-500 line-clamp-1">{project.description}</p>
