@@ -1,6 +1,17 @@
 [
   {
     "id": 25,
+    "title": "Poppy Playtime Chapter 1",
+    "category": "Video",
+    "date": "2026-05-04T09:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Edited Poppy Playtime Chapter 1 video!",
+    "status": "upcoming"
+  },
+  {
+    "id": 24,
     "title": "Garten of BanBan 6 Playthrough!",
     "category": "Stream",
     "date": "2026-05-02T12:30:00",
@@ -11,7 +22,7 @@
     "status": "upcoming"
   },
   {
-    "id": 24,
+    "id": 23,
     "title": "Garten of BanBan 4 Playthrough!",
     "category": "Stream",
     "date": "2026-05-01T16:30:00",
@@ -19,18 +30,7 @@
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
-    "status": "upcoming"
-  },
-  {
-    "id": 23,
-    "title": "Poppy Playtime Chapter 1",
-    "category": "Video",
-    "date": "2026-05-01T09:00:00",
-    "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
-    "thumbnail": "",
-    "description": "Edited Poppy Playtime Chapter 1 video!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 22,
@@ -41,7 +41,7 @@
     "url": "https://www.youtube.com/watch?v=KAZOz3xnIzY",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 21,
