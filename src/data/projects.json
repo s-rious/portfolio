@@ -10,9 +10,9 @@
       "impressions": "17K"
     },
     "contentMix": [
-      { "label": "Streams", "value": 8, "views": 2100, "color": "#FF2E63" },
-      { "label": "Videos", "value": 1, "views": 1000, "color": "#00E5FF" },
-      { "label": "Shorts", "value": 3, "views": 400, "color": "#CCFF00" }
+      { "label": "Streams", "value": 8, "views": 504, "color": "#FF2E63" },
+      { "label": "Videos", "value": 2, "views": 233, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 3, "views": 3430, "color": "#CCFF00" }
     ],
     "trafficSources": [
       { "label": "Browse Features", "value": 30.2, "color": "#FF2E63" },
