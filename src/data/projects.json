@@ -3,11 +3,11 @@
   "weeklyAnalytics": {
     "weekLabel": "Apr 28 – May 2, 2026",
     "stats": {
-      "totalViews": "3,944",
-      "subsGained": "+19",
-      "totalWatchTime": "152.8 hrs",
-      "avgCTR": "9.7%",
-      "impressions": "17K"
+      "totalViews": "4037",
+      "subsGained": "+22",
+      "totalWatchTime": "163 hrs",
+      "avgCTR": "10%",
+      "impressions": "20.1K"
     },
     "contentMix": [
       { "label": "Streams", "value": 8, "views": 504, "color": "#FF2E63" },
