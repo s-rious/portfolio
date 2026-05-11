@@ -1,5 +1,49 @@
 [
   {
+    "id": 35,
+    "title": "STREAM TBD",
+    "category": "Stream",
+    "date": "2026-05-015T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "STREAM TBD",
+    "status": "upcoming"
+  },
+  {
+    "id": 34,
+    "title": "5 INDIE HORROR GAME PLAYTHROUGH",
+    "category": "Stream",
+    "date": "2026-05-014T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING THROUGH 5 SHORT HORROR INDIE GAMES!",
+    "status": "upcoming"
+  },
+  {
+    "id": 33,
+    "title": "HELLO NEIGHBOR 1 PLAYTHROUGH",
+    "category": "Stream",
+    "date": "2026-05-012T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "THE PLAYTHROUGH OF THE FIRST OFFICIAL LAUNCH OF HELLO NEIGHBOR!",
+    "status": "upcoming"
+  },
+  {
+    "id": 32,
+    "title": "HELLO NEIGHBOR ALPHA BUILD PLAYTHROUGH",
+    "category": "Stream",
+    "date": "2026-05-011T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "A FULL PLAYTHROUGH OF PRE-ALPHA AND ALPHA 1-4, ONE STREAM!",
+    "status": "upcoming"
+  },
+  {
     "id": 31,
     "title": "STREAM CANCELLED",
     "category": "Stream",
@@ -8,7 +52,7 @@
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
     "description": "CANCELLED STREAM - SEE YOU MONDAY",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 30,
@@ -19,7 +63,7 @@
     "url": "https://www.youtube.com/watch?v=zmG6Qa8vOkw",
     "thumbnail": "",
     "description": "AN ABANDONED, HAUNTED AMUSEMENT PARK PLAYTHROUGH",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 29,
@@ -36,7 +80,7 @@
     "id": 28,
     "title": "Poppy Playtime Chapter 2 Playthrough",
     "category": "Video",
-    "date": "2026-05-09T12:30:00",
+    "date": "2026-05-013T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
