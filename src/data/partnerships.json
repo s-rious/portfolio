@@ -1,0 +1,60 @@
+{
+  "hero": {
+    "kicker": "Available for Partnerships",
+    "title": "WORK WITH SERIOUS",
+    "subtitle": "Horror gaming with real reactions and a chat that's in the room. Production handled in-house — site, edits, and all."
+  },
+  "mediaKitUrl": "",
+  "differentiator": {
+    "title": "THE ENGINEER BONUS",
+    "body": "I'm an Electrical Engineering student and full-stack engineer — I built this site. Your brand gets a creator who can actually build with and technically break down your product, not just read a script. Capture cards, peripherals, software, dev kits: I'll play it AND publish a real technical writeup."
+  },
+  "audience": {
+    "ageBreakdown": [
+      { "label": "13-17", "value": 0 },
+      { "label": "18-24", "value": 0 },
+      { "label": "25-34", "value": 0 },
+      { "label": "35+", "value": 0 }
+    ],
+    "geo": [
+      { "label": "United States", "value": 0 },
+      { "label": "Other", "value": 0 }
+    ],
+    "platforms": [
+      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "—", "url": "https://youtube.com/seriousreal" },
+      { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "—", "url": "https://twitch.tv/s_rious" },
+      { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "—", "url": "https://x.com/s7rious" }
+    ]
+  },
+  "packages": [
+    {
+      "tier": "01",
+      "name": "STREAM MENTION",
+      "price": "$75",
+      "deliverable": "Verbal mention + on-screen brand placement during a 2-3 hour livestream on YouTube + Twitch. Link drops in chat and bio for 7 days.",
+      "color": "#E8001D"
+    },
+    {
+      "tier": "02",
+      "name": "INTEGRATED VIDEO SEGMENT",
+      "price": "$250",
+      "deliverable": "60-90 second integrated segment inside an edited horror gameplay video. Custom written, brand-aligned, no script-read energy.",
+      "color": "#FF2E63"
+    },
+    {
+      "tier": "03",
+      "name": "REVIEW + TECHNICAL BREAKDOWN",
+      "price": "$750",
+      "deliverable": "Full dedicated review video plus an accompanying technical writeup on camry.dev. Built for tech and gaming brands who want depth.",
+      "color": "#00E5FF"
+    },
+    {
+      "tier": "04",
+      "name": "CUSTOM",
+      "price": "Let's talk",
+      "deliverable": "Multi-stream campaigns, series sponsorships, product gifting, affiliate deals. Email and we'll build it.",
+      "color": "#CCFF00"
+    }
+  ],
+  "partners": []
+}

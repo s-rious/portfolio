@@ -1,29 +1,34 @@
 {
-  "siteName": "CAMRY.DEV",
-  "siteTitle": "CAMRY.DEV",
-  "siteDescription": "CAMRY Development Portfolio - Full-Stack Software Engineer and Electrical Engineering Student",
-  "tagline": "Full-Stack Software Engineer, Studying Electrical Engineering",
+  "siteName": "SERIOUS",
+  "siteTitle": "SERIOUS - CONTENT THAT GOES BEYOND ME",
+  "siteDescription": "IRL streams, gaming content, all real reactions, and a chat that's in the room. Cameron Rydwell streams as SERIOUS on YouTube and Twitch.",
+  "tagline": "Pull up a chair. I'm probably about to throw mine.",
   "owner": {
     "name": "Cameron Rydwell",
-    "displayName": "CAMRY"
+    "displayName": "SERIOUS",
+    "altDisplayName": "CAMRY",
+    "handle": "@s_rious / @s7rious"
   },
   "theme": {
     "colors": {
-      "primary": "#14B8A6",
-      "secondary": "#F87171",
-      "accent": "#F59E0B"
+      "primary": "#E8001D",
+      "secondary": "#FF2E63",
+      "accent": "#00E5FF"
     }
   },
   "logo": {
     "symbol": ";",
-    "description": "CAMRY Logo Symbol"
+    "description": "SERIOUS Logo Symbol"
   },
   "footer": {
-    "tagline": "BLENDING THE DIGITAL AND PHYSICAL WORLD."
+    "tagline": "I LIKE TO MAKE CONTENT AND PUT IT ON YOUR SCREEN."
   },
   "seo": {
-    "defaultTitle": "CAMRY.DEV",
-    "titleTemplate": "%s | CAMRY.DEV",
-    "description": "Portfolio of Cameron Rydwell - Full-Stack Software Engineer and Electrical Engineering Student"
+    "defaultTitle": "SERIOUS - IRL and GAMING CONTENT",
+    "titleTemplate": "%s | SERIOUS",
+    "description": "IRL and gaming streams and videos from Cameron Rydwell / SERIOUS. Real reactions, chaos, and a chat that's part of the show."
+  },
+  "compilerOptions": {
+    "jsx": "preserve"
   }
 }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import TickerSection from '@/components/TickerSection';
+import siteConfig from '@/data/siteConfig.json';
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
 const CATEGORY_COLORS: Record<string, string> = {
@@ -175,45 +176,47 @@ export default function Home() {
                     <div style={{ overflow: 'hidden' }}>
                         <h1 style={{
                             fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(5rem, 16vw, 15rem)',
-                            lineHeight: 0.88,
+                            fontSize: 'clamp(6rem, 22vw, 22rem)',
+                            lineHeight: 0.85,
                             letterSpacing: '-0.01em',
                             color: 'var(--white)',
                             animation: 'fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both',
                         }}>
-                            CAMERON
+                            {siteConfig.owner.displayName}
                         </h1>
                     </div>
-                    <div style={{ overflow: 'hidden' }}>
-                        <h1 style={{
+                    <div style={{ overflow: 'hidden', marginTop: '0.5rem' }}>
+                        <h2 style={{
                             fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(5rem, 16vw, 15rem)',
-                            lineHeight: 0.88,
-                            letterSpacing: '-0.01em',
+                            fontSize: 'clamp(1.8rem, 5vw, 4rem)',
+                            lineHeight: 1,
+                            letterSpacing: '0.04em',
                             color: 'var(--white)',
-                            animation: 'fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.08s both',
                             WebkitTextStroke: '1px var(--white)',
                             WebkitTextFillColor: 'transparent',
+                            animation: 'fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.12s both',
                         }}>
-                            RYDWELL
-                        </h1>
+                            {siteConfig.owner.name.toUpperCase()}
+                        </h2>
                     </div>
 
                     <div style={{
                         position: 'absolute', bottom: '4rem', left: '6vw', right: '6vw',
                         display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end',
                         animation: 'fadeIn 1s ease 0.4s both',
+                        gap: '2rem', flexWrap: 'wrap',
                     }}>
                         <div>
-                            <Label>Role</Label>
+                            <Label>The Channel</Label>
                             <p style={{
-                                fontFamily: 'var(--font-mono)',
-                                fontSize: '0.85rem',
-                                letterSpacing: '0.1em',
-                                color: 'var(--gray-200)',
-                                marginTop: '6px',
+                                fontFamily: 'var(--font-display)',
+                                fontSize: 'clamp(1.4rem, 3.2vw, 2.6rem)',
+                                letterSpacing: '0.02em',
+                                color: 'var(--white)',
+                                marginTop: '0.4rem',
+                                lineHeight: 1.1,
                             }}>
-                                Engineer × Creator × Visionary
+                                {siteConfig.tagline}
                             </p>
                         </div>
                         <div style={{ textAlign: 'right' }}>
