@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import projectsData from '@/data/projects.json';
 import partnershipsData from '@/data/partnerships.json';
+import React from 'react';
 
 function Label({ children, color }: { children: React.ReactNode; color?: string }) {
     return (
