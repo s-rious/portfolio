@@ -81,9 +81,9 @@ export default function Home() {
             const events = e.default as any[];
             const now = new Date();
 
-            // Latest Video: most recent past Video event
+// Latest Video: most recent video by date
             const pastVideos = events
-                .filter(ev => ev.status === 'past' && ev.category === 'Video')
+                .filter(ev => ev.category === 'Video' && new Date(ev.date) <= now)
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             if (pastVideos.length > 0) {
                 const v = pastVideos[0];
@@ -94,21 +94,21 @@ export default function Home() {
                 setDerivedVideo({ ...v, thumbnail: thumb, uploadedAgo: dateLabel });
             }
 
-            // Next Stream: soonest upcoming Stream event
+// Next Stream: soonest stream after now
             const upcomingStreams = events
-                .filter(ev => ev.status === 'upcoming' && ev.category === 'Stream')
+                .filter(ev => ev.category === 'Stream' && new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setDerivedStream(upcomingStreams[0] ?? null);
 
-            // Current Project: soonest upcoming non-Stream event
+// Current Project: soonest non-stream after now
             const upcomingProjects = events
-                .filter(ev => ev.status === 'upcoming' && ev.category !== 'Stream')
+                .filter(ev => ev.category !== 'Stream' && new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setDerivedProject(upcomingProjects[0] ?? null);
 
-            // ON TOUR section: next 3 upcoming events of any category
+// ON TOUR: next 3 events after now
             const upcoming = events
-                .filter(ev => ev.status === 'upcoming' && new Date(ev.date) >= now)
+                .filter(ev => new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                 .slice(0, 3);
             setUpcomingEvents(upcoming);

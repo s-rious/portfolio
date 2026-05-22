@@ -1,6 +1,6 @@
 [
   {
-    "id": 41,
+    "id": 42,
     "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
     "category": "Stream",
     "date": "2026-05-23T16:30:00",
@@ -11,7 +11,7 @@
     "status": "upcoming"
   },
   {
-    "id": 40,
+    "id": 41,
     "title": "BENDY AND THE INK MACHINE",
     "category": "Stream",
     "date": "2026-05-22T16:30:00",
@@ -22,47 +22,58 @@
     "status": "upcoming"
   },
   {
-    "id": 39,
+    "id": 40,
     "title": "BEATING BALDI'S BASICS",
     "category": "Stream",
     "date": "2026-05-21T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=-uv3gtPzHho",
     "thumbnail": "",
     "description": "NO MATTER WHAT, WE ARE FINISHING BALDI'S BASICS!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
-    "id": 38,
+    "id": 39,
     "title": "HELLO NEIGHBOR 1 ACT 3",
     "category": "Stream",
     "date": "2026-05-20T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=9nL9iGZHE98",
     "thumbnail": "",
     "description": "CONTINUING AND FINISHING HELLO NEIGHBOR 1. SURELY IT GOES TO PLAN?",
     "status": "past"
   },
   {
-    "id": 37,
+    "id": 38,
     "title": "CHAINED TOGETHER w/ TREVOR",
     "category": "Stream",
     "date": "2026-05-19T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=rxlpjnSqiRc",
     "thumbnail": "",
     "description": "PLAYING CHAINED TOGETHER WITH MY BESTFRIEND TREVOR. RAGE INCOMING...",
     "status": "past"
   },
   {
-    "id": 36,
+    "id": 37,
     "title": "HELLO NEIGHBOR 1 - ACT 1 & 2",
     "category": "Stream",
     "date": "2026-05-18T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=9w6HGr5krMM",
     "thumbnail": "",
     "description": "OUR FIRST PLAYTHROUGH OF HELLO NEIGHBOR 1. WHAT IS WRONG WITH MY NEIGHBOR?",
+    "status": "past"
+  },
+  {
+    "id": 36,
+    "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
+    "category": "Stream",
+    "date": "2026-05-17T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=DCR0AkmInQE",
+    "thumbnail": "",
+    "description": "OUR FIRST OF OUR NEW SERIES. SITTING DOWN, PLAYING FAV GAMES, TALKING OUR CONTENTS FUTURE",
     "status": "past"
   },
   {
@@ -71,7 +82,7 @@
     "category": "Stream",
     "date": "2026-05-15T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=O9mB3lSSpUw",
     "thumbnail": "",
     "description": "A BRAND NEW MASCOT HORROR GAME SERIES. WILL IT HOLD UP?",
     "status": "past"
@@ -82,7 +93,7 @@
     "category": "Stream",
     "date": "2026-05-14T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=4vxyzMabeOg",
     "thumbnail": "",
     "description": "PLAYING THROUGH 5 SHORT HORROR INDIE GAMES!",
     "status": "past"
@@ -93,7 +104,7 @@
     "category": "Stream",
     "date": "2026-05-12T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=gtyTrKmb7Z8",
     "thumbnail": "",
     "description": "PLAYING THROUGH THE CLASSIC BALDIS BASICS GAME!",
     "status": "past"
@@ -104,7 +115,7 @@
     "category": "Stream",
     "date": "2026-05-11T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=H9KVzTG_6x8",
     "thumbnail": "",
     "description": "A FULL PLAYTHROUGH OF PRE-ALPHA AND ALPHA 1-4, ONE STREAM!",
     "status": "past"
@@ -137,7 +148,7 @@
     "category": "Stream",
     "date": "2026-05-07T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/live/A_8tnwQO_VU",
+    "url": "https://www.youtube.com/watch?v=A_8tnwQO_VU",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
     "status": "past"
@@ -146,7 +157,7 @@
     "id": 28,
     "title": "Poppy Playtime Chapter 2 Playthrough",
     "category": "Video",
-    "date": "2026-05-013T12:30:00",
+    "date": "2026-05-023T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
@@ -159,7 +170,7 @@
     "category": "Stream",
     "date": "2026-05-05T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/live/8D3H7MlxUzg",
+    "url": "https://www.youtube.com/watch?v=8D3H7MlxUzg",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
     "status": "past"
@@ -170,7 +181,7 @@
     "category": "Stream",
     "date": "2026-05-04T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/live/ver8rUSJtow",
+    "url": "https://www.youtube.com/watch?v=ver8rUSJtow",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
     "status": "past"
@@ -192,7 +203,7 @@
     "category": "Stream",
     "date": "2026-05-02T12:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/live/7NCrJI61IkA",
+    "url": "https://www.youtube.com/watch?v=7NCrJI61IkA",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
     "status": "past"
@@ -203,7 +214,7 @@
     "category": "Stream",
     "date": "2026-05-01T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/live/SaJ58EF1Jrw",
+    "url": "https://www.youtube.com/watch?v=SaJ58EF1Jrw",
     "thumbnail": "",
     "description": "Our continued playthrough of Garten of BanBan!",
     "status": "past"
