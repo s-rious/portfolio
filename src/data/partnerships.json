@@ -11,50 +11,50 @@
   },
   "audience": {
     "ageBreakdown": [
-      { "label": "13-17", "value": 0 },
-      { "label": "18-24", "value": 0 },
-      { "label": "25-34", "value": 0 },
-      { "label": "35+", "value": 0 }
+      { "label": "13-17", "value": 21.5 },
+      { "label": "18-24", "value": 10.7 },
+      { "label": "25-34", "value": 31.8 },
+      { "label": "35+", "value": 36 }
     ],
     "geo": [
-      { "label": "United States", "value": 0 },
-      { "label": "Other", "value": 0 }
+      { "label": "United States", "value": 55.1 },
+      { "label": "Other", "value": 44.9 }
     ],
     "platforms": [
-      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "—", "url": "https://youtube.com/seriousreal" },
-      { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "—", "url": "https://twitch.tv/s_rious" },
-      { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "—", "url": "https://x.com/s7rious" }
+      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "279", "url": "https://youtube.com/seriousreal" },
+      { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "159", "url": "https://twitch.tv/s_rious" },
+      { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "302", "url": "https://x.com/s7rious" }
     ]
   },
   "packages": [
     {
       "tier": "01",
       "name": "STREAM MENTION",
-      "price": "$TBD",
+      "price": "$50",
       "deliverable": "Verbal mention + on-screen brand placement during a 2-3 hour livestream on YouTube + Twitch. Link drops in chat and bio for 7 days.",
       "color": "#E8001D"
     },
     {
       "tier": "02",
       "name": "INTEGRATED VIDEO SEGMENT",
-      "price": "$TBD",
-      "deliverable": "60-90 second integrated segment inside an edited horror gameplay video. Custom written, brand-aligned, no script-read energy.",
+      "price": "$150",
+      "deliverable": "60-90 second integrated segment inside an edited gameplay or vlog video, depending on topic. Custom written, brand-aligned, no script-read energy.",
       "color": "#FF2E63"
     },
     {
       "tier": "03",
       "name": "REVIEW + TECHNICAL BREAKDOWN",
-      "price": "$TBD",
-      "deliverable": "Full dedicated review video plus an accompanying technical writeup on camry.dev. Built for tech and gaming brands who want depth.",
+      "price": "$300",
+      "deliverable": "Full dedicated review video plus an accompanying writeup on our BLOG. Built for tech and gaming brands who want depth.",
       "color": "#00E5FF"
     },
     {
       "tier": "04",
       "name": "CUSTOM",
       "price": "Let's talk",
-      "deliverable": "Multi-stream campaigns, series sponsorships, product gifting, affiliate deals. Email and we'll build it.",
+      "deliverable": "Branded affiliates and/or sponsors, multi-stream campaigns, series sponsorships, product gifting, affiliate deals.",
       "color": "#CCFF00"
     }
   ],
-  "partners": []
+  "partners": ["N/A"]
 }

@@ -3,26 +3,26 @@
   "weeklyAnalytics": {
     "weekLabel": "May 4 – May 10, 2026",
     "stats": {
-      "totalViews": "6.3k",
-      "subsGained": "+25",
-      "totalWatchTime": "382.2 hrs",
-      "avgCTR": "9.2%",
-      "impressions": "61.9K"
+      "totalViews": "4.6k",
+      "subsGained": "+23",
+      "totalWatchTime": "369.5 hrs",
+      "avgCTR": "5.9%",
+      "impressions": "83.8K"
     },
     "contentMix": [
-      { "label": "Streams", "value": 5, "views": 1413, "color": "#FF2E63" },
-      { "label": "Videos", "value": 0, "views": 225, "color": "#00E5FF" },
-      { "label": "Shorts", "value": 3, "views": 4826, "color": "#CCFF00" }
+      { "label": "Streams", "value": 5, "views": 1450, "color": "#FF2E63" },
+      { "label": "Videos", "value": 0, "views": 47, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 3, "views": 3150, "color": "#CCFF00" }
     ],
     "trafficSources": [
-      { "label": "Browse Features", "value": 4.7, "color": "#FF2E63" },
-      { "label": "Channel Pages", "value": 3.5, "color": "#00E5FF" },
-      { "label": "External", "value": 20.8, "color": "#CCFF00" },
-      { "label": "Other", "value": 71.0, "color": "#555555" }
+      { "label": "Browse Features", "value": 48.9, "color": "#FF2E63" },
+      { "label": "Channel Pages", "value": 25.5, "color": "#00E5FF" },
+      { "label": "External", "value": 10.6, "color": "#CCFF00" },
+      { "label": "Other", "value": 15, "color": "#555555" }
     ],
     "ctrBenchmarks": [
-      { "label": "This Week Avg", "value": 7.2, "color": "#FF2E63" },
-      { "label": "Channel Avg", "value": 6.1, "color": "#00E5FF" },
+      { "label": "This Week Avg", "value": 5.9, "color": "#FF2E63" },
+      { "label": "Channel Avg", "value": 4.0, "color": "#00E5FF" },
       { "label": "YouTube Avg", "value": 4.0, "color": "#444444" }
     ],
     "creatorNotes": {

@@ -159,7 +159,7 @@ export default function Partnerships() {
                     <div style={{ marginTop: '2rem', padding: '1.5rem 2rem', border: '1px solid var(--red)', background: 'rgba(232,0,29,0.05)' }}>
                         <Label color="var(--red)">Why this matters</Label>
                         <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.05rem', color: 'var(--gray-200)', marginTop: '0.5rem', lineHeight: 1.6 }}>
-                            An average CTR of <strong style={{ color: 'var(--red)' }}>{analytics.stats.avgCTR}</strong> runs more than 2x the YouTube platform average (~4%). Thumbnails earn clicks — and your sponsor placement gets seen.
+                            An average CTR of <strong style={{ color: 'var(--red)' }}>{analytics.stats.avgCTR}</strong> runs 1.5x the YouTube platform average (~4%). Thumbnails earn clicks, and your sponsor placement gets seen.
                         </p>
                     </div>
                 </section>
