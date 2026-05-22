@@ -30,21 +30,21 @@
     {
       "tier": "01",
       "name": "STREAM MENTION",
-      "price": "$75",
+      "price": "$TBD",
       "deliverable": "Verbal mention + on-screen brand placement during a 2-3 hour livestream on YouTube + Twitch. Link drops in chat and bio for 7 days.",
       "color": "#E8001D"
     },
     {
       "tier": "02",
       "name": "INTEGRATED VIDEO SEGMENT",
-      "price": "$250",
+      "price": "$TBD",
       "deliverable": "60-90 second integrated segment inside an edited horror gameplay video. Custom written, brand-aligned, no script-read energy.",
       "color": "#FF2E63"
     },
     {
       "tier": "03",
       "name": "REVIEW + TECHNICAL BREAKDOWN",
-      "price": "$750",
+      "price": "$TBD",
       "deliverable": "Full dedicated review video plus an accompanying technical writeup on camry.dev. Built for tech and gaming brands who want depth.",
       "color": "#00E5FF"
     },
