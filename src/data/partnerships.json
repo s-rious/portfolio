@@ -1,19 +1,38 @@
 {
   "hero": {
-    "kicker": "Available for Partnerships",
-    "title": "WORK WITH ME",
-    "subtitle": "Gaming content blended with IRL streams to create an atmospherical home to a chat that's always apart of the journey. Production handled in-house."
+    "kicker": "Partnerships Available Now",
+    "title": "YOUR BRAND IN EVERY STREAM",
+    "subtitle": "An intimate gaming and IRL community that watches 2-4 hours a day. Not passive subscribers, but people who are actually in the room."
   },
   "mediaKitUrl": "",
+  "pitch": "279 subscribers. 5.9% CTR, above platform average. 4–5 streams a week, every week. The math works differently when every viewer chose to be here.",
   "differentiator": {
-    "title": "THE ENGINEER BONUS",
-    "body": "I'm an Electrical Engineering student and full-stack engineer — I built this site. Your brand gets a creator who can actually build with and technically break down your product, not just read a script. Capture cards, peripherals, software, dev kits: I'll play it AND publish a real technical writeup."
+    "title": "THE TRUST ADVANTAGE",
+    "body": "Large channels sell reach. I sell trust. A community that shows up for 15 hours of live content per week builds a parasocial bond that passive subscribers never develop. When I integrate your brand, it lands like a recommendation from a friend, not an ad they skip.",
+    "pillars": [
+      {
+        "label": "NO SCRIPT READS",
+        "body": "Every integration is written by me, in my voice, around what the product actually does. Your brand becomes content, not interruption."
+      },
+      {
+        "label": "TECHNICAL DEPTH",
+        "body": "Electrical Engineering student. Full-stack developer. I built this site. For tech and gaming brands, I can actually demo, evaluate, and break down your product on camera."
+      },
+      {
+        "label": "MULTI-PLATFORM",
+        "body": "Every stream runs simultaneously on YouTube and Twitch. Your placement reaches the same engaged audience across both platforms in a single session."
+      },
+      {
+        "label": "EARLY ADVANTAGE",
+        "body": "Lock in a rate while the channel is growing. The brands that partner now are the ones the community associates with the come-up."
+      }
+    ]
   },
   "audience": {
     "ageBreakdown": [
-      { "label": "13-17", "value": 21.5 },
-      { "label": "18-24", "value": 10.7 },
-      { "label": "25-34", "value": 31.8 },
+      { "label": "13–17", "value": 21.5 },
+      { "label": "18–24", "value": 10.7 },
+      { "label": "25–34", "value": 31.8 },
       { "label": "35+", "value": 36 }
     ],
     "geo": [
@@ -21,7 +40,7 @@
       { "label": "Other", "value": 44.9 }
     ],
     "platforms": [
-      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "279", "url": "https://youtube.com/seriousreal" },
+      { "name": "YouTube", "handle": "@seriousreal", "metric": "Subscribers", "value": "285", "url": "https://youtube.com/seriousreal" },
       { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "159", "url": "https://twitch.tv/s_rious" },
       { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "302", "url": "https://x.com/s7rious" }
     ]
@@ -31,30 +50,33 @@
       "tier": "01",
       "name": "STREAM MENTION",
       "price": "$50",
-      "deliverable": "Verbal mention + on-screen brand placement during a 2-3 hour livestream on YouTube + Twitch. Link drops in chat and bio for 7 days.",
-      "color": "#E8001D"
+      "deliverable": "Verbal mention + on-screen brand placement during a 2–3 hour livestream on YouTube and Twitch. Link drops in chat and bio for 7 days.",
+      "color": "#E8001D",
+      "ideal": "Brand awareness, new product launches"
     },
     {
       "tier": "02",
-      "name": "INTEGRATED VIDEO SEGMENT",
+      "name": "INTEGRATED SEGMENT",
       "price": "$150",
-      "deliverable": "60-90 second integrated segment inside an edited gameplay or vlog video, depending on topic. Custom written, brand-aligned, no script-read energy.",
-      "color": "#FF2E63"
+      "deliverable": "60–90 second integrated segment inside an edited gameplay or vlog video. Custom written, brand-aligned, no script-read energy. Permanent on-channel.",
+      "color": "#FF2E63",
+      "ideal": "Products with a story to tell"
     },
     {
       "tier": "03",
-      "name": "REVIEW + TECHNICAL BREAKDOWN",
+      "name": "REVIEW + WRITEUP",
       "price": "$300",
-      "deliverable": "Full dedicated review video plus an accompanying writeup on our BLOG. Built for tech and gaming brands who want depth.",
-      "color": "#00E5FF"
+      "deliverable": "Full dedicated review video plus an accompanying blog post. Built for tech and gaming brands who want depth and searchable, lasting content.",
+      "color": "#00E5FF",
+      "ideal": "Tech, peripherals, dev tools, software"
     },
     {
       "tier": "04",
       "name": "CUSTOM",
       "price": "Let's talk",
-      "deliverable": "Branded affiliates and/or sponsors, multi-stream campaigns, series sponsorships, product gifting, affiliate deals.",
-      "color": "#CCFF00"
+      "deliverable": "Multi-stream campaigns, series sponsorships, affiliate programs, product gifting. Built around your goals.",
+      "color": "#CCFF00",
+      "ideal": "Long-term brand relationships"
     }
-  ],
-  "partners": ["N/A"]
+  ]
 }
