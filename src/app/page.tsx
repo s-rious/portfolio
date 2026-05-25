@@ -43,8 +43,6 @@ function Label({ children }: { children: React.ReactNode }) {
     );
 }
 
-// ── Inline chart components ───────────────────────────────────────────────────
-
 function ContentMixChart({ data }: { data: { label: string; value: number; views: number; color: string }[] }) {
     const maxViews = Math.max(...data.map(d => d.views), 1);
     return (
@@ -124,19 +122,17 @@ function TrafficDonut({ data }: { data: { label: string; value: number; color: s
     );
 }
 
-// ── Main Page ─────────────────────────────────────────────────────────────────
-
 export default function Home() {
-    const [gear, setGear]                     = useState<any>(null);
-    const [roadmap, setRoadmap]               = useState<any[]>([]);
-    const [upcomingEvents, setUpcomingEvents] = useState<any[]>([]);
-    const [derivedVideo, setDerivedVideo]     = useState<any>(null);
-    const [derivedStream, setDerivedStream]   = useState<any>(null);
-    const [derivedProject, setDerivedProject] = useState<any>(null);
-    const [analytics, setAnalytics]           = useState<any>(null);
-    const [email, setEmail]                   = useState('');
-    const [subStatus, setSubStatus]           = useState<'idle'|'loading'|'success'|'error'>('idle');
-    const [livePlatform, setLivePlatform]     = useState<'youtube' | 'twitch'>('youtube');
+    const [gear, setGear]                      = useState<any>(null);
+    const [roadmap, setRoadmap]                = useState<any[]>([]);
+    const [upcomingEvents, setUpcomingEvents]  = useState<any[]>([]);
+    const [derivedVideo, setDerivedVideo]      = useState<any>(null);
+    const [derivedStream, setDerivedStream]    = useState<any>(null);
+    const [derivedProject, setDerivedProject]  = useState<any>(null);
+    const [analytics, setAnalytics]            = useState<any>(null);
+    const [email, setEmail]                    = useState('');
+    const [subStatus, setSubStatus]            = useState<'idle'|'loading'|'success'|'error'>('idle');
+    const [livePlatform, setLivePlatform]      = useState<'youtube' | 'twitch'>('youtube');
 
     useEffect(() => {
         Promise.all([
@@ -207,7 +203,7 @@ export default function Home() {
     return (
         <div style={{ background: 'var(--black)', color: 'var(--white)' }}>
 
-            {/* ══ HERO — single viewport ══ */}
+            {/* ══ HERO ══ */}
             <section style={{
                 minHeight: '100vh',
                 display: 'flex',
@@ -216,17 +212,17 @@ export default function Home() {
                 boxSizing: 'border-box',
             }}>
                 {/* Top bar */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '5rem 6vw 0' }}>
-                    <Label>Sacramento, CA — Available for Partnerships</Label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6rem 6vw 0' }}>
+                    <Label>SF & LA, CA - Available for Partnerships</Label>
                     <Label>camry.dev</Label>
                 </div>
 
-                {/* SERIOUS — main title, CAMERON RYDWELL small under */}
+                {/* SERIOUS + CAMERON RYDWELL */}
                 <div style={{ padding: '0 6vw' }}>
                     <div style={{ overflow: 'hidden' }}>
                         <h1 style={{
                             fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(5rem, 16vw, 15rem)',
+                            fontSize: 'clamp(4.5rem, 14vw, 13rem)',
                             lineHeight: 0.88,
                             letterSpacing: '-0.01em',
                             color: 'var(--white)',
@@ -237,51 +233,51 @@ export default function Home() {
                     </div>
                     <p style={{
                         fontFamily: 'var(--font-mono)',
-                        fontSize: '0.9rem',
+                        fontSize: '0.85rem',
                         letterSpacing: '0.14em',
                         color: 'var(--gray-500)',
-                        marginTop: '0.75rem',
+                        marginTop: '1rem',
                         animation: 'fadeIn 1s ease 0.2s both',
                     }}>
                         CAMERON RYDWELL
                     </p>
                 </div>
 
-                {/* Bottom bar — role + scroll hint */}
-                <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    padding: '0 6vw 2rem',
-                    animation: 'fadeIn 1s ease 0.4s both',
-                }}>
-                    <div>
-                        <Label>Role</Label>
-                        <p style={{
-                            fontFamily: 'var(--font-mono)',
-                            fontSize: '0.85rem',
-                            letterSpacing: '0.1em',
-                            color: 'var(--gray-200)',
-                            marginTop: '6px',
-                        }}>
-                            Engineer × Creator × Visionary
-                        </p>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                        <Label>Scroll to continue</Label>
-                        <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'flex-end' }}>
-                            <svg width="18" height="32" viewBox="0 0 18 32" fill="none">
-                                <rect x="1" y="1" width="16" height="30" rx="8" stroke="var(--gray-600)" strokeWidth="1.5" />
-                                <circle cx="9" cy="9" r="2.5" fill="var(--red)">
-                                    <animate attributeName="cy" values="9;22;9" dur="2.2s" repeatCount="indefinite" />
-                                </circle>
-                            </svg>
+                {/* Bottom bar + ticker grouped together at the bottom */}
+                <div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                        padding: '0 6vw 2.5rem',
+                        animation: 'fadeIn 1s ease 0.4s both',
+                    }}>
+                        <div>
+                            <Label>Role</Label>
+                            <p style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '0.85rem',
+                                letterSpacing: '0.1em',
+                                color: 'var(--gray-200)',
+                                marginTop: '6px',
+                            }}>
+                                Content Creator × Fitness × Engineer
+                            </p>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                            <Label>Scroll to continue</Label>
+                            <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'flex-end' }}>
+                                <svg width="18" height="32" viewBox="0 0 18 32" fill="none">
+                                    <rect x="1" y="1" width="16" height="30" rx="8" stroke="var(--gray-600)" strokeWidth="1.5" />
+                                    <circle cx="9" cy="9" r="2.5" fill="var(--red)">
+                                        <animate attributeName="cy" values="9;22;9" dur="2.2s" repeatCount="indefinite" />
+                                    </circle>
+                                </svg>
+                            </div>
                         </div>
                     </div>
+                    <TickerSection />
                 </div>
-
-                {/* Ticker lives here — visible before scrolling */}
-                <TickerSection />
             </section>
 
             {/* ══ MAIN CONTENT ══ */}
@@ -301,10 +297,8 @@ export default function Home() {
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1px', background: 'var(--gray-800)' }}>
 
-                                {/* LEFT COL: video + analytics underneath */}
+                                {/* LEFT: video + analytics */}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
-
-                                    {/* LATEST VIDEO */}
                                     <div style={{ background: 'var(--gray-900)' }}>
                                         <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: 'var(--gray-800)' }}>
                                             {extractYouTubeId(derivedVideo?.url ?? '') ? (
@@ -349,7 +343,6 @@ export default function Home() {
                                         </div>
                                     </div>
 
-                                    {/* RECENT ANALYTICS — embedded under video */}
                                     {analytics && (
                                         <div style={{ background: 'var(--gray-900)', padding: '1.5rem 1.75rem' }}>
                                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.25rem' }}>
@@ -365,9 +358,8 @@ export default function Home() {
                                     )}
                                 </div>
 
-                                {/* RIGHT COL: current project + next stream — unchanged */}
+                                {/* RIGHT: current project + next stream */}
                                 <div style={{ background: 'var(--gray-900)', display: 'flex', flexDirection: 'column' }}>
-
                                     <div style={{ padding: '1.75rem', flex: 1 }}>
                                         <Label>Current Project</Label>
                                         <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '0.03em', margin: '0.5rem 0 0.75rem', lineHeight: 1.1 }}>
@@ -445,30 +437,25 @@ export default function Home() {
                     </section>
                 )}
 
-                {/* ON TOUR — 3 cards side by side, padding compressed */}
+                {/* ON TOUR */}
                 {upcomingEvents.length > 0 && (
                     <section style={{ padding: '4rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                                 <div>
                                     <Label>Schedule</Label>
-                                    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', letterSpacing: '0.03em', marginTop: '0.25rem' }}>
-                                        ON TOUR
-                                    </h2>
+                                    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', letterSpacing: '0.03em', marginTop: '0.25rem' }}>ON TOUR</h2>
                                 </div>
                                 <Link href="/tour" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.14em', color: 'var(--gray-400)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.6rem 1.2rem', transition: 'color 0.2s, border-color 0.2s', alignSelf: 'flex-end' }} onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }} onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}>
                                     FULL SCHEDULE ↗
                                 </Link>
                             </div>
-
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--gray-800)' }}>
                                 {upcomingEvents.map((event) => {
                                     const accent = CATEGORY_COLORS[event.category] ?? 'var(--white)';
                                     const d = new Date(event.date);
                                     const time = event.date.includes('T') && !event.date.endsWith('T00:00:00')
-                                        ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-                                        : null;
-
+                                        ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : null;
                                     const card = (
                                         <div style={{ background: 'var(--gray-900)', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', transition: 'background 0.2s', cursor: event.url ? 'pointer' : 'default' }}
                                              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
@@ -478,28 +465,23 @@ export default function Home() {
                                                 <span style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', letterSpacing: '0.04em', color: accent, lineHeight: 1 }}>{d.getDate()}</span>
                                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.14em', color: 'var(--gray-600)', marginLeft: '0.4rem' }}>{d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}</span>
                                             </div>
-                                            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(0.9rem, 1.8vw, 1.2rem)', letterSpacing: '0.03em', color: 'var(--white)', lineHeight: 1.15 }}>
-                                                {event.title}
-                                            </p>
+                                            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(0.9rem, 1.8vw, 1.2rem)', letterSpacing: '0.03em', color: 'var(--white)', lineHeight: 1.15 }}>{event.title}</p>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: 'auto' }}>
                                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.12em', color: accent, border: `1px solid ${accent}`, padding: '2px 6px', alignSelf: 'flex-start' }}>{event.category.toUpperCase()}</span>
                                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>{event.platform?.toUpperCase()}{time ? ` — ${time}` : ''}</span>
                                             </div>
                                         </div>
                                     );
-
                                     return event.url ? (
                                         <a key={event.id} href={event.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>{card}</a>
-                                    ) : (
-                                        <div key={event.id}>{card}</div>
-                                    );
+                                    ) : <div key={event.id}>{card}</div>;
                                 })}
                             </div>
                         </div>
                     </section>
                 )}
 
-                {/* THE SETUP — compressed */}
+                {/* THE SETUP */}
                 {gear && (
                     <section style={{ padding: '4rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -539,7 +521,7 @@ export default function Home() {
                     </section>
                 )}
 
-                {/* WHAT'S NEXT — compressed */}
+                {/* WHAT'S NEXT */}
                 {roadmap.length > 0 && (
                     <section style={{ padding: '4rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
                         <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -567,7 +549,7 @@ export default function Home() {
                     </section>
                 )}
 
-                {/* WHY STICK AROUND — untouched */}
+                {/* WHY STICK AROUND */}
                 <section style={{ padding: '8rem 6vw' }}>
                     <div style={{ maxWidth: '900px', margin: '0 auto' }}>
                         <Label>Why follow along</Label>
