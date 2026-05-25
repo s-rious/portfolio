@@ -1,5 +1,82 @@
 [
   {
+    "id": 49,
+    "title": "POPPY PLAYTIME CHAPTER 2 PART 2",
+    "category": "Video",
+    "date": "2026-05-29T12:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "THE SECOND PART OF OUR POPPY PLAYTIME CHAPTER 2 PLAYTHROUGH, FULLY EDITED!",
+    "status": "upcoming"
+  },
+  {
+    "id": 48,
+    "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
+    "category": "Stream",
+    "date": "2026-05-30T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "OUR THIRD ENTRY INTO OUR SERIES TO HAVE A CHILL, RELAXING STREAM AND TALK FUTURE CONTENT PLANS",
+    "status": "upcoming"
+  },
+  {
+    "id": 47,
+    "title": "KINITOPET FULL PLAYTHROUGH",
+    "category": "Stream",
+    "date": "2026-05-29T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING THROUGH A HEAVILY RECOMMENDED SUGGESTION: KINITOPET!",
+    "status": "upcoming"
+  },
+  {
+    "id": 46,
+    "title": "MINECRAFT HORROR MOD - UNTITLED.LOG",
+    "category": "Stream",
+    "date": "2026-05-28T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING THROUGH THE SCARIEST MINECRAFT HORROR MOD TO DATE!",
+    "status": "upcoming"
+  },
+  {
+    "id": 45,
+    "title": "BENDY AND THE DARK REVIVAL",
+    "category": "Stream",
+    "date": "2026-05-27T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "THE SECOND ENTRY INTO THE BENDY SERIES: BENDY AND THE DARK REVIVAL",
+    "status": "upcoming"
+  },
+  {
+    "id": 44,
+    "title": "BENDY AND THE INK MACHINE - FINALE",
+    "category": "Stream",
+    "date": "2026-05-26T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "FINISHING THE BENDY AND THE INK MACHINE GAME. THIS WILL TAKE FOREVER...",
+    "status": "upcoming"
+  },
+  {
+    "id": 43,
+    "title": "HELLO NEIGHBOR 1 - FINALE",
+    "category": "Stream",
+    "date": "2026-05-25T14:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "FINISHING OUR HELLO NEIGHBOR 1 PLAYTHROUGH + BONUS CONTENT",
+    "status": "past"
+  },
+  {
     "id": 42,
     "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
     "category": "Stream",
@@ -8,7 +85,7 @@
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
     "description": "OUR NEW SERIES TO HAVE A CHILL, RELAXING STREAM AND TALK FUTURE CONTENT PLANS",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 41,
@@ -19,7 +96,7 @@
     "url": "https://www.youtube.com/watch?v=C1rnUCXuJag",
     "thumbnail": "",
     "description": "PLAYING THROUGH BENDY, A HIGHLY REQUESTED GAME SERIES!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 40,
@@ -157,12 +234,12 @@
     "id": 28,
     "title": "Poppy Playtime Chapter 2 Playthrough",
     "category": "Video",
-    "date": "2026-05-23T12:30:00",
+    "date": "2026-05-24T12:30:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
+    "url": "https://www.youtube.com/watch?v=mRpXCYZ2dK0",
     "thumbnail": "",
     "description": "Edited version of our playthrough of Poppy Playtime Chapter 2!",
-    "status": "upcoming"
+    "status": "past"
   },
   {
     "id": 27,

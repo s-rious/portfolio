@@ -1,18 +1,18 @@
 {
-  "featuredVideoId": 16,
+  "featuredVideoId": 28,
   "weeklyAnalytics": {
-    "weekLabel": "May 15 - May 21, 2026",
+    "weekLabel": "May 17 - May 23, 2026",
     "stats": {
-      "totalViews": "4.6k",
-      "subsGained": "+23",
-      "totalWatchTime": "369.5 hrs",
+      "totalViews": "1.6k",
+      "subsGained": "+19",
+      "totalWatchTime": "449.6",
       "avgCTR": "5.9%",
-      "impressions": "83.8K"
+      "impressions": "65,169"
     },
     "contentMix": [
-      { "label": "Streams", "value": 5, "views": 1450, "color": "#FF2E63" },
-      { "label": "Videos", "value": 0, "views": 47, "color": "#00E5FF" },
-      { "label": "Shorts", "value": 3, "views": 3150, "color": "#CCFF00" }
+      { "label": "Streams", "value": 5, "views": 820, "color": "#FF2E63" },
+      { "label": "Videos", "value": 1, "views": 140, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 1, "views": 250, "color": "#CCFF00" }
     ],
     "trafficSources": [
       { "label": "Browse Features", "value": 48.9, "color": "#FF2E63" },
@@ -22,13 +22,13 @@
     ],
     "ctrBenchmarks": [
       { "label": "This Week Avg", "value": 5.9, "color": "#FF2E63" },
-      { "label": "Channel Avg", "value": 4.0, "color": "#00E5FF" },
+      { "label": "Channel Avg", "value": 5.0, "color": "#00E5FF" },
       { "label": "YouTube Avg", "value": 4.0, "color": "#444444" }
     ],
     "creatorNotes": {
-      "strategy": "A week focused on viewer-influenced and recommended streams, with higher quality Shorts with a new edit style",
-      "strengths": "Be overly engaging, have the stream feel apart of the playthrough, make everyone feel included.",
-      "improvements": "Fix certain stream elements (ie. idle screens, music, transitions) and build a full fledge strict schedule that isn't so 'go with the flow'"
+      "strategy": "A week focused on viewer-recommended horror games and streams, as well as raw sit down conversations. Employed a new editor for our newest Poppy Playtime series videos.",
+      "strengths": "Stay engaged and involved with viewers, bring new and returning viewers in, and continue fostering a strong streamer relationship.",
+      "improvements": "Begin employing a stronger more consistent Shorts schedule. Video and Stream schedule already established."
     }
   },
   "series": [
@@ -39,9 +39,9 @@
       "color": "#FF2E63",
       "status": "ACTIVE",
       "platforms": ["YouTube", "Twitch"],
-      "format": "60-120 min",
-      "cadence": "Weekly",
-      "episodeCount": 18,
+      "format": "120-190 min",
+      "cadence": "Daily",
+      "episodeCount": 28,
       "description": "I am overwhelmingly terrified of horror games, so join me alongside my journey through series like F.N.A.F., Poppy Playtime, Garten of Banban, and more! No fake reactions, ever.",
       "why": "Raw human reactions to genuine terror, alongside a loud and confident personality, bringing the viewer into a game of interest and keeping them in with constant stimulation and engagement."
     },
@@ -53,7 +53,7 @@
       "status": "ACTIVE",
       "platforms": ["YouTube", "Twitch"],
       "format": "60-120 min",
-      "cadence": "Weekly",
+      "cadence": "Bi-Weekly",
       "episodeCount": 1,
       "description": "Playing games of challenge, and failure or setbacks punish me.",
       "why": "Viewers love watching drama and energy. Punishments and challenges allow me to do just that."
@@ -80,7 +80,7 @@
       "platforms": ["YouTube", "Twitch"],
       "format": "45-90 min",
       "cadence": "Weekly",
-      "episodeCount": 12,
+      "episodeCount": 20,
       "description": "My chat is always open to suggestions. All comments, chats, and messages are read and added to a list, and played for your entertainment!",
       "why": "A small, personal, intimate style channel is what I intend to harbor. Allowing viewers to steer the wheel as I drive allows for an engaging and dynamic content space."
     }
