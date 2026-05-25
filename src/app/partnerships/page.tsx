@@ -139,48 +139,41 @@ export default function Partnerships() {
                             >
                                 USE THE FORM ↗
                             </Link>
-                            {hasMediaKit && (
-                                <a
-                                    href={mediaKitUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                        fontFamily: 'var(--font-mono)',
-                                        fontSize: '0.7rem',
-                                        letterSpacing: '0.16em',
-                                        padding: '0.9rem 1.6rem',
-                                        border: '1px solid var(--gray-700)',
-                                        color: 'var(--white)',
-                                        textDecoration: 'none',
-                                        display: 'block',
-                                        textAlign: 'center',
-                                        whiteSpace: 'nowrap',
-                                    }}
-                                >
-                                    MEDIA KIT ↓
-                                </a>
-                            )}
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* ── PITCH STRIP ── */}
-            {pitch && (
-                <div style={{ background: 'var(--red)', padding: '2.5rem 6vw' }}>
-                    <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-                        <p style={{
-                            fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(1.4rem, 3vw, 2.2rem)',
-                            letterSpacing: '0.03em',
-                            color: 'var(--white)',
-                            lineHeight: 1.2,
-                        }}>
-                            {pitch}
-                        </p>
+            {/* ── MEDIA KIT STRIP ── */}
+            <div style={{ background: 'var(--gray-900)', borderTop: '1px solid var(--gray-800)', borderBottom: '1px solid var(--gray-800)' }}>
+                <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem 6vw', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                        <div style={{ width: '4px', height: '3rem', background: 'var(--red)', flexShrink: 0 }} />
+                        <div>
+                            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.2em', color: 'var(--gray-500)', textTransform: 'uppercase' as const, marginBottom: '0.25rem' }}>
+                                Partnership Resource
+                            </div>
+                            <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.4rem, 3vw, 2rem)', letterSpacing: '0.04em', color: 'var(--white)', lineHeight: 1 }}>
+                                DOWNLOAD THE MEDIA KIT
+                            </div>
+                        </div>
                     </div>
-                </div>
-            )}
+                    {hasMediaKit ? (
+                        <a
+                            href={mediaKitUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.16em', padding: '0.9rem 2rem', background: 'var(--red)', color: 'var(--white)', textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0, display: 'block', textAlign: 'center' as const }}
+                        >
+                        MEDIA KIT ↓
+                        </a>
+                        ) : (
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em', color: 'var(--gray-600)', border: '1px solid var(--gray-700)', padding: '0.9rem 2rem', whiteSpace: 'nowrap' }}>
+                    COMING SOON
+                </span>
+                )}
+            </div>
+        </div>
 
             <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 6vw' }}>
 
