@@ -38,7 +38,7 @@ export default function Footer() {
                             lineHeight: 1.7,
                             maxWidth: '240px',
                         }}>
-                            Engineer and Creator
+                            Content Creator, Fitness Addict, Engineer
                         </p>
                         <div style={{ display: 'flex', gap: '8px', marginTop: '1.25rem' }}>
                             <span style={{ width: '6px', height: '6px', background: 'var(--red)', display: 'block' }} />
