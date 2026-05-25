@@ -15,14 +15,15 @@ function formatEventDate(dateStr: string) {
 
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
+const now = new Date();
+
 const latestVideo = [...eventsData]
-    .filter(e => e.category === 'Video' && e.status === 'past')
+    .filter(e => e.category === 'Video' && new Date(e.date) <= now)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0] ?? null;
 
 const nextEvent = [...eventsData]
-    .filter(e => e.status === 'upcoming')
+    .filter(e => new Date(e.date) > now)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] ?? null;
-
 const latestVideoThumb = latestVideo
     ? (latestVideo.thumbnail || (() => {
         const id = getYouTubeId(latestVideo.url);

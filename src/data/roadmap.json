@@ -1,23 +1,23 @@
 [
   {
-    "title": "Fashion Sense",
+    "title": "Life back Home",
     "category": "Content",
-    "eta": "Spring 2026",
-    "status": "In Progress",
-    "description": "Redefining my fashion sense and closet."
+    "eta": "Summer 2026",
+    "status": "Upcoming",
+    "description": "Regularly scheduled trips back to Southern California for IRL vlogs, streams, and business interactions!"
   },
   {
     "title": "YouTube Series: Romanticizing Life",
     "category": "Content",
-    "eta": "Summer 2026",
-    "status": "Filming",
-    "description": "Bi-Weekly vlogs traveling around and romanticizing everything I stumble across."
+    "eta": "Summer-Winter 2026",
+    "status": "In Progress",
+    "description": "Monthly vlogs inviting the viewer to join me in my raw day-to-day life and see what happens outside of the office!"
   },
   {
-    "title": "Engineer My Life",
+    "title": "Outreach and Impact",
     "category": "Content",
     "eta": "Fall 2026",
     "status": "Scripting",
-    "description": "Re-enrolling in college for Electrical Engineering and documenting my process."
+    "description": "Involving myself with partners, collaborations, and individuals to further my reach and expand the impact my content can have!"
   }
 ]
