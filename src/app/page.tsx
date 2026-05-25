@@ -176,7 +176,7 @@ export default function Home() {
                     <div style={{ overflow: 'hidden' }}>
                         <h1 style={{
                             fontFamily: 'var(--font-display)',
-                            fontSize: 'clamp(6rem, 22vw, 22rem)',
+                            fontSize: 'clamp(6rem, 18vw, 22rem)',
                             lineHeight: 0.85,
                             letterSpacing: '-0.01em',
                             color: 'var(--white)',
