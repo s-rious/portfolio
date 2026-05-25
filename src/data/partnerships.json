@@ -40,7 +40,7 @@
       { "label": "Other", "value": 44.9 }
     ],
     "platforms": [
-      { "name": "YouTube", "handle": "@seriousreal", "metric": "Subscribers", "value": "287", "url": "https://youtube.com/seriousreal" },
+      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "287", "url": "https://youtube.com/seriousreal" },
       { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "161", "url": "https://twitch.tv/s_rious" },
       { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "303", "url": "https://x.com/s7rious" }
     ]

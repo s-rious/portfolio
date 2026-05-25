@@ -169,7 +169,7 @@ export default function Home() {
                     pointerEvents: 'none',
                 }}>
                     <div style={{ position: 'absolute', top: '5rem', left: '6vw', right: '6vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Label>Sacramento, CA — Available for Partnerships</Label>
+                        <Label>SF & LA, CA — Available for Partnerships</Label>
                         <Label>camry.dev</Label>
                     </div>
 

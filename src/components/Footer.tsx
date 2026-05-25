@@ -179,7 +179,7 @@ export default function Footer() {
               letterSpacing: '0.1em',
               color: 'var(--gray-600)',
           }}>
-            © {year} Cameron Rydwell. Sacramento, CA.
+            © {year} Cameron Rydwell. SF & LA, CA.
           </span>
                     <span style={{
                         fontFamily: 'var(--font-mono)',
