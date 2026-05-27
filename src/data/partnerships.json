@@ -49,7 +49,7 @@
     {
       "tier": "01",
       "name": "STREAM MENTION",
-      "price": "LET'S TALK...",
+      "price": " ",
       "deliverable": "Verbal mention + on-screen brand placement during a 2–3 hour livestream on YouTube and Twitch. Link drops in chat and bio for 7 days.",
       "color": "#E8001D",
       "ideal": "Brand awareness, new product launches"
@@ -57,7 +57,7 @@
     {
       "tier": "02",
       "name": "INTEGRATED SEGMENT",
-      "price": "LET'S TALK...",
+      "price": " ",
       "deliverable": "60–90 second integrated segment inside an edited gameplay or vlog video. Custom written, brand-aligned, no script-read energy. Permanent on-channel.",
       "color": "#FF2E63",
       "ideal": "Products with a story to tell"
@@ -65,7 +65,7 @@
     {
       "tier": "03",
       "name": "REVIEW + WRITEUP",
-      "price": "LET'S TALK...",
+      "price": " ",
       "deliverable": "A full feature review (ie. tech piece, new game, product) in its own >=90 minute stream, featuring an edited video and a blog post in full reviewed detail. The best case for a product or company to get the maximum viewership possible.",
       "color": "#00E5FF",
       "ideal": "Tech, games, products"
@@ -73,7 +73,7 @@
     {
       "tier": "04",
       "name": "CUSTOM",
-      "price": "Let's talk",
+      "price": " ",
       "deliverable": "Multi-stream campaigns, brand sponsorships, affiliate programs, product gifting. Built around your goals and my utmost support.",
       "color": "#CCFF00",
       "ideal": "Long-term brand relationships"
