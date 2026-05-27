@@ -1,478 +1,586 @@
-import aboutData from '@/data/about.json';
-import eventsData from '@/data/events.json';
+'use client';
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import TickerSection from '@/components/TickerSection';
 
-function getYouTubeId(url: string): string | null {
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([^&\n?#]+)/);
-    return match ? match[1] : null;
+const CATEGORY_COLORS: Record<string, string> = {
+    Stream:      'var(--red)',
+    Video:       'var(--white)',
+    'IRL Event': '#4ADE80',
+    Collab:      '#00E5FF',
+};
+
+function extractYouTubeId(url: string): string | null {
+    const patterns = [
+        /youtu\.be\/([^?&#/]+)/,
+        /youtube\.com\/watch\?v=([^&#]+)/,
+        /youtube\.com\/live\/([^?&#/]+)/,
+        /youtube\.com\/shorts\/([^?&#/]+)/,
+    ];
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) return match[1];
+    }
+    return null;
 }
 
-function formatEventDate(dateStr: string) {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+function getYouTubeThumbnail(url: string): string {
+    const id = extractYouTubeId(url);
+    if (!id) return '';
+    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 }
 
-// ─── DATA ────────────────────────────────────────────────────────────────────
-
-const now = new Date();
-
-const latestVideo = [...eventsData]
-    .filter(e => e.category === 'Video' && new Date(e.date) <= now)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0] ?? null;
-
-const nextEvent = [...eventsData]
-    .filter(e => new Date(e.date) > now)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0] ?? null;
-const latestVideoThumb = latestVideo
-    ? (latestVideo.thumbnail || (() => {
-        const id = getYouTubeId(latestVideo.url);
-        return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
-    })())
-    : null;
-
-const ORIGIN = [
-    {
-        number: '01',
-        color: '#FF2E63',
-        era: 'EARLY YEARS',
-        period: 'Childhood - High School',
-        body: [
-            'Growing up, I lacked much drive in what I wanted to do and wanted to be. I started off as a clothing model for ABC News, growing a passion for fashion. Afterwards, I began to question what my identity would be, testing the waters with eSports, freelance GFX/VFX work, and local computer technician gigs.',
-            'I took on a coding class my freshman year of high school, learning Python, and immediately was hooked. After receiving my certification I attended West-MEC, a local trade school in the valley. This led to self-developing numerous websites, mobile apps, and the publication of my first game "Word Escape" alongside a classmate and long-term friend.',
-        ],
-    },
-    {
-        number: '02',
-        color: '#00E5FF',
-        era: 'BREAKTHROUGH',
-        period: 'FBLA Competitions',
-        body: [
-            'Built my first serious project: RYDWELL SCHOOLS, a mobile app for FBLA\'s Mobile Application Development competition. Won 1st place in Arizona State, advanced to Nationals in Chicago.',
-            'Followed that up with WORD ESCAPE for the Computer Game & Programming Simulation competition. Another State championship, another trip to Nationals, this time in Atlanta. That\'s when the real question hit: do I keep coding, or venture into the next chapter?',
-        ],
-    },
-    {
-        number: '03',
-        color: '#CCFF00',
-        era: 'NOW',
-        period: 'Present Day',
-        body: [
-            'Following the rise of AI, I reevaluated my path and swapped majors to Electrical Engineering, closing the gap between physical systems and software. By combining hardware knowledge with development experience, I landed exactly where I always wanted to be.',
-            'One simple love remains constant: create what I\'m passionate about. And ever since I made that decision, I have not stopped pushing to become the person I want to be.',
-        ],
-    },
-];
-
-const CREATORS = [
-    { name: 'Tim Burton & Henry Selick', note: 'Stop-motion aesthetic, dark whimsy, unique visual storytelling' },
-    { name: 'A24 Films', note: 'Clean, bold, professional presentation. Earth without Art is just Eh.' },
-    { name: 'Ludwig', note: 'Atop the streaming sphere, bad at almost every game, but winner of spirit and success.' },
-    { name: 'Victor Nguyen', note: 'Film, day-to-day life, LA dreams, stanced car. What else could you ask for?' },
-];
-
-const PHILOSOPHY = [
-    { name: 'Alan Watts', note: 'A philosophical entertainer who always knows how to convey the message of humanity.' },
-    { name: 'William Shakespeare', note: 'One of the best writers of all time with a strong skeptical exploration of human existence.' },
-    { name: 'James Gunn', note: 'Even when you succeed, you can still show your personality and convey your own desires.' },
-];
-
-// ─── PAGE ─────────────────────────────────────────────────────────────────────
-
-export default function About() {
+function Label({ children }: { children: React.ReactNode }) {
     return (
-        <div className="min-h-screen bg-black text-white pt-32 pb-20">
-            <div className="max-w-7xl mx-auto px-6">
+        <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: 'var(--gray-500)',
+        }}>{children}</span>
+    );
+}
 
-                {/* ══════════════════════════════════════════════════
-                    HERO
-                ══════════════════════════════════════════════════ */}
-                <div className="mb-20">
-
-                    {/* Name */}
-                    <div className="mb-10">
-                        <div className="text-xs text-gray-600 tracking-widest font-mono mb-4">CAMRY.DEV / ABOUT</div>
-                        <h1
-                            className="text-6xl md:text-9xl font-black mb-4 leading-none"
-                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                        >
-                            CAMERON<br />RYDWELL
-                        </h1>
-                        <div className="w-32 h-1 bg-white mb-6" />
-                        <p className="text-xl text-gray-400 max-w-xl">
-                            {aboutData.title}
-                        </p>
-                    </div>
-
-                    {/* Photo + Bio grid */}
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
-                        {/* Photo */}
-                        <div className="lg:col-span-4">
-                            <div className="border border-white/20 overflow-hidden" style={{ aspectRatio: '3/4' }}>
-                                <img
-                                    src={aboutData.image}
-                                    alt={aboutData.imageTitle}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+function ContentMixChart({ data }: { data: { label: string; value: number; views: number; color: string }[] }) {
+    const maxViews = Math.max(...data.map(d => d.views), 1);
+    return (
+        <div>
+            <Label>Views by Format</Label>
+            <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {data.map(item => (
+                    <div key={item.label}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.08em', color: 'var(--gray-400)' }}>
+                                {item.label} <span style={{ color: 'var(--gray-600)' }}>({item.value})</span>
+                            </span>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: item.views === 0 ? 'var(--gray-700)' : item.color }}>
+                                {item.views.toLocaleString()}
+                            </span>
                         </div>
-
-                        {/* Bio + Stats */}
-                        <div className="lg:col-span-8 flex flex-col justify-between gap-10">
-
-                            <div>
-                                <div className="text-xs text-gray-600 tracking-widest font-mono mb-4">BIO</div>
-                                <p className="text-gray-300 leading-relaxed text-lg mb-6">
-                                    {aboutData.bio}
-                                </p>
-                                <div className="border-l-4 border-[#FF2E63] pl-6">
-                                    <p className="text-white text-xl leading-relaxed italic">
-                                        "If you set your goals ridiculously high, and it's a failure, you will fail above everyone else's success."
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Stats */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                {[
-                                    { label: 'AGE', value: String(aboutData.age) },
-                                    { label: 'LOCATION', value: aboutData.location },
-                                    { label: 'STATUS', value: aboutData.schoolStatus },
-                                    { label: 'MAJOR', value: aboutData.major },
-                                ].map(stat => (
-                                    <div key={stat.label} className="border border-white/20 p-4 hover:border-[#FF2E63] transition-colors duration-300">
-                                        <div className="text-xs text-gray-600 font-mono mb-1 tracking-wider">{stat.label}</div>
-                                        <div
-                                            className="text-sm font-black leading-tight"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '1rem' }}
-                                        >
-                                            {stat.value}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                        <div style={{ height: '2px', background: 'var(--gray-800)' }}>
+                            <div style={{ height: '100%', width: `${(item.views / maxViews) * 100}%`, background: item.views === 0 ? 'transparent' : item.color }} />
                         </div>
                     </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function CTRChart({ data }: { data: { label: string; value: number; color: string }[] }) {
+    return (
+        <div>
+            <Label>CTR</Label>
+            <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {data.map(item => (
+                    <div key={item.label}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.08em', color: 'var(--gray-400)' }}>{item.label}</span>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: item.color }}>{item.value}%</span>
+                        </div>
+                        <div style={{ height: '2px', background: 'var(--gray-800)' }}>
+                            <div style={{ height: '100%', width: `${(item.value / 12) * 100}%`, background: item.color }} />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function TrafficDonut({ data }: { data: { label: string; value: number; color: string }[] }) {
+    const R = 36, cx = 48, cy = 48, strokeW = 13;
+    const circumference = 2 * Math.PI * R;
+    let cumulative = 0;
+    return (
+        <div>
+            <Label>Traffic</Label>
+            <div style={{ marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <svg viewBox="0 0 96 96" width="72" height="72" style={{ flexShrink: 0 }}>
+                    <circle cx={cx} cy={cy} r={R} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth={strokeW} />
+                    {data.map((seg, i) => {
+                        const dash = (seg.value / 100) * circumference;
+                        const gap  = circumference - dash;
+                        const off  = -(cumulative / 100) * circumference;
+                        cumulative += seg.value;
+                        return <circle key={i} cx={cx} cy={cy} r={R} fill="none" stroke={seg.color} strokeWidth={strokeW} strokeDasharray={`${dash} ${gap}`} strokeDashoffset={off} transform={`rotate(-90 ${cx} ${cy})`} strokeLinecap="butt" />;
+                    })}
+                </svg>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1, minWidth: 0 }}>
+                    {data.map(seg => (
+                        <div key={seg.label} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <div style={{ width: '5px', height: '5px', background: seg.color, flexShrink: 0 }} />
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.06em', color: 'var(--gray-500)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{seg.label}</span>
+                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', color: seg.color, flexShrink: 0 }}>{seg.value}%</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default function Home() {
+    const [gear, setGear]                      = useState<any>(null);
+    const [roadmap, setRoadmap]                = useState<any[]>([]);
+    const [upcomingEvents, setUpcomingEvents]  = useState<any[]>([]);
+    const [derivedVideo, setDerivedVideo]      = useState<any>(null);
+    const [derivedStream, setDerivedStream]    = useState<any>(null);
+    const [derivedProject, setDerivedProject]  = useState<any>(null);
+    const [analytics, setAnalytics]            = useState<any>(null);
+    const [email, setEmail]                    = useState('');
+    const [subStatus, setSubStatus]            = useState<'idle'|'loading'|'success'|'error'>('idle');
+    const [livePlatform, setLivePlatform]      = useState<'youtube' | 'twitch'>('youtube');
+
+    useEffect(() => {
+        Promise.all([
+            import('@/data/gear.json'),
+            import('@/data/roadmap.json'),
+            import('@/data/events.json'),
+            import('@/data/projects.json'),
+        ]).then(([g, r, e, p]) => {
+            setGear(g.default);
+            setRoadmap(r.default);
+
+            const proj = p.default as any;
+            if (proj.weeklyAnalytics) setAnalytics(proj.weeklyAnalytics);
+
+            const events = e.default as any[];
+            const now = new Date();
+
+            const pastVideos = events
+                .filter(ev => ev.category === 'Video' && new Date(ev.date) <= now)
+                .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            if (pastVideos.length > 0) {
+                const v = pastVideos[0];
+                setDerivedVideo({
+                    ...v,
+                    thumbnail: v.thumbnail || getYouTubeThumbnail(v.url),
+                    uploadedAgo: new Date(v.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                });
+            }
+
+            const upcomingStreams = events
+                .filter(ev => ev.category === 'Stream' && new Date(ev.date) > now)
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            setDerivedStream(upcomingStreams[0] ?? null);
+
+            const upcomingProjects = events
+                .filter(ev => ev.category !== 'Stream' && new Date(ev.date) > now)
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            setDerivedProject(upcomingProjects[0] ?? null);
+
+            const upcoming = events
+                .filter(ev => new Date(ev.date) > now)
+                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                .slice(0, 3);
+            setUpcomingEvents(upcoming);
+        });
+    }, []);
+
+    const handleSub = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubStatus('loading');
+        try {
+            const r = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_key: 'bbae9f51-efb6-45bc-beaa-7a8585764cbf',
+                    subject: 'New Subscriber — CAMRY.DEV',
+                    email,
+                    message: `New subscriber: ${email}`,
+                }),
+            });
+            if (r.ok) { setSubStatus('success'); setEmail(''); }
+            else new Error();
+        } catch { setSubStatus('error'); }
+        setTimeout(() => setSubStatus('idle'), 5000);
+    };
+
+    return (
+        <div style={{ background: 'var(--black)', color: 'var(--white)' }}>
+
+            {/* ══ HERO ══ */}
+            <section style={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxSizing: 'border-box',
+            }}>
+                {/* Top bar */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6rem 6vw 0' }}>
+                    <Label>Sacramento, CA — Available for Partnerships</Label>
+                    <Label>camry.dev</Label>
                 </div>
 
-                {/* ══════════════════════════════════════════════════
-                    RIGHT NOW
-                ══════════════════════════════════════════════════ */}
-                <section className="mb-20 border-t border-white/10 pt-20">
-                    <div className="flex items-center gap-3 mb-10">
-                        <div className="w-2 h-2 rounded-full bg-[#FF2E63]" style={{ boxShadow: '0 0 8px #FF2E63' }} />
-                        <div className="text-xs text-gray-600 tracking-widest font-mono">LIVE STATUS</div>
+                {/* SERIOUS + CAMERON RYDWELL */}
+                <div style={{ padding: '0 6vw' }}>
+                    <div style={{ overflow: 'hidden' }}>
+                        <h1 style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: 'clamp(4.5rem, 14vw, 13rem)',
+                            lineHeight: 0.88,
+                            letterSpacing: '-0.01em',
+                            color: 'var(--white)',
+                            animation: 'fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) both',
+                        }}>
+                            SERIOUS
+                        </h1>
                     </div>
-                    <h2
-                        className="text-5xl font-black mb-10"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        RIGHT NOW
-                    </h2>
+                    <p style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.85rem',
+                        letterSpacing: '0.14em',
+                        color: 'var(--gray-500)',
+                        marginTop: '1rem',
+                        animation: 'fadeIn 1s ease 0.2s both',
+                    }}>
+                        CAMERON RYDWELL
+                    </p>
+                </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Bottom bar + ticker grouped together at the bottom */}
+                <div>
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-end',
+                        padding: '0 6vw 2.5rem',
+                        animation: 'fadeIn 1s ease 0.4s both',
+                    }}>
+                        <div>
+                            <Label>Role</Label>
+                            <p style={{
+                                fontFamily: 'var(--font-mono)',
+                                fontSize: '0.85rem',
+                                letterSpacing: '0.1em',
+                                color: 'var(--gray-200)',
+                                marginTop: '6px',
+                            }}>
+                                Engineer × Creator × Visionary
+                            </p>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                            <Label>Scroll to continue</Label>
+                            <div style={{ marginTop: '8px', display: 'flex', justifyContent: 'flex-end' }}>
+                                <svg width="18" height="32" viewBox="0 0 18 32" fill="none">
+                                    <rect x="1" y="1" width="16" height="30" rx="8" stroke="var(--gray-600)" strokeWidth="1.5" />
+                                    <circle cx="9" cy="9" r="2.5" fill="var(--red)">
+                                        <animate attributeName="cy" values="9;22;9" dur="2.2s" repeatCount="indefinite" />
+                                    </circle>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <TickerSection />
+                </div>
+            </section>
 
-                        {/* Latest video */}
-                        {latestVideo && (
-                            <a
-                                href={latestVideo.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group border border-white/20 hover:border-[#FF2E63] transition-all duration-300"
-                            >
-                                <div className="aspect-video overflow-hidden bg-white/5 relative">
-                                    {latestVideoThumb ? (
-                                        <img
-                                            src={latestVideoThumb}
-                                            alt={latestVideo.title}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <span className="text-xs text-gray-700 font-mono tracking-widest">[THUMBNAIL]</span>
+            {/* ══ MAIN CONTENT ══ */}
+            <div style={{ position: 'relative', background: 'var(--gray-900)' }}>
+
+                {/* WHAT'S HAPPENING */}
+                {(derivedVideo || derivedStream || derivedProject) && (
+                    <section style={{ padding: '8rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '4rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '0.03em' }}>
+                                    WHAT'S HAPPENING
+                                </h2>
+                                <Label>Updated regularly</Label>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1px', background: 'var(--gray-800)' }}>
+
+                                {/* LEFT: video + analytics */}
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+                                    <div style={{ background: 'var(--gray-900)' }}>
+                                        <div style={{ aspectRatio: '16/9', overflow: 'hidden', background: 'var(--gray-800)' }}>
+                                            {extractYouTubeId(derivedVideo?.url ?? '') ? (
+                                                <iframe
+                                                    src={`https://www.youtube.com/embed/${extractYouTubeId(derivedVideo?.url ?? '')}`}
+                                                    style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                />
+                                            ) : (
+                                                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gray-600)', letterSpacing: '0.1em' }}>NO VIDEO</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ padding: '1.75rem' }}>
+                                            <Label>Latest Video</Label>
+                                            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.75rem', letterSpacing: '0.03em', margin: '0.5rem 0 0.75rem', lineHeight: 1.1 }}>
+                                                {derivedVideo?.title ?? '—'}
+                                            </h3>
+                                            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)', marginBottom: '1.25rem' }}>
+                                                {derivedVideo?.uploadedAgo ?? ''}
+                                            </p>
+                                            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                                                <a
+                                                    href={derivedVideo?.url ?? '#'} target="_blank" rel="noopener noreferrer"
+                                                    style={{ display: 'inline-block', fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em', color: 'var(--white)', textDecoration: 'none', border: '1px solid var(--white)', padding: '0.6rem 1.2rem', transition: 'background 0.2s, color 0.2s' }}
+                                                    onMouseEnter={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.color = 'var(--black)'; }}
+                                                    onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--white)'; }}
+                                                >
+                                                    WATCH NOW ↗
+                                                </a>
+                                                <Link
+                                                    href="/projects"
+                                                    style={{ display: 'inline-block', fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em', color: 'var(--gray-400)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.6rem 1.2rem', transition: 'border-color 0.2s, color 0.2s' }}
+                                                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--white)'; e.currentTarget.style.color = 'var(--white)'; }}
+                                                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--gray-700)'; e.currentTarget.style.color = 'var(--gray-400)'; }}
+                                                >
+                                                    ALL PROJECTS ↗
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {analytics && (
+                                        <div style={{ background: 'var(--gray-900)', padding: '1.5rem 1.75rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.25rem' }}>
+                                                <Label>Recent Analytics</Label>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--gray-700)' }}>{analytics.weekLabel}</span>
+                                            </div>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+                                                <ContentMixChart data={analytics.contentMix} />
+                                                <CTRChart data={analytics.ctrBenchmarks} />
+                                                <TrafficDonut data={analytics.trafficSources} />
+                                            </div>
                                         </div>
                                     )}
-                                    <div className="absolute top-4 left-4 px-2 py-1 bg-black/80 border border-white/20 text-xs font-mono tracking-wider text-white">
-                                        LATEST VIDEO
-                                    </div>
                                 </div>
-                                <div className="p-6">
-                                    <div className="text-xs text-gray-600 font-mono mb-2">{formatEventDate(latestVideo.date)} · {latestVideo.platform}</div>
-                                    <h3
-                                        className="text-2xl font-black mb-2 group-hover:text-[#FF2E63] transition-colors duration-300"
-                                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                    >
-                                        {latestVideo.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-500 leading-relaxed">{latestVideo.description}</p>
-                                    <div className="text-xs text-gray-600 font-mono mt-4 group-hover:text-gray-400 transition-colors duration-300">
-                                        WATCH ↗
-                                    </div>
-                                </div>
-                            </a>
-                        )}
 
-                        {/* Next event */}
-                        <div className="border border-white/20 p-6 flex flex-col justify-between hover:border-[#00E5FF] transition-colors duration-300">
-                            <div>
-                                <div className="text-xs text-gray-600 font-mono mb-6 tracking-wider">COMING UP</div>
-                                {nextEvent ? (
-                                    <>
-                                        <div className="text-xs font-mono tracking-wider mb-2" style={{ color: '#00E5FF' }}>
-                                            {nextEvent.category.toUpperCase()} · {nextEvent.platform.toUpperCase()}
-                                        </div>
-                                        <h3
-                                            className="text-3xl font-black mb-4 leading-tight"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                        >
-                                            {nextEvent.title}
+                                {/* RIGHT: current project + next stream */}
+                                <div style={{ background: 'var(--gray-900)', display: 'flex', flexDirection: 'column' }}>
+                                    <div style={{ padding: '1.75rem', flex: 1 }}>
+                                        <Label>Current Project</Label>
+                                        <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '0.03em', margin: '0.5rem 0 0.75rem', lineHeight: 1.1 }}>
+                                            {derivedProject?.title ?? 'COMING SOON'}
                                         </h3>
-                                        <p className="text-sm text-gray-500 leading-relaxed mb-6">{nextEvent.description}</p>
-                                        <div className="text-xs text-gray-600 font-mono">{formatEventDate(nextEvent.date)}</div>
-                                    </>
-                                ) : (
-                                    <p className="text-gray-600 text-sm font-mono tracking-wider">NOTHING SCHEDULED YET. CHECK BACK SOON.</p>
-                                )}
-                            </div>
-                            {nextEvent?.url && (
-                                <a
-                                    href={nextEvent.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 mt-8 text-xs font-mono tracking-wider text-gray-500 hover:text-[#00E5FF] transition-colors duration-300"
-                                >
-                                    <span>SET A REMINDER</span>
-                                    <span>↗</span>
-                                </a>
-                            )}
-                        </div>
-                    </div>
-                </section>
-
-                {/* ══════════════════════════════════════════════════
-                    ORIGIN STORY
-                ══════════════════════════════════════════════════ */}
-                <section className="mb-20 border-t border-white/10 pt-20">
-                    <h2
-                        className="text-5xl font-black mb-16"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        THE ORIGIN STORY
-                    </h2>
-
-                    <div className="space-y-0 divide-y divide-white/10">
-                        {ORIGIN.map(chapter => (
-                            <div key={chapter.number} className="grid grid-cols-1 md:grid-cols-12 gap-8 py-14 items-start">
-
-                                {/* Left: number + era */}
-                                <div className="md:col-span-3">
-                                    <div
-                                        className="text-7xl font-black leading-none mb-3 opacity-20"
-                                        style={{ fontFamily: "'Bebas Neue', sans-serif", color: chapter.color }}
-                                    >
-                                        {chapter.number}
-                                    </div>
-                                    <div
-                                        className="text-2xl font-black mb-1"
-                                        style={{ fontFamily: "'Bebas Neue', sans-serif", color: chapter.color }}
-                                    >
-                                        {chapter.era}
-                                    </div>
-                                    <div className="text-xs text-gray-600 font-mono tracking-wider">{chapter.period}</div>
-                                </div>
-
-                                {/* Right: body */}
-                                <div className="md:col-span-9 space-y-4">
-                                    {chapter.body.map((para, i) => (
-                                        <p key={i} className="text-gray-300 leading-relaxed">{para}</p>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ══════════════════════════════════════════════════
-                    SKILLS
-                ══════════════════════════════════════════════════ */}
-                <section className="mb-20 border-t border-white/10 pt-20">
-                    <h2
-                        className="text-5xl font-black mb-12"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        SKILLS & EXPERTISE
-                    </h2>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="border border-white/20 p-8">
-                            <div className="text-xs text-gray-600 tracking-widest font-mono mb-6">CERTIFIED</div>
-                            <div className="flex flex-wrap gap-3">
-                                {aboutData.languagesCertified?.map((lang: string) => (
-                                    <span
-                                        key={lang}
-                                        className="px-4 py-2 text-sm font-mono tracking-wider border transition-colors duration-300 hover:bg-[#FF2E63]/10"
-                                        style={{ borderColor: '#FF2E63', color: '#FF2E63' }}
-                                    >
-                                        {lang}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="border border-white/20 p-8">
-                            <div className="text-xs text-gray-600 tracking-widest font-mono mb-6">CURRENTLY LEARNING</div>
-                            <div className="flex flex-wrap gap-3">
-                                {aboutData.languagesLearning?.map((lang: string) => (
-                                    <span
-                                        key={lang}
-                                        className="px-4 py-2 text-sm font-mono tracking-wider border border-[#00E5FF]/40 text-[#00E5FF]/60 transition-colors duration-300 hover:border-[#00E5FF] hover:text-[#00E5FF]"
-                                    >
-                                        {lang}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ══════════════════════════════════════════════════
-                    INSPIRATIONS
-                ══════════════════════════════════════════════════ */}
-                <section className="mb-20 border-t border-white/10 pt-20">
-                    <h2
-                        className="text-5xl font-black mb-12"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        INSPIRATIONS
-                    </h2>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                        {/* Creators */}
-                        <div>
-                            <div
-                                className="text-2xl font-black mb-6"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif", color: '#FF2E63' }}
-                            >
-                                CREATORS
-                            </div>
-                            <div className="space-y-3">
-                                {CREATORS.map(item => (
-                                    <div
-                                        key={item.name}
-                                        className="border border-white/10 p-5 hover:border-[#FF2E63] transition-colors duration-300"
-                                    >
-                                        <div
-                                            className="text-base font-black mb-1"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                        >
-                                            {item.name}
+                                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'var(--gray-400)', marginBottom: '2rem', lineHeight: 1.6 }}>
+                                            {derivedProject?.description ?? 'Nothing scheduled yet — check back soon.'}
+                                        </p>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.12em', color: CATEGORY_COLORS[derivedProject?.category] ?? 'var(--gray-500)', border: `1px solid ${CATEGORY_COLORS[derivedProject?.category] ?? 'var(--gray-700)'}`, padding: '3px 8px' }}>
+                                                {derivedProject?.category?.toUpperCase() ?? 'UPCOMING'}
+                                            </span>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>
+                                                {derivedProject?.platform ?? ''}
+                                            </span>
                                         </div>
-                                        <p className="text-sm text-gray-500 leading-relaxed">{item.note}</p>
+                                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                                            ETA —{' '}
+                                            {derivedProject ? new Date(derivedProject.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'TBD'}
+                                        </p>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
 
-                        {/* Philosophy */}
-                        <div>
-                            <div
-                                className="text-2xl font-black mb-6"
-                                style={{ fontFamily: "'Bebas Neue', sans-serif", color: '#00E5FF' }}
-                            >
-                                PHILOSOPHY
-                            </div>
-                            <div className="space-y-3">
-                                {PHILOSOPHY.map(item => (
-                                    <div
-                                        key={item.name}
-                                        className="border border-white/10 p-5 hover:border-[#00E5FF] transition-colors duration-300"
-                                    >
-                                        <div
-                                            className="text-base font-black mb-1"
-                                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                        >
-                                            {item.name}
+                                    {derivedStream ? (
+                                        <div style={{ borderTop: '1px solid var(--gray-800)', background: '#0F0A0A' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.75rem 0', flexWrap: 'wrap', gap: '0.75rem' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                    <span style={{ display: 'block', width: '7px', height: '7px', background: 'var(--red)', borderRadius: '50%' }} />
+                                                    <Label>Next Stream</Label>
+                                                </div>
+                                                <div style={{ display: 'flex' }}>
+                                                    {(['youtube', 'twitch'] as const).map((p, i) => {
+                                                        const active = livePlatform === p;
+                                                        return (
+                                                            <button key={p} onClick={() => setLivePlatform(p)} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.14em', padding: '4px 12px', border: '1px solid var(--red)', borderRight: i === 0 ? 'none' : '1px solid var(--red)', background: active ? 'var(--red)' : 'transparent', color: active ? 'var(--white)' : 'var(--red)', cursor: 'pointer', transition: 'background 0.15s, color 0.15s' }}>
+                                                                {p === 'youtube' ? 'YOUTUBE' : 'TWITCH'}
+                                                            </button>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                            <div style={{ padding: '0.9rem 1.75rem 1rem' }}>
+                                                <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)', letterSpacing: '0.03em', color: 'var(--white)', lineHeight: 1.1, marginBottom: '0.4rem' }}>
+                                                    {derivedStream.title}
+                                                </p>
+                                                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>
+                                                    {new Date(derivedStream.date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                                                </p>
+                                            </div>
+                                            <div style={{ aspectRatio: '16/9', width: '100%' }}>
+                                                {livePlatform === 'youtube' ? (
+                                                    <iframe src="https://www.youtube.com/embed/live_stream?channel=UCtLkQJdn-nysUBA7nNPR7QA&autoplay=0" style={{ width: '100%', height: '100%', border: 'none', display: 'block' }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                                                ) : (
+                                                    <iframe src={`https://player.twitch.tv/?channel=s_rious&parent=${typeof window !== 'undefined' ? window.location.hostname : 'camry.dev'}&autoplay=false`} style={{ width: '100%', height: '100%', border: 'none', display: 'block' }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                                                )}
+                                            </div>
                                         </div>
-                                        <p className="text-sm text-gray-500 leading-relaxed">{item.note}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ══════════════════════════════════════════════════
-                    ACHIEVEMENTS
-                ══════════════════════════════════════════════════ */}
-                {aboutData.awards && aboutData.awards.length > 0 && (
-                    <section className="mb-20 border-t border-white/10 pt-20">
-                        <h2
-                            className="text-5xl font-black mb-12"
-                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                        >
-                            ACHIEVEMENTS
-                        </h2>
-                        <div className="space-y-3">
-                            {aboutData.awards.map((award: string, index: number) => (
-                                <div
-                                    key={index}
-                                    className="grid grid-cols-12 items-center border border-white/10 hover:border-[#FF2E63] transition-colors duration-300 p-5"
-                                >
-                                    <div
-                                        className="col-span-1 text-2xl font-black text-white/10"
-                                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                    >
-                                        {String(index + 1).padStart(2, '0')}
-                                    </div>
-                                    <div className="col-span-11">
-                                        <p className="text-gray-300 text-sm leading-relaxed">{award}</p>
-                                    </div>
+                                    ) : (
+                                        <div style={{ borderTop: '1px solid var(--gray-800)', background: '#0F0A0A', padding: '1.75rem' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                                                <span style={{ display: 'block', width: '7px', height: '7px', background: 'var(--gray-700)', borderRadius: '50%' }} />
+                                                <Label>Next Stream</Label>
+                                            </div>
+                                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--gray-500)', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                                                No stream scheduled yet — check back soon.
+                                            </p>
+                                            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                                                <a href="https://youtube.com/seriousreal/live" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em', color: 'var(--white)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.5rem 1rem', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')} onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}>YOUTUBE LIVE ↗</a>
+                                                <a href="https://twitch.tv/s_rious" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em', color: 'var(--white)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.5rem 1rem', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')} onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}>TWITCH ↗</a>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </section>
                 )}
 
-                {/* ══════════════════════════════════════════════════
-                    CONNECT
-                ══════════════════════════════════════════════════ */}
-                <section className="border-t border-white/10 pt-20">
-                    <h2
-                        className="text-5xl font-black mb-4"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                    >
-                        LET'S CONNECT
-                    </h2>
-                    <p className="text-gray-500 text-sm mb-10 max-w-md leading-relaxed">
-                        Partnerships, collaborations, brand deals, or just want to say something, I read everything.
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                        {aboutData.socials && Object.entries(aboutData.socials)
-                            .filter(([platform]) => platform !== 'email')
-                            .map(([platform, url]) => (
-                                <a
-                                    key={platform}
-                                    href={url as string}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-8 py-3 border border-white/20 hover:border-[#FF2E63] hover:bg-[#FF2E63]/10 transition-all duration-300 text-sm tracking-wider"
-                                    style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                                >
-                                    {platform.toUpperCase()}
+                {/* ON TOUR */}
+                {upcomingEvents.length > 0 && (
+                    <section style={{ padding: '4rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <div>
+                                    <Label>Schedule</Label>
+                                    <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', letterSpacing: '0.03em', marginTop: '0.25rem' }}>ON TOUR</h2>
+                                </div>
+                                <Link href="/tour" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.14em', color: 'var(--gray-400)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.6rem 1.2rem', transition: 'color 0.2s, border-color 0.2s', alignSelf: 'flex-end' }} onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }} onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}>
+                                    FULL SCHEDULE ↗
+                                </Link>
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--gray-800)' }}>
+                                {upcomingEvents.map((event) => {
+                                    const accent = CATEGORY_COLORS[event.category] ?? 'var(--white)';
+                                    const d = new Date(event.date);
+                                    const time = event.date.includes('T') && !event.date.endsWith('T00:00:00')
+                                        ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : null;
+                                    const card = (
+                                        <div style={{ background: 'var(--gray-900)', padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem', transition: 'background 0.2s', cursor: event.url ? 'pointer' : 'default' }}
+                                             onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
+                                             onMouseLeave={e => (e.currentTarget.style.background = 'var(--gray-900)')}
+                                        >
+                                            <div>
+                                                <span style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', letterSpacing: '0.04em', color: accent, lineHeight: 1 }}>{d.getDate()}</span>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.14em', color: 'var(--gray-600)', marginLeft: '0.4rem' }}>{d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}</span>
+                                            </div>
+                                            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(0.9rem, 1.8vw, 1.2rem)', letterSpacing: '0.03em', color: 'var(--white)', lineHeight: 1.15 }}>{event.title}</p>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: 'auto' }}>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.12em', color: accent, border: `1px solid ${accent}`, padding: '2px 6px', alignSelf: 'flex-start' }}>{event.category.toUpperCase()}</span>
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>{event.platform?.toUpperCase()}{time ? ` — ${time}` : ''}</span>
+                                            </div>
+                                        </div>
+                                    );
+                                    return event.url ? (
+                                        <a key={event.id} href={event.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>{card}</a>
+                                    ) : <div key={event.id}>{card}</div>;
+                                })}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* THE SETUP */}
+                {gear && (
+                    <section style={{ padding: '4rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', letterSpacing: '0.03em' }}>THE SETUP</h2>
+                                <Label>What I use to make things</Label>
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0', borderTop: '1px solid var(--gray-800)', borderLeft: '1px solid var(--gray-800)' }}>
+                                {[
+                                    { label: 'Coding',          items: gear.coding,  accent: 'var(--red)'      },
+                                    { label: 'Content',         items: gear.content, accent: 'var(--white)'    },
+                                    { label: 'Gaming / Stream', items: gear.gaming,  accent: 'var(--gray-400)' },
+                                ].map(col => (
+                                    <div key={col.label} style={{ borderRight: '1px solid var(--gray-800)', borderBottom: '1px solid var(--gray-800)', padding: '1.5rem' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1rem' }}>
+                                            <span style={{ width: '8px', height: '8px', background: col.accent, display: 'block' }} />
+                                            <Label>{col.label}</Label>
+                                        </div>
+                                        {col.items?.map((item: any) => (
+                                            <div key={item.name} style={{ padding: '0.6rem 0', borderBottom: '1px solid var(--gray-800)' }}>
+                                                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.1em', color: 'var(--gray-500)', marginBottom: '3px' }}>{item.category}</p>
+                                                <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'var(--white)' }}>{item.name}</p>
+                                                {item.specs && !item.subspecs && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--gray-600)', marginTop: '2px' }}>{item.specs}</p>}
+                                                {item.subspecs && (
+                                                    <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                                        {item.subspecs.map((sub: string, si: number) => (
+                                                            <p key={si} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', color: 'var(--gray-600)', paddingLeft: '0.75rem', borderLeft: '1px solid var(--gray-700)' }}>{sub}</p>
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* WHAT'S NEXT */}
+                {roadmap.length > 0 && (
+                    <section style={{ padding: '4rem 6vw', borderBottom: '1px solid var(--gray-800)' }}>
+                        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+                                <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', letterSpacing: '0.03em' }}>WHAT'S NEXT</h2>
+                                <Label>Live roadmap</Label>
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1px', background: 'var(--gray-800)' }}>
+                                {roadmap.map((item, i) => {
+                                    const statusColor = item.status === 'Active' ? 'var(--red)' : item.status === 'In Progress' ? '#4ADE80' : 'var(--gray-500)';
+                                    return (
+                                        <div key={i} style={{ background: 'var(--gray-900)', padding: '1.5rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                                                <span style={{ width: '10px', height: '10px', background: 'var(--red)', display: 'block', flexShrink: 0, marginTop: '4px' }} />
+                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.12em', color: statusColor, border: `1px solid ${statusColor}`, padding: '3px 8px' }}>{item.status?.toUpperCase()}</span>
+                                            </div>
+                                            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', letterSpacing: '0.03em', marginBottom: '0.4rem' }}>{item.title}</h3>
+                                            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', color: 'var(--gray-400)', lineHeight: 1.5, marginBottom: '0.75rem' }}>{item.description}</p>
+                                            <Label>ETA — {item.eta}</Label>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                {/* WHY STICK AROUND */}
+                <section style={{ padding: '8rem 6vw' }}>
+                    <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+                        <Label>Why follow along</Label>
+                        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(3rem, 8vw, 7rem)', letterSpacing: '0.02em', margin: '1rem 0 2rem', lineHeight: 0.92 }}>
+                            ONE LIFE.<br />
+                            <span style={{ WebkitTextStroke: '1px var(--white)', WebkitTextFillColor: 'transparent' }}>ALL OF IT.</span>
+                        </h2>
+                        <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.2rem', color: 'var(--gray-300)', lineHeight: 1.75, maxWidth: '600px', marginBottom: '3rem' }}>
+                            Come along for the day-to-day of a 21-year-old in Northern California who loves film, builds cars, games, lifts, and new tech.
+                        </p>
+                        <form onSubmit={handleSub} style={{ display: 'flex', gap: '0', maxWidth: '480px', marginBottom: '1rem' }}>
+                            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" required disabled={subStatus === 'loading'} style={{ flex: 1, background: 'var(--gray-800)', border: '1px solid var(--gray-700)', borderRight: 'none', padding: '0.9rem 1.2rem', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--white)', outline: 'none' }} />
+                            <button type="submit" disabled={subStatus === 'loading'} style={{ background: 'var(--red)', border: '1px solid var(--red)', padding: '0.9rem 1.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em', color: 'var(--white)', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background 0.2s' }} onMouseEnter={e => (e.currentTarget.style.background = '#BF0015')} onMouseLeave={e => (e.currentTarget.style.background = 'var(--red)')}>
+                                {subStatus === 'loading' ? '...' : 'SUBSCRIBE'}
+                            </button>
+                        </form>
+                        {subStatus === 'success' && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#4ADE80', letterSpacing: '0.1em' }}>✓ You're in.</p>}
+                        {subStatus === 'error'   && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--red)', letterSpacing: '0.1em' }}>✗ Something went wrong. Try again or email directly.</p>}
+                        <div style={{ display: 'flex', gap: '1.5rem', marginTop: '3rem', flexWrap: 'wrap' }}>
+                            {[
+                                { name: 'YouTube', url: 'https://youtube.com/seriousreal' },
+                                { name: 'Twitch',  url: 'https://twitch.tv/s_rious' },
+                                { name: 'X',       url: 'https://x.com/s7rious' },
+                            ].map(s => (
+                                <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em', color: 'var(--gray-400)', textDecoration: 'none', borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px', transition: 'color 0.2s, border-color 0.2s' }} onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }} onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}>
+                                    {s.name} ↗
                                 </a>
                             ))}
-                        <a
-                            href={`mailto:${(aboutData.socials as any)?.email ?? 'him@camry.dev'}`}
-                            className="px-8 py-3 bg-[#FF2E63] hover:bg-[#FF2E63]/80 text-white transition-all duration-300 text-sm tracking-wider"
-                            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-                        >
-                            EMAIL ME
-                        </a>
+                        </div>
                     </div>
                 </section>
-
             </div>
         </div>
     );
