@@ -43,6 +43,7 @@ export default function Partnerships() {
     const analytics  = projectsData.weeklyAnalytics;
     const data       = partnershipsData as any;
     const hero       = data.hero       as { kicker: string; title: string; subtitle: string };
+    const pitch      = data.pitch      as string | undefined;
     const diff       = data.differentiator as { title: string; body: string; pillars?: Pillar[] };
     const audience   = data.audience   as {
         ageBreakdown: { label: string; value: number }[];
