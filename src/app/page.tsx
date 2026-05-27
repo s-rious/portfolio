@@ -147,11 +147,12 @@ export default function Home() {
             const proj = p.default as any;
             if (proj.weeklyAnalytics) setAnalytics(proj.weeklyAnalytics);
 
-            const events = e.default as any[];
+            const raw = e.default as any;
+            const events: any[] = Array.isArray(raw) ? raw : (raw.events ?? raw.schedule ?? Object.values(raw).find(Array.isArray) ?? []);
             const now = new Date();
 
             const pastVideos = events
-                .filter(ev => ev.status === 'past' && ev.category === 'Video')
+                .filter(ev => ev.category === 'Video' && new Date(ev.date) <= now)
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             if (pastVideos.length > 0) {
                 const v = pastVideos[0];
@@ -163,17 +164,17 @@ export default function Home() {
             }
 
             const upcomingStreams = events
-                .filter(ev => ev.status === 'upcoming' && ev.category === 'Stream')
+                .filter(ev => ev.category === 'Stream' && new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setDerivedStream(upcomingStreams[0] ?? null);
 
             const upcomingProjects = events
-                .filter(ev => ev.status === 'upcoming' && ev.category !== 'Stream')
+                .filter(ev => ev.category !== 'Stream' && new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setDerivedProject(upcomingProjects[0] ?? null);
 
             const upcoming = events
-                .filter(ev => ev.status === 'upcoming' && new Date(ev.date) >= now)
+                .filter(ev => new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
                 .slice(0, 3);
             setUpcomingEvents(upcoming);
@@ -213,7 +214,7 @@ export default function Home() {
             }}>
                 {/* Top bar */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6rem 6vw 0' }}>
-                    <Label>SF & LA, CA - Available for Partnerships</Label>
+                    <Label>Sacramento, CA — Available for Partnerships</Label>
                     <Label>camry.dev</Label>
                 </div>
 
@@ -261,7 +262,7 @@ export default function Home() {
                                 color: 'var(--gray-200)',
                                 marginTop: '6px',
                             }}>
-                                Content Creator × Fitness × Engineer
+                                Engineer × Creator × Visionary
                             </p>
                         </div>
                         <div style={{ textAlign: 'right' }}>
