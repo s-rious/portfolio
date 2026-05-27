@@ -43,7 +43,6 @@ export default function Partnerships() {
     const analytics  = projectsData.weeklyAnalytics;
     const data       = partnershipsData as any;
     const hero       = data.hero       as { kicker: string; title: string; subtitle: string };
-    const pitch      = data.pitch      as string | undefined;
     const diff       = data.differentiator as { title: string; body: string; pillars?: Pillar[] };
     const audience   = data.audience   as {
         ageBreakdown: { label: string; value: number }[];
@@ -448,7 +447,7 @@ export default function Partnerships() {
                     </div>
 
                     <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', letterSpacing: '0.1em', color: 'var(--gray-600)', marginTop: '1.5rem' }}>
-                        Starting rates, negotiable. Product gifting and affiliate structures welcome.
+                        All arrangements are flexible. Product gifting, affiliate structures, and custom deals welcome. Reach out and we'll figure it out together.
                     </p>
                 </section>
 
