@@ -90,7 +90,7 @@
     { "id": 1, "type": "photo", "label": "CONTENT CREATION", "sub": "Filming every part of my life.", "color": "#00E5FF", "rotate": 2, "photo": "/imgs/general/setupPhoto.jpeg" },
     { "id": 2, "type": "quote", "label": "MENTAL HEALTH", "sub": "Advocate. Always.", "color": "#CCFF00", "rotate": -2, "quote": "You'll have bad times, but it'll always wake you up to the good stuff you weren't paying attention to.", "attribution": "Sean Maguire, Good Will Hunting" },
     { "id": 3, "type": "plain", "label": "LIVE YOUR LIFE", "sub": "We only got one. Don't regret not spending it wisely.", "color": "#FF2E63", "rotate": 4 },
-    { "id": 4, "type": "photo", "label": "CAMERAS & FILM", "sub": "My second pair of eyes, featuring customized edits.", "color": "#00E5FF", "rotate": -3, "photo": "/imgs/general/filmPhoto.JPEG" },
+    { "id": 4, "type": "photo", "label": "CAMERAS & FILM", "sub": "My second pair of eyes, featuring customized edits.", "color": "#00E5FF", "rotate": -3, "photo": "/imgs/general/filmPhoto.jpeg" },
     { "id": 5, "type": "plain", "label": "TECHNOLOGY", "sub": "Hardware to software, reviewing and analyzing tech is in my blood.", "color": "#CCFF00", "rotate": 3 },
     { "id": 6, "type": "photo", "label": "FITNESS", "sub": "Take care of every part of yourself. To feel good, to be good, to be healthy.", "color": "#F0EDE8", "rotate": -1, "photo": "/imgs/general/gymPhoto.jpeg" },
     { "id": 7, "type": "quote", "label": "MOTTO", "sub": "", "color": "#FF2E63", "rotate": 4, "quote": "If you ain't first, you're last", "attribution": "Ricky Bobby, Talladega Nights: The Ballad of Ricky Bobby" },
