@@ -72,7 +72,7 @@
   {
     "id": 51,
     "title": "LOS ANGELES IRL STREAM",
-    "category": ["Stream", "IRL Event"],
+    "category": "Stream",
     "date": "2026-06-11T11:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
