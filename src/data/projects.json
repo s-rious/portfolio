@@ -1,34 +1,35 @@
 {
   "featuredVideoId": 28,
   "weeklyAnalytics": {
-    "weekLabel": "May 17 - May 23, 2026",
+    "weekLabel": "May 23 - May 29, 2026",
     "stats": {
-      "totalViews": "1.6k",
-      "subsGained": "+19",
-      "totalWatchTime": "449.6",
-      "avgCTR": "5.9%",
-      "impressions": "65,169"
+      "totalViews": "8k",
+      "subsGained": "+25",
+      "totalWatchTime": "353.5",
+      "avgCTR": "4.2%",
+      "impressions": "67,319"
     },
     "contentMix": [
-      { "label": "Streams", "value": 5, "views": 820, "color": "#FF2E63" },
-      { "label": "Videos", "value": 1, "views": 140, "color": "#00E5FF" },
-      { "label": "Shorts", "value": 1, "views": 250, "color": "#CCFF00" }
+      { "label": "Streams", "value": 6, "views": 921, "color": "#FF2E63" },
+      { "label": "Videos", "value": 2, "views": 1107, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 6, "views": 5884, "color": "#CCFF00" }
     ],
     "trafficSources": [
-      { "label": "Browse Features", "value": 48.9, "color": "#FF2E63" },
-      { "label": "Channel Pages", "value": 25.5, "color": "#00E5FF" },
-      { "label": "External", "value": 10.6, "color": "#CCFF00" },
-      { "label": "Other", "value": 15, "color": "#555555" }
+      { "label": "Shorts feed", "value": 61.1, "color": "#8e8cff" },
+      { "label": "Browse Features", "value": 5.8, "color": "#FF2E63" },
+      { "label": "Suggested videos", "value": 23.3, "color": "#00E5FF" },
+      { "label": "External", "value": 4.3, "color": "#CCFF00" },
+      { "label": "Other", "value": 5.6, "color": "#555555" }
     ],
     "ctrBenchmarks": [
-      { "label": "This Week Avg", "value": 5.9, "color": "#FF2E63" },
-      { "label": "Channel Avg", "value": 5.0, "color": "#00E5FF" },
+      { "label": "This Week Avg", "value": 4.2, "color": "#FF2E63" },
+      { "label": "Channel Avg", "value": 4.5, "color": "#00E5FF" },
       { "label": "YouTube Avg", "value": 4.0, "color": "#444444" }
     ],
     "creatorNotes": {
-      "strategy": "A week focused on viewer-recommended horror games and streams, as well as raw sit down conversations. Employed a new editor for our newest Poppy Playtime series videos.",
-      "strengths": "Stay engaged and involved with viewers, bring new and returning viewers in, and continue fostering a strong streamer relationship.",
-      "improvements": "Begin employing a stronger more consistent Shorts schedule. Video and Stream schedule already established."
+      "strategy": "A week nailing down on a 6 day stream schedule, experimenting with new engaging titles and thumbnails. Also utilizing 1 short a day + cropping stream to Shorts Live feed",
+      "strengths": "Stayed overly engaged with viewers, growing our bond, and building a relationship with the content. Utilized new editing, thumbnails, and hooks.",
+      "improvements": "Begin manually exporting (currently automatic, causes miscropping) to TikTok and Shorts feeds."
     }
   },
   "series": [
@@ -41,7 +42,7 @@
       "platforms": ["YouTube", "Twitch"],
       "format": "120-190 min",
       "cadence": "Daily",
-      "episodeCount": 28,
+      "episodeCount": 32,
       "description": "I am overwhelmingly terrified of horror games, so join me alongside my journey through series like F.N.A.F., Poppy Playtime, Garten of Banban, and more! No fake reactions, ever.",
       "why": "Raw human reactions to genuine terror, alongside a loud and confident personality, bringing the viewer into a game of interest and keeping them in with constant stimulation and engagement."
     },
@@ -54,7 +55,7 @@
       "platforms": ["YouTube", "Twitch"],
       "format": "60-120 min",
       "cadence": "Bi-Weekly",
-      "episodeCount": 1,
+      "episodeCount": 3,
       "description": "Playing games of challenge, and failure or setbacks punish me.",
       "why": "Viewers love watching drama and energy. Punishments and challenges allow me to do just that."
     },
@@ -80,7 +81,7 @@
       "platforms": ["YouTube", "Twitch"],
       "format": "45-90 min",
       "cadence": "Weekly",
-      "episodeCount": 20,
+      "episodeCount": 24,
       "description": "My chat is always open to suggestions. All comments, chats, and messages are read and added to a list, and played for your entertainment!",
       "why": "A small, personal, intimate style channel is what I intend to harbor. Allowing viewers to steer the wheel as I drive allows for an engaging and dynamic content space."
     }
