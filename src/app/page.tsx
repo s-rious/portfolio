@@ -214,7 +214,7 @@ export default function Home() {
             }}>
                 {/* Top bar */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6rem 6vw 0' }}>
-                    <Label>Sacramento, CA — Available for Partnerships</Label>
+                    <Label>OC & LA, CA — Available for Partnerships</Label>
                     <Label>camry.dev</Label>
                 </div>
 
