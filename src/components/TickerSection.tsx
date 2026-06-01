@@ -1,8 +1,8 @@
 const ITEMS = [
-    'GAMES', 'CODE', 'CARS', 'FILM', 'ESPORTS', 'GYM',
-    'GAMES', 'CODE', 'CARS', 'FILM', 'ESPORTS', 'GYM',
-    'GAMES', 'CODE', 'CARS', 'FILM', 'ESPORTS', 'GYM',
-    'GAMES', 'CODE', 'CARS', 'FILM', 'ESPORTS', 'GYM',
+    'GAMING', 'CODING', 'CARS', 'FILM', 'ESPORTS', 'GYM', 'SOCIAL MEDIA', 'TECH',
+    'GAMING', 'CODING', 'CARS', 'FILM', 'ESPORTS', 'GYM', 'SOCIAL MEDIA', 'TECH',
+    'GAMING', 'CODING', 'CARS', 'FILM', 'ESPORTS', 'GYM', 'SOCIAL MEDIA', 'TECH',
+    'GAMING', 'CODING', 'CARS', 'FILM', 'ESPORTS', 'GYM', 'SOCIAL MEDIA', 'TECH',
 ];
 
 export default function TickerSection() {
