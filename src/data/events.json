@@ -1,63 +1,73 @@
 [
   {
-    "id": 55,
-    "title": "VIDEO TBD",
+    "id": 58,
+    "title": "Kinito Pet Playthrough Edited",
     "category": "Video",
-    "date": "2026-06-07T12:30:00",
+    "date": "2026-06-02T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
-    "description": "VIDEO TBD"
+    "description": "Our edited version of the KinitoPet game!"
+  },
+  {
+    "id": 57,
+    "title": "The Cost of Becoming CaseOh | Reaction",
+    "category": "Video",
+    "date": "2026-06-02T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Our first ever React video. Raw takes, opinions, and views on the beautiful success of CaseOh"
   },
   {
     "id": 56,
-    "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
+    "title": "SERIOUS TALKS - REPO, CONTENT WARNING, LETHAL COMPANY WITH VIEWERS!",
     "category": "Stream",
     "date": "2026-06-06T13:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
-    "description": "OUR THIRD ENTRY INTO OUR SERIES TO HAVE A CHILL, RELAXING STREAM AND TALK FUTURE CONTENT PLANS"
+    "description": "OUR FOURTH ENTRY OF SERIOUS TALKS: THIS TIME, PLAYING HORROR GAMES W/ VIEWERS"
   },
   {
     "id": 55,
-    "title": "STREAM TBD",
+    "title": "Dark Deception PT 2",
     "category": "Stream",
     "date": "2026-06-05T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
-    "description": "STREAM TBD"
+    "description": "CONTINUING THE OVERWHELMINGLY DIFFICULT GAME OF DARK DECEPTION!"
   },
   {
     "id": 54,
-    "title": "STREAM TBD",
+    "title": "Those Nights at Fredbears + Fan Games",
     "category": "Stream",
     "date": "2026-06-04T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
-    "description": "STREAM TBD"
+    "description": "Playing through FNAF Fan Games!"
   },
   {
     "id": 54,
-    "title": "STREAM TBD",
+    "title": "DARK DECEPTION PT 1",
     "category": "Stream",
     "date": "2026-06-03T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
-    "description": "STREAM TBD"
+    "description": "OUR FIRST EVER PLAYTHROUGH OF DARK DECEPTION!"
   },
   {
     "id": 53,
-    "title": "STREAM TBD",
+    "title": "DOKI DOKI LITERATURE CLUB",
     "category": "Stream",
     "date": "2026-06-02T16:30:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
+    "url": "https://www.youtube.com/watch?v=FW_ZmVaemTg",
     "thumbnail": "",
-    "description": "STREAM TBD"
+    "description": "OUR FIRST ATTEMPT IN THE DOKI DOKI LITERATURE CLUB GAME... HOW BAD CAN IT POSSIBLY BE?"
   },
   {
     "id": 52,
