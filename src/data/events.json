@@ -1,5 +1,65 @@
 [
   {
+    "id": 64,
+    "title": "Hello Neighbor Fangames",
+    "category": "Video",
+    "date": "2026-06-14T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Edited version of our HELLO NEIGHBOR Fan Games stream!"
+  },
+  {
+    "id": 63,
+    "title": "BEACH TRIPS, DRIVING, FOOD REVIEWS",
+    "category": "Stream",
+    "date": "2026-06-12T12:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "DRIVING AROUND LA AND EXPLORING WHAT THERE IS TO OFFER! BEACHES, FOOD, ETC!"
+  },
+  {
+    "id": 62,
+    "title": "A TRIP TO DISNEYLAND!",
+    "category": "Stream",
+    "date": "2026-06-11T11:00:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "LIVE STREAMING FROM DISNEYLAND! COME JOIN!"
+  },
+  {
+    "id": 61,
+    "title": "FNAF FAN GAME + EXTRAS",
+    "category": "Stream",
+    "date": "2026-06-10T13:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "A SHORT STREAM BEFORE FLIGHT TO LA, PLAYING VIEWER RECOMMENDED FAN GAMES!"
+  },
+  {
+    "id": 60,
+    "title": "MiSide P.2",
+    "category": "Stream",
+    "date": "2026-06-09T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "THIS GAME IS SO MUCH MORE MESSED UP THAN I THOUGHT..."
+  },
+  {
+    "id": 59,
+    "title": "MiSide P.1",
+    "category": "Stream",
+    "date": "2026-06-08T16:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "MORE ANIME GIRLS, MORE LOVE SIMS, HOW BAD CAN IT BE...? (Its a horror game btw)"
+  },
+  {
     "id": 58,
     "title": "Kinito Pet Playthrough Edited",
     "category": "Video",
@@ -15,7 +75,7 @@
     "category": "Video",
     "date": "2026-06-04T12:30:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
+    "url": "https://www.youtube.com/watch?v=J1eMHWmydLo",
     "thumbnail": "",
     "description": "Our first ever React video. Raw takes, opinions, and views on the beautiful success of CaseOh"
   },
@@ -45,7 +105,7 @@
     "category": "Stream",
     "date": "2026-06-04T16:30:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
+    "url": "https://www.youtube.com/watch?v=NEkb5kRtQko",
     "thumbnail": "",
     "description": "OUR FIRST EVER PLAYTHROUGH OF DARK DECEPTION!"
   },
