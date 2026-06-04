@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import GlitchedDoorway from '@/components/GlitchedDoorway';
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen]   = useState(false);
@@ -159,6 +160,7 @@ export default function Navbar() {
                         </div>
                     </button>
                 </div>
+                <GlitchedDoorway />
             </nav>
 
             {/* Slide-over menu */}

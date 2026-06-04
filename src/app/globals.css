@@ -141,3 +141,29 @@ textarea::placeholder { color: var(--gray-500); }
         transition-duration: 0.01ms !important;
     }
 }
+/* === LORE / corruption keyframes === */
+
+@keyframes lore-jitter {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-1px, 1px); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(-1px, -1px); }
+}
+
+@keyframes lore-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
+
+@keyframes lore-noise {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-2%, -2%); }
+    20% { transform: translate(2%, 2%); }
+    30% { transform: translate(-1%, 1%); }
+    40% { transform: translate(1%, -1%); }
+    50% { transform: translate(-2%, 0); }
+    60% { transform: translate(2%, 0); }
+    70% { transform: translate(0, 2%); }
+    80% { transform: translate(0, -2%); }
+    90% { transform: translate(-1%, -1%); }
+}
