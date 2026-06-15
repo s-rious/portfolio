@@ -1,18 +1,18 @@
 {
   "featuredVideoId": 28,
   "weeklyAnalytics": {
-    "weekLabel": "June 1 - 7, 2026",
+    "weekLabel": "June 8 - 14, 2026",
     "stats": {
-      "totalViews": "6k",
-      "subsGained": "+30",
-      "totalWatchTime": "362.0",
+      "totalViews": "7k",
+      "subsGained": "+29",
+      "totalWatchTime": "246.2",
       "avgCTR": "4.2%",
-      "impressions": "66,283"
+      "impressions": "39,514"
     },
     "contentMix": [
-      { "label": "Streams", "value": 6, "views": 921, "color": "#FF2E63" },
-      { "label": "Videos", "value": 1, "views": 1107, "color": "#00E5FF" },
-      { "label": "Shorts", "value": 4, "views": 5884, "color": "#CCFF00" }
+      { "label": "Streams", "value": 5, "views": 1193, "color": "#FF2E63" },
+      { "label": "Videos", "value": 0, "views": 78, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 5, "views": 5694, "color": "#CCFF00" }
     ],
     "trafficSources": [
       { "label": "Shorts feed", "value": 61.1, "color": "#8e8cff" },
@@ -27,8 +27,8 @@
       { "label": "YouTube Avg", "value": 4.0, "color": "#444444" }
     ],
     "creatorNotes": {
-      "strategy": "A week nailing down on a 6 day stream schedule, experimenting with new engaging titles and thumbnails. Also utilizing 1 short a day + cropping stream to Shorts Live feed",
-      "strengths": "Stayed overly engaged with viewers, growing our bond, and building a relationship with the content. Utilized new editing, thumbnails, and hooks.",
+      "strategy": "FIRST IRL STREAMS ACCOMPLISHED. Figuring out our content pathing and what avenues we can explore",
+      "strengths": "Strong topics, heavy hitting games, cult like following content. All culminated to grow our fanbase rapidly.",
       "improvements": "Begin manually exporting (currently automatic, causes miscropping) to TikTok and Shorts feeds."
     }
   },
