@@ -1,11 +1,91 @@
 [
   {
-    "id": 7,
+    "id": 84,
+    "title": "IRL DAY WITH THE FAM",
+    "category": "Stream",
+    "date": "2026-07-04T09:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "ANOTHER IRL STREAM W THE PARENTS... WHAT WILL WE GET UP TO?!"
+  },
+  {
+    "id": 83,
+    "title": "BODY CAM REACT VIDEO",
+    "category": "Video",
+    "date": "2026-07-03T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "OUR SECOND REACT VIDEO ON THE CHANNEL, BODY CAM FOOTAGE EPISODE!"
+  },
+  {
+    "id": 82,
+    "title": "CUPHEAD PLAYTHROUGH P.3",
+    "category": "Stream",
+    "date": "2026-07-03T10:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "OUR FINAL PLAYTHROUGH OF CUPHEAD!"
+  },
+  {
+    "id": 81,
+    "title": "CUPHEAD PLAYTHROUGH P.2",
+    "category": "Stream",
+    "date": "2026-07-02T10:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD!"
+  },
+  {
+    "id": 80,
+    "title": "CUPHEAD PLAYTHROUGH P.1",
+    "category": "Stream",
+    "date": "2026-07-01T10:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=ImZqWC7iat0",
+    "thumbnail": "",
+    "description": "THE HIGHLY RECOMMENDED CUPHEAD IS MAKING ITS DEBUT! LETS SEE HOW THIS GOES..."
+  },
+  {
+    "id": 79,
+    "title": "MOUTHWASHING EDITED VIDEO",
+    "category": "Video",
+    "date": "2026-06-30T19:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/watch?v=Zn87qg8cgSM",
+    "thumbnail": "",
+    "description": "VIEWER EDITED 'MOUTHWASHING' VIDEO! ONE OF MY NEW FAVORITE GAMES..."
+  },
+  {
+    "id": 78,
+    "title": "MORE RAGE GAMES + HORROR",
+    "category": "Stream",
+    "date": "2026-06-30T15:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=7owyLXcAX2g&t=7085s",
+    "thumbnail": "",
+    "description": "MORE RAGE GAMES + TALKING FUTURE PLANS NOW THAT WE ARE IN LA"
+  },
+  {
+    "id": 77,
+    "title": "IRL CAR SHOW + COFFEE STREAM",
+    "category": "Stream",
+    "date": "2026-06-28T12:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=zX43iQD_t0E",
+    "thumbnail": "",
+    "description": "OUR FIRST EVER STREAM IN LA! EXPERIENCE A CAR SHOW + COFFEE WITH ME!"
+  },
+  {
+    "id": 76,
     "title": "IRL MOVING STREAM",
     "category": "Stream",
     "date": "2026-06-27T12:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=tZMYUVv-GY0&t=7533s",
     "thumbnail": "",
     "description": "THE DAY HAS ARRIVED! LETS GO IRL AND MOVE BACK TO LA!"
   },
@@ -15,19 +95,19 @@
     "category": "Stream",
     "date": "2026-06-26T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=jEr92XTGkPs&t=4635s",
     "thumbnail": "",
     "description": "CLEANING AND PREPPING THE APARTMENT FOR THE MOVE!"
   },
   {
     "id": 74,
-    "title": "Unravel Playthrough",
+    "title": "SHORT RAGE GAME STREAM",
     "category": "Stream",
     "date": "2026-06-25T12:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=CrDbxn8pfRc",
     "thumbnail": "",
-    "description": "UNRAVEL - AN OLD SCHOOL GAME, A VIBE, AND A WAY FOR US TO TALK"
+    "description": "PLAYING RAGE GAMES ON STREAM"
   },
   {
     "id": 73,
@@ -35,7 +115,7 @@
     "category": "Stream",
     "date": "2026-06-24T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=YHwJZH1DvV8",
     "thumbnail": "",
     "description": "THE HOT, NEW FRIENDSLOP GAME! LIVE FOR YOU TO ENJOY!"
   },
@@ -45,7 +125,7 @@
     "category": "Stream",
     "date": "2026-06-23T16:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=YHwJZH1DvV8",
     "thumbnail": "",
     "description": "PLAYING 'THE COMPLEX', REGARDED AS THE BEST BACKROOMS GAME TO DATE..."
   },
