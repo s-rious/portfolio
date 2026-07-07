@@ -1,19 +1,79 @@
 [
   {
-    "id": 84,
-    "title": "IRL DAY WITH THE FAM",
+    "id": 90,
+    "title": "HOLLOW KNIGHT P.2",
     "category": "Stream",
-    "date": "2026-07-04T09:30:00",
+    "date": "2026-07-11T10:15:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
-    "description": "ANOTHER IRL STREAM W THE PARENTS... WHAT WILL WE GET UP TO?!"
+    "description": "OUR FINAL PLAYTHROUGH OF CUPHEAD!"
+  },
+  {
+    "id": 89,
+    "title": "IRL IN LA",
+    "category": "Stream",
+    "date": "2026-07-10T11:00:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "IRL STREAM AROUND LA. TBD TOPIC..."
+  },
+  {
+    "id": 88,
+    "title": "HOLLOW KNIGHT P.1",
+    "category": "Stream",
+    "date": "2026-07-09T10:15:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "CONTINUING INTO OUR CULT CLASSIC RAGE GAMES, WE MOVE INTO HIGHLY SUGGESTED HOLLOW KNIGHT!"
+  },
+  {
+    "id": 87,
+    "title": "CUPHEAD DLC PLAYTHROUGH P.2 + PLANNING",
+    "category": "Stream",
+    "date": "2026-07-08T10:15:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD DLC + PLANNING FUTURE STREAMS!"
+  },
+  {
+    "id": 86,
+    "title": "CUPHEAD DLC PLAYTHROUGH P.1",
+    "category": "Stream",
+    "date": "2026-07-07T10:15:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=qpX470XfKBo",
+    "thumbnail": "",
+    "description": "OUR FIRST PLAYTHROUGH OF CUPHEAD DLC!"
+  },
+  {
+    "id": 85,
+    "title": "CUPHEAD PLAYTHROUGH P.5",
+    "category": "Stream",
+    "date": "2026-07-06T10:15:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=ezULD5J2G5k",
+    "thumbnail": "",
+    "description": "OUR FINAL PLAYTHROUGH OF CUPHEAD!"
+  },
+  {
+    "id": 84,
+    "title": "CUPHEAD PLAYTHROUGH P.4",
+    "category": "Stream",
+    "date": "2026-07-04T10:30:00",
+    "platform": "YouTube & Twitch",
+    "url": "https://www.youtube.com/watch?v=YUwnSJVoiKI",
+    "thumbnail": "",
+    "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD!"
   },
   {
     "id": 83,
     "title": "BODY CAM REACT VIDEO",
     "category": "Video",
-    "date": "2026-07-03T12:30:00",
+    "date": "2026-07-010T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
@@ -25,7 +85,7 @@
     "category": "Stream",
     "date": "2026-07-03T10:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=Hp6RtsTpAL8&t=2340s",
     "thumbnail": "",
     "description": "OUR FINAL PLAYTHROUGH OF CUPHEAD!"
   },
@@ -35,7 +95,7 @@
     "category": "Stream",
     "date": "2026-07-02T10:30:00",
     "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=IZtaVPnqnFc",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD!"
   },
