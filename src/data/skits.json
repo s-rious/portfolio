@@ -1,5 +1,8 @@
 {
   "channelHandle": "@uns_Rious",
   "channelUrl": "https://youtube.com/@uns_Rious",
-  "skits": ["https://www.youtube.com/watch?v=HIfowRBX3jk", "https://www.youtube.com/watch?v=GlccH1BMqlo"]
+  "skits": [
+    { "url": "https://www.youtube.com/watch?v=HIfowRBX3jk" },
+    { "url": "https://www.youtube.com/watch?v=GlccH1BMqlo" }
+  ]
 }
