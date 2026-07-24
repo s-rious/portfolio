@@ -1,5 +1,15 @@
 [
   {
+    "id": 102,
+    "title": "MISIDE EDITED VIDEO P1",
+    "category": "Video",
+    "date": "2026-07-23T17:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/watch?v=2ZXJEyj3Nlk",
+    "thumbnail": "",
+    "description": "OUR PART 1 OF OUR EDITED MISIDE GAMEPLAY"
+  },
+  {
     "id": 101,
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
@@ -33,7 +43,7 @@
     "id": 98,
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
-    "date": "2026-07-22T18:00:00",
+    "date": "2026-07-22T08:45:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=cbjs_3yxCRo",
     "thumbnail": "",
