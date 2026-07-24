@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import SplashWarning from '@/components/lost/SplashWarning';
 import AudioPrompt from '@/components/lost/AudioPrompt';
 import CRTFrame from '@/components/lost/CRTFrame';
 import GlitchOverlay from '@/components/lost/GlitchOverlay';
 import LiveHijack from '@/components/lost/LiveHijack';
 import { useScheduledLive } from '@/lib/scheduledLive';
+import { extractYouTubeId } from '@/lib/youtube';
 import skitsData from '@/data/skits.json';
 
 // Where "Watch for yourself..." links to during the live hijack
@@ -14,11 +15,22 @@ const TWITCH_URL = 'https://twitch.tv/s_rious';
 
 type Stage = 'splash' | 'audio-prompt' | 'experience';
 
+type ResolvedSkit = { id: string; title: string };
+
 export default function LostPage() {
     const [stage, setStage] = useState<Stage>('splash');
     const [audioEnabled, setAudioEnabled] = useState(false);
     const isLive = useScheduledLive();
 
+    // Resolve skit URLs into { id, title } for CRTFrame. Title is just a
+    // placeholder — it's only used for the iframe's accessibility label,
+    // the video itself is what's supposed to be seen.
+    const resolvedSkits: ResolvedSkit[] = skitsData.skits
+        .map((skit) => {
+            const id = extractYouTubeId(skit.url);
+            return id ? { id, title: 'uns_Rious transmission' } : null;
+        })
+        .filter((s): s is ResolvedSkit => s !== null);
     // Load VT323 (CRT/terminal font) for this page only
     useEffect(() => {
         const link = document.createElement('link');
@@ -98,7 +110,7 @@ export default function LostPage() {
                         // BROADCAST INTERCEPTED FROM {skitsData.channelHandle} //
                     </div>
 
-                    <CRTFrame skits={skitsData.skits} audioEnabled={audioEnabled} />
+                    <CRTFrame skits={resolvedSkits} audioEnabled={audioEnabled} />
 
                     <div
                         className="mt-12 text-xs tracking-[0.4em] opacity-30 text-center"
