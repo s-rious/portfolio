@@ -1,18 +1,18 @@
 {
   "featuredVideoId": 28,
   "weeklyAnalytics": {
-    "weekLabel": "June 8 - 14, 2026",
+    "weekLabel": "July 1-23, 2026",
     "stats": {
-      "totalViews": "7k",
-      "subsGained": "+29",
-      "totalWatchTime": "246.2",
-      "avgCTR": "4.2%",
-      "impressions": "39,514"
+      "totalViews": "5k",
+      "subsGained": "+61",
+      "totalWatchTime": "421.3",
+      "avgCTR": "5.3%",
+      "impressions": "125,215"
     },
     "contentMix": [
-      { "label": "Streams", "value": 5, "views": 1193, "color": "#FF2E63" },
-      { "label": "Videos", "value": 0, "views": 78, "color": "#00E5FF" },
-      { "label": "Shorts", "value": 5, "views": 5694, "color": "#CCFF00" }
+      { "label": "Streams", "value": 19, "views": 2632, "color": "#FF2E63" },
+      { "label": "Videos", "value": 2, "views": 55, "color": "#00E5FF" },
+      { "label": "Shorts", "value": 5, "views": 2293, "color": "#CCFF00" }
     ],
     "trafficSources": [
       { "label": "Shorts feed", "value": 61.1, "color": "#8e8cff" },
