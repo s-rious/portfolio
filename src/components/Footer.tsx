@@ -97,6 +97,7 @@ export default function Footer() {
                             { name: 'LinkedIn', url: 'https://www.linkedin.com/in/cameron-rydwell-52681a268' },
                             { name: 'YouTube',  url: 'https://youtube.com/seriousreal' },
                             { name: 'Twitch',   url: 'https://twitch.tv/s_rious' },
+                            { name: 'TikTok',   url: 'https://tiktok.com/@s_rious' },
                         ].map(s => (
                             <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{
                                 display: 'block',

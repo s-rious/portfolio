@@ -394,11 +394,14 @@ export default function Home() {
                                                     {(['youtube', 'twitch'] as const).map((p, i) => {
                                                         const active = livePlatform === p;
                                                         return (
-                                                            <button key={p} onClick={() => setLivePlatform(p)} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.14em', padding: '4px 12px', border: '1px solid var(--red)', borderRight: i === 0 ? 'none' : '1px solid var(--red)', background: active ? 'var(--red)' : 'transparent', color: active ? 'var(--white)' : 'var(--red)', cursor: 'pointer', transition: 'background 0.15s, color 0.15s' }}>
+                                                            <button key={p} onClick={() => setLivePlatform(p)} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.14em', padding: '4px 12px', border: '1px solid var(--red)', borderRight: 'none', background: active ? 'var(--red)' : 'transparent', color: active ? 'var(--white)' : 'var(--red)', cursor: 'pointer', transition: 'background 0.15s, color 0.15s' }}>
                                                                 {p === 'youtube' ? 'YOUTUBE' : 'TWITCH'}
                                                             </button>
                                                         );
                                                     })}
+                                                    <a href="https://www.tiktok.com/@s.erious/live" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.58rem', letterSpacing: '0.14em', padding: '4px 12px', border: '1px solid var(--red)', background: 'transparent', color: 'var(--red)', cursor: 'pointer', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', transition: 'background 0.15s, color 0.15s' }} onMouseEnter={e => { e.currentTarget.style.background = 'var(--red)'; e.currentTarget.style.color = 'var(--white)'; }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--red)'; }}>
+                                                        TIKTOK ↗
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div style={{ padding: '0.9rem 1.75rem 1rem' }}>
@@ -429,6 +432,7 @@ export default function Home() {
                                             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                                                 <a href="https://youtube.com/seriousreal/live" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em', color: 'var(--white)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.5rem 1rem', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')} onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}>YOUTUBE LIVE ↗</a>
                                                 <a href="https://twitch.tv/s_rious" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em', color: 'var(--white)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.5rem 1rem', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')} onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}>TWITCH ↗</a>
+                                                <a href="https://www.tiktok.com/@s.erious/live" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', letterSpacing: '0.14em', color: 'var(--white)', textDecoration: 'none', border: '1px solid var(--gray-700)', padding: '0.5rem 1rem', transition: 'border-color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--white)')} onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--gray-700)')}>TIKTOK ↗</a>
                                             </div>
                                         </div>
                                     )}
@@ -573,6 +577,7 @@ export default function Home() {
                             {[
                                 { name: 'YouTube', url: 'https://youtube.com/seriousreal' },
                                 { name: 'Twitch',  url: 'https://twitch.tv/s_rious' },
+                                { name: 'TikTok',  url: 'https://tiktok.com/@s_rious' },
                                 { name: 'X',       url: 'https://x.com/s7rious' },
                             ].map(s => (
                                 <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.14em', color: 'var(--gray-400)', textDecoration: 'none', borderBottom: '1px solid var(--gray-700)', paddingBottom: '2px', transition: 'color 0.2s, border-color 0.2s' }} onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--white)'; }} onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray-400)'; e.currentTarget.style.borderColor = 'var(--gray-700)'; }}>

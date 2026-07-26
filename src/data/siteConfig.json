@@ -1,7 +1,7 @@
 {
   "siteName": "CAMRY",
   "siteTitle": "SERIOUS - CONTENT CREATOR",
-  "siteDescription": "IRL streams, gaming content, all real reactions, and a chat that's in the room. Cameron Rydwell streams as SERIOUS on YouTube and Twitch.",
+  "siteDescription": "IRL streams, gaming content, all real reactions, and a chat that's in the room. Cameron Rydwell streams as SERIOUS on YouTube, Twitch, and TikTok.",
   "tagline": " ",
   "owner": {
     "name": "Cameron Rydwell",
@@ -26,7 +26,7 @@
   "seo": {
     "defaultTitle": "SERIOUS - IRL and GAMING CONTENT",
     "titleTemplate": "%s | SERIOUS",
-    "description": "IRL and gaming streams and videos from Cameron Rydwell / SERIOUS. Real reactions, chaos, and a chat that's part of the show."
+    "description": "IRL and gaming streams and videos from Cameron Rydwell / SERIOUS on YouTube, Twitch, and TikTok. Real reactions, chaos, and a chat that's part of the show."
   },
   "compilerOptions": {
     "jsx": "preserve"
