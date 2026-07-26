@@ -1,5 +1,85 @@
 [
   {
+    "id": 111,
+    "title": "MISIDE EDITED VIDEO P2",
+    "category": "Video",
+    "date": "2026-08-02T12:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "OUR PART 2 OF OUR EDITED MISIDE GAMEPLAY"
+  },
+  {
+    "id": 110,
+    "title": "MAN KIDNAPS KIDS AND WIFE BODYCAM REACTION...",
+    "category": "Video",
+    "date": "2026-08-01T09:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "RAW REACTION TO BODYCAM FOOTAGE OF A MAN KIDNAPPING HIS OWN WIFE AND KIDS... SAD STUFF"
+  },
+  {
+    "id": 109,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-08-01T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
+  },
+  {
+    "id": 108,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-07-31T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
+  },
+  {
+    "id": 107,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-07-30T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
+  },
+  {
+    "id": 106,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-07-29T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
+  },
+  {
+    "id": 105,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-07-28T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
+  },
+  {
+    "id": 104,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-07-27T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/watch?v=6wYsEwSOaxg",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
+  },
+  {
     "id": 103,
     "title": "NO I'M NOT A HUMAN",
     "category": "Video",
@@ -24,8 +104,8 @@
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
     "date": "2026-07-25T08:45:00",
-    "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/watch?v=cbjs_3yxCRo",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/watch?v=HfWqiwzF1YI",
     "thumbnail": "",
     "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
   },
@@ -34,8 +114,8 @@
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
     "date": "2026-07-24T08:45:00",
-    "platform": "YouTube & Twitch",
-    "url": "https://www.youtube.com/watch?v=cbjs_3yxCRo",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/watch?v=B7zPxo9JqTc",
     "thumbnail": "",
     "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
   },
@@ -44,7 +124,7 @@
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
     "date": "2026-07-23T08:45:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=TXwqxlcClbc",
     "thumbnail": "",
     "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
@@ -54,7 +134,7 @@
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
     "date": "2026-07-22T08:45:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=w9qgjrqvEwI",
     "thumbnail": "",
     "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
@@ -64,7 +144,7 @@
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
     "date": "2026-07-21T08:45:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=UEUzf13vpzo",
     "thumbnail": "",
     "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
@@ -74,7 +154,7 @@
     "title": "TRYING TO BEAT ELDEN RING...",
     "category": "Stream",
     "date": "2026-07-20T08:45:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=Qv5-vAtIaj8",
     "thumbnail": "",
     "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME AND SPINNING THE WHEEL EVERY 20 DEATHS..."
@@ -84,7 +164,7 @@
     "title": "NO, I'M NOT A HUMAN PLAYTHROUGH",
     "category": "Stream",
     "date": "2026-07-15T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=cbjs_3yxCRo",
     "thumbnail": "",
     "description": "RETURNING TO OUR HORROR GAMES WITH NINAHP"
@@ -94,7 +174,7 @@
     "title": "HOLLOW KNIGHT P.6",
     "category": "Stream",
     "date": "2026-07-15T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=LQsLNAlUxhs",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF HOLLOW KNIGHT"
@@ -104,7 +184,7 @@
     "title": "HOLLOW KNIGHT P.5",
     "category": "Stream",
     "date": "2026-07-14T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=oRsPaDRsGVA",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF HOLLOW KNIGHT"
@@ -114,7 +194,7 @@
     "title": "HOLLOW KNIGHT P.4",
     "category": "Stream",
     "date": "2026-07-13T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=iwuy5GtS4ec",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF HOLLOW KNIGHT"
@@ -124,7 +204,7 @@
     "title": "HOLLOW KNIGHT P.3",
     "category": "Stream",
     "date": "2026-07-12T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=o1XM3QMgv0o",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF HOLLOW KNIGHT"
@@ -134,7 +214,7 @@
     "title": "HOLLOW KNIGHT P.2",
     "category": "Stream",
     "date": "2026-07-11T07:45:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=IgRm6I3_UB0",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF HOLLOW KNIGHT"
@@ -154,7 +234,7 @@
     "title": "HOLLOW KNIGHT P.1",
     "category": "Stream",
     "date": "2026-07-09T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=Ss0WNJNgwck",
     "thumbnail": "",
     "description": "CONTINUING INTO OUR CULT CLASSIC RAGE GAMES, WE MOVE INTO HIGHLY SUGGESTED HOLLOW KNIGHT!"
@@ -164,7 +244,7 @@
     "title": "CUPHEAD DLC PLAYTHROUGH P.2 + PLANNING",
     "category": "Stream",
     "date": "2026-07-08T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=lvFRctLENm4",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD DLC + PLANNING FUTURE STREAMS!"
@@ -174,7 +254,7 @@
     "title": "CUPHEAD DLC PLAYTHROUGH P.1",
     "category": "Stream",
     "date": "2026-07-07T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=qpX470XfKBo",
     "thumbnail": "",
     "description": "OUR FIRST PLAYTHROUGH OF CUPHEAD DLC!"
@@ -184,7 +264,7 @@
     "title": "CUPHEAD PLAYTHROUGH P.5",
     "category": "Stream",
     "date": "2026-07-06T10:15:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=ezULD5J2G5k",
     "thumbnail": "",
     "description": "OUR FINAL PLAYTHROUGH OF CUPHEAD!"
@@ -194,27 +274,17 @@
     "title": "CUPHEAD PLAYTHROUGH P.4",
     "category": "Stream",
     "date": "2026-07-04T10:30:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=YUwnSJVoiKI",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD!"
-  },
-  {
-    "id": 83,
-    "title": "BODY CAM REACT VIDEO",
-    "category": "Video",
-    "date": "2026-07-010T12:30:00",
-    "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
-    "thumbnail": "",
-    "description": "OUR SECOND REACT VIDEO ON THE CHANNEL, BODY CAM FOOTAGE EPISODE!"
   },
   {
     "id": 82,
     "title": "CUPHEAD PLAYTHROUGH P.3",
     "category": "Stream",
     "date": "2026-07-03T10:30:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=Hp6RtsTpAL8&t=2340s",
     "thumbnail": "",
     "description": "OUR FINAL PLAYTHROUGH OF CUPHEAD!"
@@ -224,7 +294,7 @@
     "title": "CUPHEAD PLAYTHROUGH P.2",
     "category": "Stream",
     "date": "2026-07-02T10:30:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=IZtaVPnqnFc",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF CUPHEAD!"
@@ -234,7 +304,7 @@
     "title": "CUPHEAD PLAYTHROUGH P.1",
     "category": "Stream",
     "date": "2026-07-01T10:30:00",
-    "platform": "YouTube & Twitch",
+    "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=ImZqWC7iat0",
     "thumbnail": "",
     "description": "THE HIGHLY RECOMMENDED CUPHEAD IS MAKING ITS DEBUT! LETS SEE HOW THIS GOES..."
