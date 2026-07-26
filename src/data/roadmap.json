@@ -1,23 +1,23 @@
 [
   {
-    "title": "Life back Home",
+    "title": "ADVENTURES AROUND SO-CAL",
     "category": "Content",
-    "eta": "Summer 2026",
-    "status": "Upcoming",
-    "description": "Regularly scheduled trips back to Southern California for IRL vlogs, streams, and business interactions!"
-  },
-  {
-    "title": "YouTube Series: Romanticizing Life",
-    "category": "Content",
-    "eta": "Summer-Winter 2026",
+    "eta": "Summer-FALL 2026",
     "status": "In Progress",
-    "description": "Monthly vlogs inviting the viewer to join me in my raw day-to-day life and see what happens outside of the office!"
+    "description": "TRYING FOODS, INTERACTING WITH PEERS, ATTENDING EVENTS, AND EXPLORING THEME PARKS AROUND SOUTHERN CALIFORNIA! ALL LIVE ON CAMERA!"
   },
   {
-    "title": "Outreach and Impact",
+    "title": "GAMEPLAY SERIES",
+    "category": "Content",
+    "eta": "2026",
+    "status": "In Progress",
+    "description": "PLAYING THROUGH GAME SERIES TILL COMPLETION! INCLUDING: CUPHEAD, ELDEN RING, HOLLOW KNIGHT, UNDERTALE, AND MORE!"
+  },
+  {
+    "title": "SKITS AND CINEMATICS",
     "category": "Content",
     "eta": "Fall 2026",
     "status": "Scripting",
-    "description": "Involving myself with partners, collaborations, and individuals to further my reach and expand the impact my content can have!"
+    "description": "CREATING HORROR AND PSYCHOLOGICAL SKITS AND CINEMATICS SURROUNDING TOPICS I CENTER MYSELF WITH!"
   }
 ]

@@ -15,11 +15,11 @@
       { "label": "Shorts", "value": 5, "views": 2293, "color": "#CCFF00" }
     ],
     "trafficSources": [
-      { "label": "Shorts feed", "value": 61.1, "color": "#8e8cff" },
-      { "label": "Browse Features", "value": 5.8, "color": "#FF2E63" },
-      { "label": "Suggested videos", "value": 23.3, "color": "#00E5FF" },
-      { "label": "External", "value": 4.3, "color": "#CCFF00" },
-      { "label": "Other", "value": 5.6, "color": "#555555" }
+      { "label": "Shorts feed", "value": 40, "color": "#8e8cff" },
+      { "label": "Browse Features", "value": 5, "color": "#FF2E63" },
+      { "label": "Suggested videos", "value": 45, "color": "#00E5FF" },
+      { "label": "External", "value": 5, "color": "#CCFF00" },
+      { "label": "Other", "value": 5, "color": "#555555" }
     ],
     "ctrBenchmarks": [
       { "label": "This Week Avg", "value": 4.2, "color": "#FF2E63" },
@@ -39,38 +39,38 @@
       "tagline": "Playing games I am terrified of. Every single time.",
       "color": "#FF2E63",
       "status": "ACTIVE",
-      "platforms": ["YouTube", "Twitch"],
+      "platforms": ["YouTube", "Twitch", "TikTok"],
       "format": "120-190 min",
       "cadence": "Daily",
-      "episodeCount": 32,
+      "episodeCount": 46,
       "description": "I am overwhelmingly terrified of horror games, so join me alongside my journey through series like F.N.A.F., Poppy Playtime, Garten of Banban, and more! No fake reactions, ever.",
       "why": "Raw human reactions to genuine terror, alongside a loud and confident personality, bringing the viewer into a game of interest and keeping them in with constant stimulation and engagement."
     },
     {
       "id": "challenges",
       "name": "GAME CHALLENGES",
-      "tagline": "Spin the Wheels, Push Up Fades, Dares, you name it, I do it!",
+      "tagline": "Playing games I struggle with till completion!",
       "color": "#00E5FF",
       "status": "ACTIVE",
-      "platforms": ["YouTube", "Twitch"],
+      "platforms": ["YouTube", "Twitch", "TikTok"],
       "format": "60-120 min",
       "cadence": "Bi-Weekly",
-      "episodeCount": 3,
-      "description": "Playing games of challenge, and failure or setbacks punish me.",
-      "why": "Viewers love watching drama and energy. Punishments and challenges allow me to do just that."
+      "episodeCount": 23,
+      "description": "Playing games that I find to be challenging. I never said I was a pro gamer...",
+      "why": "Viewers love watching drama and energy. Playing games that cause raw rage, anger, and frustration always gets people to see who I am."
     },
     {
-      "id": "romanticizing",
-      "name": "ROMANTICIZING LIFE",
-      "tagline": "My raw life vlog series featuring vacations, solo trips, and journeys of all sorts.",
+      "id": "irl",
+      "name": "IRL Streams",
+      "tagline": "Our series of IRL streams around the world, featuring stream peers, theme parks, shopping, exploring, and more!",
       "color": "#CCFF00",
       "status": "ACTIVE",
-      "platforms": ["YouTube"],
-      "format": "20-30 min",
+      "platforms": ["YouTube", "Twitch", "TikTok"],
+      "format": "90-120 min",
       "cadence": "Monthly",
       "episodeCount": 6,
-      "description": "Bringing my camera with me no matter where I go. Combining my energetic spirit, outgoing and extroverted nature, and the lack of limitations to what I will do.",
-      "why": "Life is full of problems, full of drama, full of negatives. It's a great change of pace to step back and enjoy life. Some viewers may not be able to experience what I can, or have the confidence in themself to do so. This allows for my content to stand out as the viewer is able to live vicariously through me."
+      "description": "Bringing my camera out into the real world and inviting my viewers to enjoy what I get up to.",
+      "why": "People love living vicariously through someone else. They enjoy seeing what others are doing, typically because it's something they haven't or can't do themselves. I put that on camera and invite the viewer to be apart of the experience with me."
     },
     {
       "id": "viewer-rec",
@@ -81,7 +81,7 @@
       "platforms": ["YouTube", "Twitch"],
       "format": "45-90 min",
       "cadence": "Weekly",
-      "episodeCount": 24,
+      "episodeCount": 21,
       "description": "My chat is always open to suggestions. All comments, chats, and messages are read and added to a list, and played for your entertainment!",
       "why": "A small, personal, intimate style channel is what I intend to harbor. Allowing viewers to steer the wheel as I drive allows for an engaging and dynamic content space."
     }
