@@ -5,7 +5,7 @@
     "subtitle": "An intimate gaming and IRL community that watches 2-4 hours every single day. Not just passive subscribers, but people who are actually in the room."
   },
   "mediaKitUrl": "https://drive.google.com/drive/folders/1XkHYG96NTo0N_kdaUEueyrek11fusalI?usp=sharing",
-  "pitch": "287 subscribers. 5.9% CTR, above platform average. 5-6 streams a week, loyal fan base, always growing and involving new viewers.",
+  "pitch": "451 subscribers. 5.9% CTR, above platform average. 5-6 streams a week, loyal fan base, always growing and involving new viewers.",
   "differentiator": {
     "title": "THE TRUST ADVANTAGE",
     "body": "8 years streaming, 13 years creating content. Putting my all into it, and results show up fast. A community that shows up for 15 hours of live content per week builds a parasocial bond that passive subscribers never develop. When I integrate your brand, it lands like a recommendation from a friend, not an ad they skip.",
@@ -40,9 +40,10 @@
       { "label": "Other", "value": 44.9 }
     ],
     "platforms": [
-      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "287", "url": "https://youtube.com/seriousreal" },
-      { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "161", "url": "https://twitch.tv/s_rious" },
-      { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "303", "url": "https://x.com/s7rious" }
+      { "name": "TikTok", "handle": "@s_rious", "metric": "Followers", "value": "1375", "url": "https://tiktok.com/@s_rious" },
+      { "name": "YouTube", "handle": "@s_rious", "metric": "Subscribers", "value": "451", "url": "https://youtube.com/seriousreal" },
+      { "name": "Twitch", "handle": "s_rious", "metric": "Followers", "value": "216", "url": "https://twitch.tv/s_rious" },
+      { "name": "X", "handle": "@s7rious", "metric": "Followers", "value": "307", "url": "https://x.com/s7rious" }
     ]
   },
   "packages": [
