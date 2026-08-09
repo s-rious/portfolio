@@ -1,6 +1,6 @@
 [
   {
-    "id": 120,
+    "id": 119,
     "title": "DISNEYLAND OOGIE BOOGIE BASH STREAM!",
     "category": "Stream",
     "date": "2026-08-23T15:45:00",
@@ -10,7 +10,7 @@
     "description": "ATTENDING DISNEYLANDS HALLOWEEN EVENT 'OOGIE BOOGIE BASH' LIVE ON STREAM!"
   },
   {
-    "id": 119,
+    "id": 118,
     "title": "MISIDE EDITED VIDEO P3",
     "category": "Video",
     "date": "2026-08-09T14:00:00",
@@ -18,17 +18,7 @@
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
     "description": "OUR PART 3 OF OUR EDITED MISIDE GAMEPLAY"
-  },
-  {
-    "id": 118,
-    "title": "TBD",
-    "category": "Video",
-    "date": "2026-08-07T14:00:00",
-    "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
-    "thumbnail": "",
-    "description": "TBD"
-  },
+  }
   {
     "id": 117,
     "title": "TRYING TO BEAT ELDEN RING...",
