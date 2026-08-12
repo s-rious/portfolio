@@ -1,5 +1,65 @@
 [
   {
+    "id": 125,
+    "title": "VIDEO TBD",
+    "category": "Video",
+    "date": "2026-08-16T12:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "Video TBD"
+  },
+  {
+    "id": 124,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-08-15T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME"
+  },
+  {
+    "id": 123,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-08-14T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME"
+  },
+  {
+    "id": 122,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-08-13T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME"
+  },
+  {
+    "id": 121,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-08-11T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME"
+  },
+  {
+    "id": 120,
+    "title": "TRYING TO BEAT ELDEN RING...",
+    "category": "Stream",
+    "date": "2026-08-10T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TRYING TO BEAT ELDEN RING FOR THE VERY FIRST TIME"
+  },
+  {
     "id": 119,
     "title": "DISNEYLAND OOGIE BOOGIE BASH STREAM!",
     "category": "Stream",
@@ -13,9 +73,9 @@
     "id": 118,
     "title": "MISIDE EDITED VIDEO P3",
     "category": "Video",
-    "date": "2026-08-09T15:00:00",
+    "date": "2026-08-11T21:15:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal",
+    "url": "https://youtu.be/2gIwLXDE91w",
     "thumbnail": "",
     "description": "OUR PART 3 OF OUR EDITED MISIDE GAMEPLAY"
   },
