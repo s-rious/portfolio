@@ -3,7 +3,7 @@
     "id": 125,
     "title": "MiSide P.4",
     "category": "Video",
-    "date": "2026-08-17T12:00:00",
+    "date": "2026-08-21T12:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
@@ -11,7 +11,57 @@
   },
   {
     "id": 124,
-    "title": "TRYING TO BEAT ELDEN RING...",
+    "title": "SHORT STREAM, ITCH HORROR GAMES",
+    "category": "Stream",
+    "date": "2026-08-22T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING SHORT ITCH GAMES BEFORE OUR DISNEY STREAM!"
+  },
+  {
+    "id": 124,
+    "title": "JOY OF CREATION, A FNAF FAN GAME",
+    "category": "Stream",
+    "date": "2026-08-21T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING THE HIGHLY RECOMMENDED FNAF FAN GAME 'JOY OF CREATION'."
+  },
+  {
+    "id": 124,
+    "title": "SHIFT AT MIDNIGHT P.2",
+    "category": "Stream",
+    "date": "2026-08-20T09:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "FINISHING SHIFT AT MIDNIGHT"
+  },
+  {
+    "id": 124,
+    "title": "SHIFT AT MIDNIGHT P.1",
+    "category": "Stream",
+    "date": "2026-08-18T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING SHIFT AT MIDNIGHT! A NEW AND TRENDING ANOMALY HORROR GAME!"
+  },
+  {
+    "id": 125,
+    "title": "NIGHT OF THE CONSUMERS + INDIE HORROR GAMES",
+    "category": "Stream",
+    "date": "2026-08-17T08:45:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "OUR RETURN TO HORROR GAMES!"
+  },
+  {
+    "id": 124,
+    "title": "ELDEN RING FINALE",
     "category": "Stream",
     "date": "2026-08-15T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
