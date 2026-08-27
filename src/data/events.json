@@ -1,9 +1,69 @@
 [
   {
+    "id": 136,
+    "title": "MiSide P.5",
+    "category": "Video",
+    "date": "2026-08-27T12:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal4",
+    "thumbnail": "",
+    "description": "The FINAL entry into our MiSide series!"
+  },
+  {
+    "id": 135,
+    "title": "",
+    "category": "Video",
+    "date": "2026-08-27T12:00:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal4",
+    "thumbnail": "",
+    "description": "The FINAL entry into our MiSide series!"
+  },
+  {
+    "id": 134,
+    "title": "TBD - SERIES",
+    "category": "Stream",
+    "date": "2026-08-31T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TBD"
+  },
+  {
+    "id": 133,
+    "title": "TBD - HORROR",
+    "category": "Stream",
+    "date": "2026-08-31T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TBD"
+  },
+  {
+    "id": 132,
+    "title": "TBD - COMEDY",
+    "category": "Stream",
+    "date": "2026-09-04T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TBD"
+  },
+  {
+    "id": 131,
+    "title": "TBD - HORROR",
+    "category": "Stream",
+    "date": "2026-09-03T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TBD"
+  },
+  {
     "id": 130,
     "title": "I.T. Never Ends PLAYTHROUGH",
     "category": "Stream",
-    "date": "2026-08-3109:15:00",
+    "date": "2026-09-01T09:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
@@ -15,7 +75,7 @@
     "category": "Video",
     "date": "2026-08-27T12:00:00",
     "platform": "YouTube",
-    "url": "https://www.youtube.com/seriousreal4",
+    "url": "https://www.youtube.com/watch?v=H0oBWWgnBB0",
     "thumbnail": "",
     "description": "The FINAL entry into our MiSide series!"
   },
@@ -45,7 +105,7 @@
     "category": "Stream",
     "date": "2026-08-27T09:15:00",
     "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=1dp8hNwXYVM",
     "thumbnail": "",
     "description": "A NEW, WACKY, COMEDIC HORROR GAME TITLED SKIN STAPLER!"
   },
