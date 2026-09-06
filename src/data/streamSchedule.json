@@ -1,4 +1,4 @@
 {
-  "typicalDays": ["Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"],
-  "noStream": ["Sunday"]
+  "typicalDays": ["Monday", "Tuesday","Thursday", "Friday"],
+  "noStream": ["Wednesday","Saturday","Sunday"]
 }
