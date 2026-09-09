@@ -1,6 +1,66 @@
 [
   {
-    "id": 130,
+    "id": 144,
+    "title": "THE WELL IS NOT EMPTY : Edited Video",
+    "category": "Video",
+    "date": "2026-09-14T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "OUR EDITED VERSION OF 'THE WELL IS NOT EMPTY', A NEW PSYCHOLOGICAL INDIE HORROR GAME!"
+  },
+  {
+    "id": 143,
+    "title": "Poppy Playtime Chapter 3 : Edited Video",
+    "category": "Video",
+    "date": "2026-09-12T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "OUR EDITED VERSION OF POPPY PLAYTIME CHAPTER 3! FEATURING A CUSTOM FILMED ARG-STYLE SKIT"
+  },
+  {
+    "id": 142,
+    "title": "TBD",
+    "category": "Stream",
+    "date": "2026-09-18T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TBD"
+  },
+  {
+    "id": 142,
+    "title": "GOD GAMER GAUNTLET featuring OTHER CREATORS",
+    "category": "Stream",
+    "date": "2026-09-16T13:00:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING NUMEROUS GAMING TITLES, IF WE LOSE ONE, WE RESET THE GAUNTLET!"
+  },
+  {
+    "id": 141,
+    "title": "RIVALS GONE WILD TOURNAMENT",
+    "category": "Stream",
+    "date": "2026-09-15T17:55:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING IN A 'RIVALS WON WILD' MARVAL RIVALS TOURNAMENT TO EARN MY TITLE AS THE GREATEST GAMER OF ALL TIME"
+  },
+  {
+    "id": 140,
+    "title": "TBD",
+    "category": "Stream",
+    "date": "2026-09-14T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TBD"
+  },
+  {
+    "id": 139,
     "title": "I TRIED BEATING LUCKY BLOCK MINECRAFT IN A MYSTERIOUS FOREST...",
     "category": "Stream",
     "date": "2026-09-11T09:15:00",
@@ -10,7 +70,7 @@
     "description": "PLAYING MINECRAFT WITH THE LUCKY BLOCK + TWIGHLIGHT FOREST MODS, TRYING TO BEAT ALL THE BOSSES!"
   },
   {
-    "id": 130,
+    "id": 138,
     "title": "The Well Is Not Empty PLAYTHROUGH",
     "category": "Stream",
     "date": "2026-09-08T11:00:00",
@@ -20,7 +80,7 @@
     "description": "A BRAND NEW HORROR GAME: The Well Is Not Empty"
   },
   {
-    "id": 130,
+    "id": 137,
     "title": "EXIT 8 PLAYTHROUGH",
     "category": "Stream",
     "date": "2026-09-07T20:00:00",
