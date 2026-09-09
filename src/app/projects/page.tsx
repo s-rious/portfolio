@@ -538,7 +538,7 @@ export default function Projects() {
                                                     </div>
                                                 )}
                                             </div>
-                                            <div className="text-xs text-gray-600 font-mono mb-1">{featuredEvent.category.toUpperCase()} · {featuredEvent.platform.toUpperCase()}</div>
+                                            <div className="text-xs text-gray-600 font-mono mb-1">{featuredEvent.categories.join(' + ').toUpperCase()} · {featuredEvent.platform.toUpperCase()}</div>
                                             <h2 className="text-3xl font-black mb-1" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>{featuredEvent.title}</h2>
                                             <div className="text-xs text-gray-600 font-mono">
                                                 {new Date(featuredEvent.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}

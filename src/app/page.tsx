@@ -152,7 +152,7 @@ export default function Home() {
             const now = new Date();
 
             const pastVideos = events
-                .filter(ev => ev.category === 'Video' && new Date(ev.date) <= now)
+                .filter(ev => (ev.categories ?? []).includes('Video') && new Date(ev.date) <= now)
                 .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
             if (pastVideos.length > 0) {
                 const v = pastVideos[0];
@@ -164,12 +164,12 @@ export default function Home() {
             }
 
             const upcomingStreams = events
-                .filter(ev => ev.category === 'Stream' && new Date(ev.date) > now)
+                .filter(ev => (ev.categories ?? []).includes('Stream') && new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setDerivedStream(upcomingStreams[0] ?? null);
 
             const upcomingProjects = events
-                .filter(ev => ev.category !== 'Stream' && new Date(ev.date) > now)
+                .filter(ev => !(ev.categories ?? []).includes('Stream') && new Date(ev.date) > now)
                 .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
             setDerivedProject(upcomingProjects[0] ?? null);
 
@@ -370,8 +370,8 @@ export default function Home() {
                                             {derivedProject?.description ?? 'Nothing scheduled yet — check back soon.'}
                                         </p>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.12em', color: CATEGORY_COLORS[derivedProject?.category] ?? 'var(--gray-500)', border: `1px solid ${CATEGORY_COLORS[derivedProject?.category] ?? 'var(--gray-700)'}`, padding: '3px 8px' }}>
-                                                {derivedProject?.category?.toUpperCase() ?? 'UPCOMING'}
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.12em', color: CATEGORY_COLORS[derivedProject?.categories?.[0]] ?? 'var(--gray-500)', border: `1px solid ${CATEGORY_COLORS[derivedProject?.categories?.[0]] ?? 'var(--gray-700)'}`, padding: '3px 8px' }}>
+                                                {derivedProject?.categories?.join(' + ').toUpperCase() ?? 'UPCOMING'}
                                             </span>
                                             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>
                                                 {derivedProject?.platform ?? ''}
@@ -457,7 +457,7 @@ export default function Home() {
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--gray-800)' }}>
                                 {upcomingEvents.map((event) => {
-                                    const accent = CATEGORY_COLORS[event.category] ?? 'var(--white)';
+                                    const accent = CATEGORY_COLORS[event.categories?.[0]] ?? 'var(--white)';
                                     const d = new Date(event.date);
                                     const time = event.date.includes('T') && !event.date.endsWith('T00:00:00')
                                         ? d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : null;
@@ -472,7 +472,11 @@ export default function Home() {
                                             </div>
                                             <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(0.9rem, 1.8vw, 1.2rem)', letterSpacing: '0.03em', color: 'var(--white)', lineHeight: 1.15 }}>{event.title}</p>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: 'auto' }}>
-                                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.12em', color: accent, border: `1px solid ${accent}`, padding: '2px 6px', alignSelf: 'flex-start' }}>{event.category.toUpperCase()}</span>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                                                    {(event.categories ?? []).map((cat: string) => (
+                                                        <span key={cat} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.12em', color: CATEGORY_COLORS[cat] ?? 'var(--white)', border: `1px solid ${CATEGORY_COLORS[cat] ?? 'var(--white)'}`, padding: '2px 6px' }}>{cat.toUpperCase()}</span>
+                                                    ))}
+                                                </div>
                                                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.52rem', letterSpacing: '0.1em', color: 'var(--gray-600)' }}>{event.platform?.toUpperCase()}{time ? ` — ${time}` : ''}</span>
                                             </div>
                                         </div>

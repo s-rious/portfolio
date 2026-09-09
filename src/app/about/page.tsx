@@ -18,7 +18,7 @@ function formatEventDate(dateStr: string) {
 const now = new Date();
 
 const latestVideo = [...eventsData]
-    .filter(e => e.category === 'Video' && new Date(e.date) <= now)
+    .filter(e => e.categories.includes('Video') && new Date(e.date) <= now)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0] ?? null;
 
 const nextEvent = [...eventsData]
@@ -220,7 +220,7 @@ export default function About() {
                                 {nextEvent ? (
                                     <>
                                         <div className="text-xs font-mono tracking-wider mb-2" style={{ color: '#00E5FF' }}>
-                                            {nextEvent.category.toUpperCase()} · {nextEvent.platform.toUpperCase()}
+                                            {nextEvent.categories.join(' + ').toUpperCase()} · {nextEvent.platform.toUpperCase()}
                                         </div>
                                         <h3
                                             className="text-3xl font-black mb-4 leading-tight"
