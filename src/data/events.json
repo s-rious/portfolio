@@ -1,8 +1,78 @@
 [
   {
-    "id": 130,
+    "id": 144,
+    "title": "THE WELL IS NOT EMPTY : Edited Video",
+    "categories": ["Video"],
+    "date": "2026-09-14T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "OUR EDITED VERSION OF 'THE WELL IS NOT EMPTY', A NEW PSYCHOLOGICAL INDIE HORROR GAME!"
+  },
+  {
+    "id": 143,
+    "title": "Poppy Playtime Chapter 3 : Edited Video",
+    "categories": ["Video"],
+    "date": "2026-09-12T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "OUR EDITED VERSION OF POPPY PLAYTIME CHAPTER 3! FEATURING A CUSTOM FILMED ARG-STYLE SKIT"
+  },
+  {
+    "id": 142,
+    "title": "Tournament of Champions : Gaming Tournament",
+    "categories": ["Stream"],
+    "date": "2026-09-19T11:00:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING FOR $$$ IN THE GAMERSFEUD: TOURNAMENT OF CHAMPIONS, GAMING TOURNAMENT! FEATURING NUMEROUS TOP GAMING TITLES!"
+  },
+  {
+    "id": 142,
+    "title": "I HAVE TO MASTER 5 GAMES BEFORE TOMORROW",
+    "categories": ["Stream"],
+    "date": "2026-09-18T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "I AM TRAINING TO PREPARE FOR THE GAMERSFUED TOURNAMENT TOMORROW! WILL I WIN...?"
+  },
+  {
+    "id": 142,
+    "title": "GOD GAMER GAUNTLET featuring OTHER CREATORS",
+    "categories": ["Stream"],
+    "date": "2026-09-16T13:00:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING NUMEROUS GAMING TITLES, IF WE LOSE ONE, WE RESET THE GAUNTLET!"
+  },
+  {
+    "id": 141,
+    "title": "RIVALS GONE WILD TOURNAMENT",
+    "categories": ["Stream"],
+    "date": "2026-09-15T17:55:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "PLAYING IN A 'RIVALS WON WILD' MARVEL RIVALS TOURNAMENT TO EARN MY TITLE AS THE GREATEST GAMER OF ALL TIME"
+  },
+  {
+    "id": 140,
+    "title": "I TRIED TO FIND A GAME WORTH BRINGING BACK",
+    "categories": ["Stream"],
+    "date": "2026-09-14T09:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal/live",
+    "thumbnail": "",
+    "description": "TRYING TO FIND DEAD GAMES THAT SHOULD BE BROUGHT BACK INTO THE SPOTLIGHT... WHAT HIDDEN GEM WILL WE FIND?"
+  },
+  {
+    "id": 139,
     "title": "I TRIED BEATING LUCKY BLOCK MINECRAFT IN A MYSTERIOUS FOREST...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-09-11T09:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -10,9 +80,9 @@
     "description": "PLAYING MINECRAFT WITH THE LUCKY BLOCK + TWIGHLIGHT FOREST MODS, TRYING TO BEAT ALL THE BOSSES!"
   },
   {
-    "id": 130,
+    "id": 138,
     "title": "The Well Is Not Empty PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-09-08T11:00:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -20,9 +90,9 @@
     "description": "A BRAND NEW HORROR GAME: The Well Is Not Empty"
   },
   {
-    "id": 130,
+    "id": 137,
     "title": "EXIT 8 PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-09-07T20:00:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -32,7 +102,7 @@
   {
     "id": 136,
     "title": "WE ACCIDENTALLY KILLED THE PERSON WE WERE STALKING",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-08-31T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=cJTXfvUpeiQ",
@@ -42,7 +112,7 @@
   {
     "id": 135,
     "title": "THE CUSTOMERS OF MY RETAIL JOB ARE FROM HELL...",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-08-28T15:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=VpKKZGLfGmU",
@@ -52,7 +122,7 @@
   {
     "id": 134,
     "title": "MOVIE TRIVIA ON GAMERS FEUD!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-09-05T12:30:00",
     "platform": "YouTube, Twitch",
     "url": "https://www.twitch.tv/gamersfeud",
@@ -62,7 +132,7 @@
   {
     "id": 130,
     "title": "I.T. Never Ends PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-09-01T09:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -72,7 +142,7 @@
   {
     "id": 129,
     "title": "MiSide P.5",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-08-26T18:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=H0oBWWgnBB0",
@@ -82,7 +152,7 @@
   {
     "id": 128,
     "title": "I Tried The Most Unhinged Fishing Game On Steam",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-29T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -92,7 +162,7 @@
   {
     "id": 127,
     "title": "TRYING 5 RANDOM INDIE HORROR GAMES...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-28T09:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -102,7 +172,7 @@
   {
     "id": 126,
     "title": "THE SKIN STAPLER - NEW HORROR GAME",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-27T09:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=1dp8hNwXYVM",
@@ -112,7 +182,7 @@
   {
     "id": 125,
     "title": "MiSide P.4",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-08-21T12:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=rmwi8TpreB4",
@@ -122,7 +192,7 @@
   {
     "id": 124,
     "title": "SHORT STREAM, ITCH HORROR GAMES",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-22T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -132,7 +202,7 @@
   {
     "id": 124,
     "title": "JOY OF CREATION, A FNAF FAN GAME",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-21T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -142,7 +212,7 @@
   {
     "id": 124,
     "title": "SHIFT AT MIDNIGHT P.2 + THE CHOICER VOICER",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-20T09:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -152,7 +222,7 @@
   {
     "id": 124,
     "title": "SHIFT AT MIDNIGHT P.1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-18T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -162,7 +232,7 @@
   {
     "id": 125,
     "title": "NIGHT OF THE CONSUMERS + INDIE HORROR GAMES",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-17T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -172,7 +242,7 @@
   {
     "id": 124,
     "title": "ELDEN RING FINALE",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-15T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -182,7 +252,7 @@
   {
     "id": 123,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-14T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -192,7 +262,7 @@
   {
     "id": 122,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-13T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -202,7 +272,7 @@
   {
     "id": 121,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-11T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -212,7 +282,7 @@
   {
     "id": 120,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-10T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -222,7 +292,7 @@
   {
     "id": 119,
     "title": "DISNEYLAND OOGIE BOOGIE BASH STREAM!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-23T15:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal",
@@ -232,7 +302,7 @@
   {
     "id": 118,
     "title": "MISIDE EDITED VIDEO P3",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-08-11T21:15:00",
     "platform": "YouTube",
     "url": "https://youtu.be/2gIwLXDE91w",
@@ -242,7 +312,7 @@
   {
     "id": 117,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-08T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -252,7 +322,7 @@
   {
     "id": 116,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-07T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -262,7 +332,7 @@
   {
     "id": 115,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-06T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -272,7 +342,7 @@
   {
     "id": 114,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-05T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -282,7 +352,7 @@
   {
     "id": 113,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-04T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -292,7 +362,7 @@
   {
     "id": 112,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-03T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -302,7 +372,7 @@
   {
     "id": 111,
     "title": "MISIDE EDITED VIDEO P2",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-07-31T14:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=i-pFLhUp_zI",
@@ -312,7 +382,7 @@
   {
     "id": 109,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-08-01T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal",
@@ -322,7 +392,7 @@
   {
     "id": 108,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-31T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal",
@@ -332,7 +402,7 @@
   {
     "id": 107,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-30T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal",
@@ -342,7 +412,7 @@
   {
     "id": 106,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-29T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal",
@@ -352,7 +422,7 @@
   {
     "id": 105,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-28T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal",
@@ -362,7 +432,7 @@
   {
     "id": 104,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-27T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=6wYsEwSOaxg",
@@ -372,7 +442,7 @@
   {
     "id": 103,
     "title": "NO I'M NOT A HUMAN",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-07-27T15:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=XlLxXoqXo-8",
@@ -382,7 +452,7 @@
   {
     "id": 102,
     "title": "MISIDE EDITED VIDEO P1",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-07-23T17:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=2ZXJEyj3Nlk",
@@ -392,7 +462,7 @@
   {
     "id": 101,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-25T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=HfWqiwzF1YI",
@@ -402,7 +472,7 @@
   {
     "id": 100,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-24T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=B7zPxo9JqTc",
@@ -412,7 +482,7 @@
   {
     "id": 99,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-23T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=TXwqxlcClbc",
@@ -422,7 +492,7 @@
   {
     "id": 98,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-22T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=w9qgjrqvEwI",
@@ -432,7 +502,7 @@
   {
     "id": 97,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-21T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=UEUzf13vpzo",
@@ -442,7 +512,7 @@
   {
     "id": 96,
     "title": "TRYING TO BEAT ELDEN RING...",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-20T08:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=Qv5-vAtIaj8",
@@ -452,7 +522,7 @@
   {
     "id": 95,
     "title": "NO, I'M NOT A HUMAN PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-15T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=cbjs_3yxCRo",
@@ -462,7 +532,7 @@
   {
     "id": 94,
     "title": "HOLLOW KNIGHT P.6",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-15T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=LQsLNAlUxhs",
@@ -472,7 +542,7 @@
   {
     "id": 93,
     "title": "HOLLOW KNIGHT P.5",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-14T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=oRsPaDRsGVA",
@@ -482,7 +552,7 @@
   {
     "id": 92,
     "title": "HOLLOW KNIGHT P.4",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-13T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=iwuy5GtS4ec",
@@ -492,7 +562,7 @@
   {
     "id": 91,
     "title": "HOLLOW KNIGHT P.3",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-12T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=o1XM3QMgv0o",
@@ -502,7 +572,7 @@
   {
     "id": 90,
     "title": "HOLLOW KNIGHT P.2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-11T07:45:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=IgRm6I3_UB0",
@@ -512,7 +582,7 @@
   {
     "id": 89,
     "title": "IRL IN LA",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-10T11:00:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=e-nss23-mng&t=6900s",
@@ -522,7 +592,7 @@
   {
     "id": 88,
     "title": "HOLLOW KNIGHT P.1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-09T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=Ss0WNJNgwck",
@@ -532,7 +602,7 @@
   {
     "id": 87,
     "title": "CUPHEAD DLC PLAYTHROUGH P.2 + PLANNING",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-08T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=lvFRctLENm4",
@@ -542,7 +612,7 @@
   {
     "id": 86,
     "title": "CUPHEAD DLC PLAYTHROUGH P.1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-07T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=qpX470XfKBo",
@@ -552,7 +622,7 @@
   {
     "id": 85,
     "title": "CUPHEAD PLAYTHROUGH P.5",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-06T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=ezULD5J2G5k",
@@ -562,7 +632,7 @@
   {
     "id": 84,
     "title": "CUPHEAD PLAYTHROUGH P.4",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-04T10:30:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=YUwnSJVoiKI",
@@ -572,7 +642,7 @@
   {
     "id": 82,
     "title": "CUPHEAD PLAYTHROUGH P.3",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-03T10:30:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=Hp6RtsTpAL8&t=2340s",
@@ -582,7 +652,7 @@
   {
     "id": 81,
     "title": "CUPHEAD PLAYTHROUGH P.2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-02T10:30:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=IZtaVPnqnFc",
@@ -592,7 +662,7 @@
   {
     "id": 80,
     "title": "CUPHEAD PLAYTHROUGH P.1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-07-01T10:30:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/watch?v=ImZqWC7iat0",
@@ -602,7 +672,7 @@
   {
     "id": 79,
     "title": "MOUTHWASHING EDITED VIDEO",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-06-30T19:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=Zn87qg8cgSM",
@@ -612,7 +682,7 @@
   {
     "id": 78,
     "title": "MORE RAGE GAMES + HORROR",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-30T15:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=7owyLXcAX2g&t=7085s",
@@ -622,7 +692,7 @@
   {
     "id": 77,
     "title": "IRL CAR SHOW + COFFEE STREAM",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-28T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=zX43iQD_t0E",
@@ -632,7 +702,7 @@
   {
     "id": 76,
     "title": "IRL MOVING STREAM",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-27T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=tZMYUVv-GY0&t=7533s",
@@ -642,7 +712,7 @@
   {
     "id": 75,
     "title": "IRL CLEANING STREAM",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-26T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=jEr92XTGkPs&t=4635s",
@@ -652,7 +722,7 @@
   {
     "id": 74,
     "title": "SHORT RAGE GAME STREAM",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-25T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=CrDbxn8pfRc",
@@ -662,7 +732,7 @@
   {
     "id": 73,
     "title": "MECCHA CHAMELEON WITH BUDDIES",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-24T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=YHwJZH1DvV8",
@@ -672,7 +742,7 @@
   {
     "id": 72,
     "title": "EXPLORING THE 'BEST BACKROOMS GAME EVER'",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-23T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=YHwJZH1DvV8",
@@ -682,7 +752,7 @@
   {
     "id": 71,
     "title": "STANLEY PARABLE OG PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-22T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=0nVumLZQKwg",
@@ -692,7 +762,7 @@
   {
     "id": 70,
     "title": "Kinito Pet Playthrough Edited",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-06-23T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
@@ -702,7 +772,7 @@
   {
     "id": 69,
     "title": "CHILL DAY, FORTNITE, RANTING, REACTS",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-20T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=Xx33Ca-lvS0",
@@ -712,7 +782,7 @@
   {
     "id": 68,
     "title": "Inside Playthrough",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-19T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=pedBk3h9SKQ",
@@ -722,7 +792,7 @@
   {
     "id": 67,
     "title": "INDIE GAME: MOUTHWASHING",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-18T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=7HVSlGk3XIE",
@@ -732,7 +802,7 @@
   {
     "id": 66,
     "title": "Amanda The Adventurer 1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-17T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=ES_dhqk6oBM",
@@ -742,7 +812,7 @@
   {
     "id": 65,
     "title": "WOLF AMONG US 2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-16T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=QZY83LN7XGE",
@@ -752,7 +822,7 @@
   {
     "id": 64,
     "title": "BACK HOME FROM LA | WOLF AMONG US",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-15T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=6ryL9nkG-f0",
@@ -762,7 +832,7 @@
   {
     "id": 63,
     "title": "BEACH TRIPS, DRIVING, FOOD REVIEWS",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-12T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=aJOFM0qb524",
@@ -772,7 +842,7 @@
   {
     "id": 62,
     "title": "LIVE @ DISNEYLAND!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-11T11:00:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=3aywNc-qimc",
@@ -782,7 +852,7 @@
   {
     "id": 61,
     "title": "FNAF FAN GAME + EXTRAS",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-10T13:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=D5KB_BiB700",
@@ -792,7 +862,7 @@
   {
     "id": 60,
     "title": "MiSide P.2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-09T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=xi96WKGWmuo",
@@ -802,7 +872,7 @@
   {
     "id": 59,
     "title": "MiSide P.1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-08T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=uj2hCYOLzhs",
@@ -812,7 +882,7 @@
   {
     "id": 57,
     "title": "The Cost of Becoming CaseOh | Reaction",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-06-04T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=J1eMHWmydLo",
@@ -822,7 +892,7 @@
   {
     "id": 56,
     "title": "SERIOUS TALKS - REPO, CONTENT WARNING, LETHAL COMPANY WITH VIEWERS!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-06T13:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=nptw_17vu8Y",
@@ -832,7 +902,7 @@
   {
     "id": 55,
     "title": "Dark Deception PT 2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-05T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=abIBsiw2UOs",
@@ -842,7 +912,7 @@
   {
     "id": 54,
     "title": "DARK DECEPTION PT 1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-04T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=NEkb5kRtQko",
@@ -852,7 +922,7 @@
   {
     "id": 54,
     "title": "DOKI DOKI LITERATURE CLUB P2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-03T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=svLY6_-dUEM",
@@ -862,7 +932,7 @@
   {
     "id": 53,
     "title": "DOKI DOKI LITERATURE CLUB P1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-02T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=FW_ZmVaemTg",
@@ -872,7 +942,7 @@
   {
     "id": 52,
     "title": "BENDY AND THE DARK REVIVAL: PART 2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-01T16:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=BfPpDe640sA",
@@ -882,7 +952,7 @@
   {
     "id": 51,
     "title": "LOS ANGELES IRL STREAM",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-06-11T11:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
@@ -892,7 +962,7 @@
   {
     "id": 50,
     "title": "INDIGO PARK EDITED",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-05-31T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=B8lDhrh2yEk",
@@ -902,7 +972,7 @@
   {
     "id": 49,
     "title": "POPPY PLAYTIME CHAPTER 2 PART 2",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-05-28T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=MxP58C3fSO0",
@@ -912,7 +982,7 @@
   {
     "id": 48,
     "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-30T13:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=r9CkM9F4DxU",
@@ -922,7 +992,7 @@
   {
     "id": 47,
     "title": "KINITOPET FULL PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-29T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=jPtieVl0xo4",
@@ -932,7 +1002,7 @@
   {
     "id": 46,
     "title": "MINECRAFT HORROR MOD - UNTITLED.LOG",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-28T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=XsQRYvBw9D4",
@@ -942,7 +1012,7 @@
   {
     "id": 45,
     "title": "BENDY AND THE DARK REVIVAL",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-27T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=wiTlAghD6Dg",
@@ -952,7 +1022,7 @@
   {
     "id": 44,
     "title": "BENDY AND THE INK MACHINE - FINALE",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-26T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=RtEqHxgLH7U",
@@ -962,7 +1032,7 @@
   {
     "id": 43,
     "title": "HELLO NEIGHBOR 1 - FINALE",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-25T14:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=fWTlnv5coC4",
@@ -972,7 +1042,7 @@
   {
     "id": 42,
     "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-23T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=QCULA7mWbyw",
@@ -982,7 +1052,7 @@
   {
     "id": 41,
     "title": "BENDY AND THE INK MACHINE",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-22T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=C1rnUCXuJag",
@@ -992,7 +1062,7 @@
   {
     "id": 40,
     "title": "BEATING BALDI'S BASICS",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-21T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=-uv3gtPzHho",
@@ -1002,7 +1072,7 @@
   {
     "id": 39,
     "title": "HELLO NEIGHBOR 1 ACT 3",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-20T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=9nL9iGZHE98",
@@ -1012,7 +1082,7 @@
   {
     "id": 38,
     "title": "CHAINED TOGETHER w/ TREVOR",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-19T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=rxlpjnSqiRc",
@@ -1022,7 +1092,7 @@
   {
     "id": 37,
     "title": "HELLO NEIGHBOR 1 - ACT 1 & 2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-18T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=9w6HGr5krMM",
@@ -1032,7 +1102,7 @@
   {
     "id": 36,
     "title": "SERIOUS TALKS - CHILL DAY, PLAYING CASUAL GAMES",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-17T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=DCR0AkmInQE",
@@ -1042,7 +1112,7 @@
   {
     "id": 35,
     "title": "DARK PALS: THE 1ST FLOOR PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-15T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=O9mB3lSSpUw",
@@ -1052,7 +1122,7 @@
   {
     "id": 34,
     "title": "5 INDIE HORROR GAME PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-14T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=4vxyzMabeOg",
@@ -1062,7 +1132,7 @@
   {
     "id": 33,
     "title": "BALDIS BASICS CLASSIC PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-12T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=gtyTrKmb7Z8",
@@ -1072,7 +1142,7 @@
   {
     "id": 32,
     "title": "HELLO NEIGHBOR ALPHA PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-11T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=H9KVzTG_6x8",
@@ -1082,7 +1152,7 @@
   {
     "id": 31,
     "title": "STREAM CANCELLED",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-10T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/seriousreal/live",
@@ -1092,7 +1162,7 @@
   {
     "id": 30,
     "title": "INDIGO PARK: CHAPTER 1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-08T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=zmG6Qa8vOkw",
@@ -1102,7 +1172,7 @@
   {
     "id": 29,
     "title": "Garten of BanBan 8 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-07T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=A_8tnwQO_VU",
@@ -1112,7 +1182,7 @@
   {
     "id": 28,
     "title": "Poppy Playtime Chapter 2 Playthrough",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-05-24T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=mRpXCYZ2dK0",
@@ -1122,7 +1192,7 @@
   {
     "id": 27,
     "title": "Garten of BanBan 0 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-05T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=8D3H7MlxUzg",
@@ -1132,7 +1202,7 @@
   {
     "id": 26,
     "title": "Garten of BanBan 7 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-04T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=ver8rUSJtow",
@@ -1142,7 +1212,7 @@
   {
     "id": 25,
     "title": "Poppy Playtime Chapter 1",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-05-04T12:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=T0B1IdggPH0",
@@ -1152,7 +1222,7 @@
   {
     "id": 24,
     "title": "Garten of BanBan 6 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-02T12:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=7NCrJI61IkA",
@@ -1162,7 +1232,7 @@
   {
     "id": 23,
     "title": "Garten of BanBan 4 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-05-01T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=SaJ58EF1Jrw",
@@ -1172,7 +1242,7 @@
   {
     "id": 22,
     "title": "Garten of BanBan 3 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-30T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=KAZOz3xnIzY",
@@ -1182,7 +1252,7 @@
   {
     "id": 21,
     "title": "Garten of BanBan 2 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-28T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=Lci-Svv5lhE",
@@ -1192,7 +1262,7 @@
   {
     "id": 20,
     "title": "Garten of BanBan 1 Playthrough!",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-27T16:45:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=9NhPcgUXKlE",
@@ -1202,7 +1272,7 @@
   {
     "id": 19,
     "title": "Minecraft Hardcore Till I Beat It",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-25T17:30:00",
     "platform": "YouTube  & Twitch",
     "url": "https://www.youtube.com/watch?v=HnwSdO4GMKQ",
@@ -1212,7 +1282,7 @@
   {
     "id": 18,
     "title": "POPPY PLAYTIME CHAPTER 5 PLAYTHROUGH Part 2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-24T17:30:00",
     "platform": "YouTube  & Twitch",
     "url": "https://www.youtube.com/watch?v=qnOgwQc76Dk",
@@ -1222,7 +1292,7 @@
   {
     "id": 17,
     "title": "POPPY PLAYTIME CHAPTER 5 PLAYTHROUGH Part 1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-23T17:30:00",
     "platform": "YouTube  & Twitch",
     "url": "https://www.youtube.com/watch?v=RGR_eRuDp6Q&t=2150s",
@@ -1232,7 +1302,7 @@
   {
     "id": 16,
     "title": "LETTING STRANGERS DECIDE MY DAY | Exploring a New City",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-04-23T09:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=1jsvCuPoh_s",
@@ -1242,7 +1312,7 @@
   {
     "id": 15,
     "title": "STREAM GOALS AND WHAT IT MEANS TO ME TO BE A CREATOR",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-21T09:00:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=nHDNfSkanvA",
@@ -1252,7 +1322,7 @@
   {
     "id": 14,
     "title": "FNAF 1 - First Gaming Video",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-04-19T14:00:00",
     "platform": "YouTube",
     "url": "https://youtu.be/cgjfedQNveQ",
@@ -1262,7 +1332,7 @@
   {
     "id": 13,
     "title": "SHORT ROBLOX HORROR GAMES PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-18T13:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=vIYPtTgt1xo",
@@ -1272,7 +1342,7 @@
   {
     "id": 12,
     "title": "POPPY PLAYTIME CHAPTER 4 PLAYTHROUGH",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-17T18:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=c5Xc1CR_97o",
@@ -1282,7 +1352,7 @@
   {
     "id": 11,
     "title": "EX-SEMI PRO VALORANT PLAYER RETURNS",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-14T17:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=Tlpyuc7BbYY",
@@ -1292,7 +1362,7 @@
   {
     "id": 10,
     "title": "FIVE NIGHTS AT FREDDYS 2 & 3 GAMEPLAY",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-12T16:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=ryAKy1IJ3jE",
@@ -1302,7 +1372,7 @@
   {
     "id": 9,
     "title": "COLLAB CANCELLED",
-    "category": "Collab",
+    "categories": ["Collab"],
     "date": "2026-05-20T00:00:00",
     "platform": "YouTube",
     "url": "https://youtube.com/seriousreal",
@@ -1312,7 +1382,7 @@
   {
     "id": 8,
     "title": "POPPY PLAYTIME CHAPTER 3",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-11T18:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=ScBMDShrT1o",
@@ -1322,7 +1392,7 @@
   {
     "id": 7,
     "title": "POPPY PLAYTIME CHAPTER 2",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-09T18:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=AEjLM86CQko",
@@ -1332,7 +1402,7 @@
   {
     "id": 6,
     "title": "FNAF 1 & POPPY PLAYTIME CHAPTER 1",
-    "category": "Stream",
+    "categories": ["Stream"],
     "date": "2026-04-08T18:30:00",
     "platform": "YouTube & Twitch",
     "url": "https://www.youtube.com/watch?v=SQO-9NgI1V0",
@@ -1342,7 +1412,7 @@
   {
     "id": 5,
     "title": "SOLO HIKING FOR THE FIRST TIME",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-03-30T00:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=2Kxp6lYeIiw",
@@ -1352,7 +1422,7 @@
   {
     "id": 4,
     "title": "Romanticizing A Vacation To Los Angeles",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-03-20T00:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=7s-NN2jEx0I",
@@ -1362,7 +1432,7 @@
   {
     "id": 3,
     "title": "Filming My Mundane Week | Gym, Home, and Work Life",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-03-07T00:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=4aibBnE2sis",
@@ -1372,7 +1442,7 @@
   {
     "id": 2,
     "title": "What's Changed In My Life One Year Later...",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-03-02T00:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=mfLJNyU7SxU",
@@ -1382,7 +1452,7 @@
   {
     "id": 1,
     "title": "MOVING 400 MILES AWAY FROM EVERYTHING",
-    "category": "Video",
+    "categories": ["Video"],
     "date": "2026-02-15T00:00:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/watch?v=YYt2WTFkwYM",

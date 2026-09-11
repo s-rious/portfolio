@@ -6,7 +6,8 @@ import eventsData from '@/data/events.json';
 // ============================================================================
 // Tuned to your events.json:
 //   - Flat array at the top level (no nesting key)
-//   - category: "Stream" (capitalized) flags streams
+//   - categories: ["Stream"] (capitalized, array — an event can carry more
+//     than one tag, e.g. ["Collab", "Stream"]) flags streams
 //   - date field holds full datetime, e.g. "2026-06-14T12:30:00"
 //   - No per-event duration → 3hr default
 //   - Titles/descriptions containing "CANCELLED" are skipped
@@ -29,6 +30,7 @@ interface EventLike {
     title?: string;
     description?: string;
     date?: string;
+    categories?: string[];
     category?: string;
     type?: string;
     durationHours?: number;
@@ -53,8 +55,9 @@ function parseEventStart(event: EventLike): Date | null {
 }
 
 function isStreamEvent(event: EventLike): boolean {
-    const cat = (event.category || event.type || '').toLowerCase();
-    return STREAM_CATEGORIES.some((c) => cat.includes(c));
+    const tags = (event.categories?.length ? event.categories : [event.category || event.type || ''])
+        .map((t) => (t || '').toLowerCase());
+    return tags.some((tag) => STREAM_CATEGORIES.some((c) => tag.includes(c)));
 }
 
 function isCancelled(event: EventLike): boolean {
