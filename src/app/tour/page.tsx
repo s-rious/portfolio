@@ -729,7 +729,7 @@ export default function Tour() {
                     </div>
                 )}
 
-                {/* ── PAST EVENTS ── */}
+                {/* ── PAST EVENT ── */}
                 {past.length > 0 && (
                     <div style={{ marginTop: '5rem', borderTop: '1px solid var(--gray-800)', paddingTop: '2rem' }}>
                         <button
