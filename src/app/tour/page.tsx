@@ -200,10 +200,11 @@ function eventTimeStr(event: Event): string | null {
         : null;
 }
 
-function ScheduleSlot({ slot, isToday }: { slot: DaySlot; isToday: boolean }) {
+function ScheduleSlot({ slot, isToday, isSelected, onSelectDay }: { slot: DaySlot; isToday: boolean; isSelected: boolean; onSelectDay: (key: string) => void }) {
     const { date, state, events: dayEvents, pastEvent } = slot;
     const dayShort = DAY_SHORT[date.getDay()];
     const dayNum   = date.getDate();
+    const dateKey  = toDateKey(date);
 
     const borderColor = isToday ? 'var(--white)' : 'var(--gray-800)';
 
@@ -273,66 +274,134 @@ function ScheduleSlot({ slot, isToday }: { slot: DaySlot; isToday: boolean }) {
         );
     }
 
-    // Scheduled past — every event this day has already happened
+    // Scheduled, MULTIPLE events this day — compact cluster, never grows the
+    // row. Tap it to see the actual events in the panel below the grid.
+    if (dayEvents.length > 1) {
+        const uniqueCats = Array.from(new Set(dayEvents.flatMap(ev => ev.categories)));
+        const idleBg = pastEvent ? 'transparent' : (isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)');
+        return (
+            <button
+                onClick={() => onSelectDay(dateKey)}
+                style={{
+                    border: `1px solid ${isSelected ? 'var(--red)' : (isToday ? 'var(--red)' : 'var(--gray-800)')}`,
+                    padding: '1.25rem 1rem',
+                    display: 'flex', flexDirection: 'column', gap: '0.6rem',
+                    minHeight: '130px',
+                    background: isSelected ? 'rgba(232,0,29,0.08)' : idleBg,
+                    opacity: pastEvent && !isSelected ? 0.55 : 1,
+                    textAlign: 'left', font: 'inherit', color: 'inherit', cursor: 'pointer',
+                    transition: 'background 0.15s',
+                }}
+                onMouseEnter={e => { if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.045)'; }}
+                onMouseLeave={e => { if (!isSelected) e.currentTarget.style.background = idleBg; }}
+            >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-400)' }}>
+                        {dayShort}{isToday && <span style={{ marginLeft: '6px', color: 'var(--red)' }}>●</span>}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--white)', lineHeight: 1 }}>{dayNum}</span>
+                </div>
+                <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.95rem', letterSpacing: '0.02em', color: 'var(--white)' }}>
+                        {dayEvents.length} EVENTS
+                    </span>
+                    <TagBadges categories={uniqueCats} dim={pastEvent} />
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.46rem', letterSpacing: '0.1em', color: isSelected ? 'var(--red)' : 'var(--gray-600)' }}>
+                        {isSelected ? 'VIEWING BELOW ↓' : 'TAP TO VIEW ↓'}
+                    </span>
+                </div>
+            </button>
+        );
+    }
+
+    // Scheduled, single event — direct link, exactly as compact as before
+    const ev = dayEvents[0];
+    const timeStr = eventTimeStr(ev);
+
     if (pastEvent) {
         return (
-            <div style={{
-                border: '1px solid var(--gray-800)',
-                padding: '1.25rem 1rem',
-                display: 'flex', flexDirection: 'column', gap: '0.6rem',
-                minHeight: '130px', background: 'transparent', opacity: 0.5,
-            }}>
+            <a
+                href={ev.url || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                    border: '1px solid var(--gray-800)',
+                    padding: '1.25rem 1rem',
+                    display: 'flex', flexDirection: 'column', gap: '0.6rem',
+                    minHeight: '130px', background: 'transparent',
+                    textDecoration: 'none', color: 'inherit', opacity: 0.5, cursor: 'pointer',
+                }}
+            >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-600)' }}>{dayShort}</span>
                     <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--gray-600)', lineHeight: 1 }}>{dayNum}</span>
                 </div>
-                <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                    {dayEvents.map((ev, idx) => {
-                        const timeStr = eventTimeStr(ev);
-                        return (
-                            <a
-                                key={`${ev.id}-${idx}`}
-                                href={ev.url || '#'}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: 'flex', flexDirection: 'column', gap: '0.35rem',
-                                    textDecoration: 'none', color: 'inherit', cursor: 'pointer',
-                                    paddingTop: idx > 0 ? '0.5rem' : 0,
-                                    borderTop: idx > 0 ? '1px solid var(--gray-800)' : 'none',
-                                }}
-                            >
-                                <TagBadges categories={ev.categories} dim />
-                                <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.02em', color: 'var(--gray-600)', lineHeight: 1.15, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any }}>
-                                    {ev.title}
-                                </p>
-                                {timeStr && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-700)' }}>{timeStr}</p>}
-                            </a>
-                        );
-                    })}
+                <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    <TagBadges categories={ev.categories} dim />
+                    <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.02em', color: 'var(--gray-600)', lineHeight: 1.15, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any }}>
+                        {ev.title}
+                    </p>
+                    {timeStr && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-700)' }}>{timeStr}</p>}
                 </div>
-            </div>
+            </a>
         );
     }
 
-    // Scheduled upcoming — at least one event this day hasn't happened yet
     return (
-        <div style={{
-            border: `1px solid ${isToday ? 'var(--red)' : 'var(--gray-800)'}`,
-            padding: '1.25rem 1rem',
-            display: 'flex', flexDirection: 'column', gap: '0.6rem',
-            minHeight: '130px',
-            background: isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)',
-        }}>
+        <a
+            href={ev.url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+                border: `1px solid ${isToday ? 'var(--red)' : 'var(--gray-800)'}`,
+                padding: '1.25rem 1rem',
+                display: 'flex', flexDirection: 'column', gap: '0.6rem',
+                minHeight: '130px',
+                background: isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)',
+                textDecoration: 'none', color: 'inherit',
+                transition: 'border-color 0.2s, background 0.2s', cursor: 'pointer',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.background = 'rgba(232,0,29,0.06)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = isToday ? 'var(--red)' : 'var(--gray-800)'; e.currentTarget.style.background = isToday ? 'rgba(232,0,29,0.04)' : 'var(--gray-900)'; }}
+        >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: 'var(--gray-400)' }}>
                     {dayShort}{isToday && <span style={{ marginLeft: '6px', color: 'var(--red)' }}>●</span>}
                 </span>
                 <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: 'var(--white)', lineHeight: 1 }}>{dayNum}</span>
             </div>
-            <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                {dayEvents.map((ev, idx) => {
-                    const evPast = new Date(ev.date) < new Date();
+            <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                <TagBadges categories={ev.categories} />
+                <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.02em', color: 'var(--white)', lineHeight: 1.15, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any }}>
+                    {ev.title}
+                </p>
+                {timeStr && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>{timeStr}</p>}
+            </div>
+        </a>
+    );
+}
+
+// ─── SELECTED DAY DETAIL PANEL ─────────────────────────────────────────────────
+// Sits directly under the grid. This is where multi-event days get to
+// actually expand — the grid row itself never does.
+
+function DayDetailPanel({ slot, onClose }: { slot: DaySlot; onClose: () => void }) {
+    return (
+        <div style={{ border: '1px solid var(--gray-800)', borderTop: 'none', padding: '1.5rem', background: 'var(--gray-900)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                <Label>{slot.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} — {slot.events.length} events</Label>
+                <button
+                    onClick={onClose}
+                    style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.12em', color: 'var(--gray-600)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--white)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--gray-600)')}
+                >
+                    CLOSE ✕
+                </button>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {slot.events.map((ev, idx) => {
+                    const evPast  = new Date(ev.date) < new Date();
                     const timeStr = eventTimeStr(ev);
                     return (
                         <a
@@ -341,21 +410,24 @@ function ScheduleSlot({ slot, isToday }: { slot: DaySlot; isToday: boolean }) {
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                                display: 'flex', flexDirection: 'column', gap: '0.35rem',
-                                textDecoration: 'none', color: 'inherit', cursor: 'pointer',
-                                paddingTop: idx > 0 ? '0.5rem' : 0,
+                                display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap',
+                                gap: '0.75rem 1.5rem', padding: '0.85rem 0',
                                 borderTop: idx > 0 ? '1px solid var(--gray-800)' : 'none',
-                                opacity: evPast ? 0.5 : 1,
-                                transition: 'background 0.15s',
+                                textDecoration: 'none', color: 'inherit',
                             }}
-                            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.035)')}
-                            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                         >
-                            <TagBadges categories={ev.categories} dim={evPast} />
-                            <p style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '0.02em', color: evPast ? 'var(--gray-500)' : 'var(--white)', lineHeight: 1.15, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any }}>
-                                {ev.title}
-                            </p>
-                            {timeStr && <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.5rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>{timeStr}</p>}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                                <TagBadges categories={ev.categories} dim={evPast} />
+                                <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', letterSpacing: '0.02em', color: evPast ? 'var(--gray-500)' : 'var(--white)' }}>
+                                    {ev.title}
+                                </span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                                {timeStr && <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.1em', color: 'var(--gray-500)' }}>{timeStr}</span>}
+                                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.55rem', letterSpacing: '0.14em', color: evPast ? 'var(--gray-700)' : 'var(--red)' }}>
+                                    {evPast ? 'WATCH ↗' : 'DETAILS ↗'}
+                                </span>
+                            </div>
                         </a>
                     );
                 })}
@@ -456,6 +528,7 @@ export default function Tour() {
     const [activeFilters, setActiveFilters] = useState<string[]>([]);
     const [pastOpen, setPastOpen]           = useState(false);
     const [weekOffset, setWeekOffset]       = useState(0);
+    const [selectedDayKey, setSelectedDayKey] = useState<string | null>(null);
 
     const toggleFilter = (cat: string) => {
         setActiveFilters(prev =>
@@ -478,6 +551,20 @@ export default function Tour() {
     }, [weekOffset]);
 
     const todayKey = toDateKey(now);
+
+    const selectedSlot = useMemo(
+        () => weekSlots.find(s => toDateKey(s.date) === selectedDayKey) ?? null,
+        [weekSlots, selectedDayKey]
+    );
+
+    const handleWeekChange = (updater: (w: number) => number) => {
+        setWeekOffset(updater);
+        setSelectedDayKey(null);
+    };
+
+    const handleSelectDay = (key: string) => {
+        setSelectedDayKey(prev => (prev === key ? null : key));
+    };
 
     // ── Date-based filtering (no status field) ──
     const upcoming = useMemo(() =>
@@ -532,7 +619,7 @@ export default function Tour() {
                         {/* Week nav */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
                             <button
-                                onClick={() => setWeekOffset(w => Math.max(0, w - 1))}
+                                onClick={() => handleWeekChange(w => Math.max(0, w - 1))}
                                 disabled={weekOffset === 0}
                                 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', padding: '0.55rem 1rem', border: '1px solid var(--gray-700)', borderRight: 'none', background: 'transparent', color: weekOffset === 0 ? 'var(--gray-800)' : 'var(--gray-400)', cursor: weekOffset === 0 ? 'not-allowed' : 'pointer', transition: 'color 0.15s' }}
                                 onMouseEnter={e => weekOffset > 0 && (e.currentTarget.style.color = 'var(--white)')}
@@ -542,7 +629,7 @@ export default function Tour() {
                                 {weekLabel}
                             </div>
                             <button
-                                onClick={() => setWeekOffset(w => Math.min(3, w + 1))}
+                                onClick={() => handleWeekChange(w => Math.min(3, w + 1))}
                                 disabled={weekOffset === 3}
                                 style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', letterSpacing: '0.1em', padding: '0.55rem 1rem', border: '1px solid var(--gray-700)', borderLeft: 'none', background: 'transparent', color: weekOffset === 3 ? 'var(--gray-800)' : 'var(--gray-400)', cursor: weekOffset === 3 ? 'not-allowed' : 'pointer', transition: 'color 0.15s' }}
                                 onMouseEnter={e => weekOffset < 3 && (e.currentTarget.style.color = 'var(--white)')}
@@ -551,15 +638,31 @@ export default function Tour() {
                         </div>
                     </div>
 
-                    {/* 7-day grid */}
+                    {/* 7-day grid — fixed height, never expands. Multi-event
+                        days are a tappable cluster; details land below. */}
                     <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' as any, marginLeft: '-6vw', marginRight: '-6vw', paddingLeft: '6vw', paddingRight: '6vw' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(120px, 1fr))', gap: '1px', background: 'var(--gray-800)', minWidth: '700px' }}>
                             {weekSlots.map((slot, i) => {
                                 const isToday = weekOffset === 0 && toDateKey(slot.date) === todayKey;
-                                return <ScheduleSlot key={i} slot={slot} isToday={isToday} />;
+                                const dateKey = toDateKey(slot.date);
+                                return (
+                                    <ScheduleSlot
+                                        key={i}
+                                        slot={slot}
+                                        isToday={isToday}
+                                        isSelected={selectedDayKey === dateKey}
+                                        onSelectDay={handleSelectDay}
+                                    />
+                                );
                             })}
                         </div>
                     </div>
+
+                    {/* Detail panel — full width, wraps normally, grows freely.
+                        This is the ONLY thing that expands; the grid above never does. */}
+                    {selectedSlot && selectedSlot.events.length > 1 && (
+                        <DayDetailPanel slot={selectedSlot} onClose={() => setSelectedDayKey(null)} />
+                    )}
 
                     {/* Legend */}
                     <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1.25rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -626,7 +729,7 @@ export default function Tour() {
                     </div>
                 )}
 
-                {/* ── PAST EVENTS ── */}
+                {/* ── PAST EVENT ── */}
                 {past.length > 0 && (
                     <div style={{ marginTop: '5rem', borderTop: '1px solid var(--gray-800)', paddingTop: '2rem' }}>
                         <button
