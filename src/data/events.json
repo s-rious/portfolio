@@ -1,16 +1,16 @@
 [
   {
-    "id": 144,
+    "id": 145,
     "title": "THE WELL IS NOT EMPTY : Edited Video",
     "categories": ["Video"],
-    "date": "2026-09-18T12:30:00",
+    "date": "2026-09-20T12:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
     "description": "OUR EDITED VERSION OF 'THE WELL IS NOT EMPTY', A NEW PSYCHOLOGICAL INDIE HORROR GAME!"
   },
   {
-    "id": 143,
+    "id": 144,
     "title": "Poppy Playtime Chapter 3 : Edited Video",
     "categories": ["Video"],
     "date": "2026-09-14T12:30:00",
@@ -20,24 +20,14 @@
     "description": "OUR EDITED VERSION OF POPPY PLAYTIME CHAPTER 3! FEATURING A CUSTOM FILMED ARG-STYLE SKIT"
   },
   {
-    "id": 142,
-    "title": "Tournament of Champions : Gaming Tournament",
+    "id": 143,
+    "title": "Tournament of Champions : Gamers Feud",
     "categories": ["Stream"],
     "date": "2026-09-19T11:00:00",
     "platform": "YouTube, Twitch, & TikTok",
     "url": "https://www.youtube.com/seriousreal/live",
     "thumbnail": "",
     "description": "PLAYING FOR $$$ IN THE GAMERSFEUD: TOURNAMENT OF CHAMPIONS, GAMING TOURNAMENT! FEATURING NUMEROUS TOP GAMING TITLES!"
-  },
-  {
-    "id": 142,
-    "title": "I HAVE TO MASTER 5 GAMES BEFORE TOMORROW",
-    "categories": ["Stream"],
-    "date": "2026-09-18T09:15:00",
-    "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
-    "thumbnail": "",
-    "description": "I AM TRAINING TO PREPARE FOR THE GAMERSFUED TOURNAMENT TOMORROW! WILL I WIN...?"
   },
   {
     "id": 142,
