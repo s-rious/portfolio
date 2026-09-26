@@ -1,13 +1,13 @@
 {
   "featuredVideoId": 28,
   "weeklyAnalytics": {
-    "weekLabel": "July, 2026",
+    "weekLabel": "August, 2026",
     "stats": {
-      "totalViews": "5k",
-      "subsGained": "+61",
-      "totalWatchTime": "421.3",
-      "avgCTR": "5.3%",
-      "impressions": "125,215"
+      "totalViews": "5.2k",
+      "subsGained": "+15",
+      "totalWatchTime": "252.3",
+      "avgCTR": "3.0%",
+      "impressions": "89,008"
     },
     "contentMix": [
       { "label": "Streams", "value": 19, "views": 2632, "color": "#FF2E63" },
