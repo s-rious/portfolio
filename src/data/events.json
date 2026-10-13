@@ -1,9 +1,49 @@
 [
   {
-    "id": 150,
+    "id": 157,
+    "title": "Cuphead Part 1",
+    "categories": ["Video"],
+    "date": "2026-10-18T12:30:00",
+    "platform": "YouTube",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "THE FIRST PART OF OUR EDITED CUPHEAD VIDEOS!"
+  },
+  {
+    "id": 154,
+    "title": "HORROR GAMING",
+    "categories": ["Stream"],
+    "date": "2026-10-15T20:15:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "BACK PLAYING HORROR GAMES - OUR IDENTITY RESTORED!"
+  },
+  {
+    "id": 153,
+    "title": "UNDERTALE FINALE",
+    "categories": ["Stream"],
+    "date": "2026-10-14T09:35:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "AFTER DEFEATING UNDYNE, WE CONTINUE OUR PLAYTHROUGH!"
+  },
+  {
+    "id": 152,
+    "title": "UNDERTALE PART 5",
+    "categories": ["Stream"],
+    "date": "2026-10-13T20:00:00",
+    "platform": "YouTube, Twitch, & TikTok",
+    "url": "https://www.youtube.com/seriousreal",
+    "thumbnail": "",
+    "description": "CONTINUING THROUGH OUR BELOVED 'PACIFIST' PLAYTHROUGH"
+  },
+  {
+    "id": 151,
     "title": "Poppy Playtime Chapter 3 : Edited Video P3",
     "categories": ["Video"],
-    "date": "2026-10-10T12:30:00",
+    "date": "2026-10-13T18:30:00",
     "platform": "YouTube",
     "url": "https://www.youtube.com/seriousreal",
     "thumbnail": "",
@@ -13,9 +53,9 @@
     "id": 150,
     "title": "BIRTHDAY STREAM",
     "categories": ["Stream"],
-    "date": "2026-10-11T10:15:00",
+    "date": "2026-10-12T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=oPXXNs6QX5Y",
     "thumbnail": "",
     "description": "LIVE ON OUR BIRTHDAY! LETS HAVE FUN!"
   },
@@ -25,37 +65,37 @@
     "categories": ["Stream"],
     "date": "2026-10-09T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=Ya4CFmSRuU4",
     "thumbnail": "",
     "description": "AFTER DEFEATING UNDYNE, WE CONTINUE OUR PLAYTHROUGH!"
   },
   {
     "id": 148,
-    "title": "Undertale FINALE",
+    "title": "Undertale PART 3",
     "categories": ["Stream"],
     "date": "2026-10-08T13:30:00",
     "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=1fRUbsrRzXU",
     "thumbnail": "",
-    "description": "TBD"
+    "description": "OUR CONTINUED PLAYTHROUGH OF UNDERTALE!"
   },
   {
     "id": 147,
-    "title": "Undertale Part 2",
+    "title": "Undertale PART 2",
     "categories": ["Stream"],
     "date": "2026-10-06T10:15:00",
     "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=56-vi7VkNXk",
     "thumbnail": "",
     "description": "OUR CONTINUED PLAYTHROUGH OF UNDERTALE!"
   },
   {
     "id": 146,
-    "title": "Undertale Part 1",
+    "title": "Undertale PART 1",
     "categories": ["Stream"],
     "date": "2026-09-28T10:00:00",
     "platform": "YouTube, Twitch, & TikTok",
-    "url": "https://www.youtube.com/seriousreal/live",
+    "url": "https://www.youtube.com/watch?v=9MmqDnK4TlE",
     "thumbnail": "",
     "description": "OUR FIRST EVER PLAYTHROUGH OF UNDERTALE!"
   },
